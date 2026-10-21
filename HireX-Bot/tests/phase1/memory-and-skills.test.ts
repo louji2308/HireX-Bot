@@ -142,7 +142,7 @@ describe('lesson injection (Build Plan Step 1.1.5)', () => {
 
 describe('lesson-aware prompt registry wiring', () => {
   const makeTempLedger = async (payload: unknown): Promise<string> => {
-    const dir = await mkdtemp(join(tmpdir(), 'first-mile-lessons-'));
+    const dir = await mkdtemp(join(tmpdir(), 'hirex-bot-lessons-'));
     const path = join(dir, 'lessons.json');
     await writeFile(path, JSON.stringify(payload), 'utf8');
     return path;
@@ -179,7 +179,7 @@ describe('lesson-aware prompt registry wiring', () => {
   it('falls back to the base registry and names the degradation on a corrupt ledger', async () => {
     const { loadLessonAwarePromptRegistry } = await import('@/agents/prompts/memory-registry');
     const { promptRegistry } = await import('@/agents/prompts');
-    const dir = await mkdtemp(join(tmpdir(), 'first-mile-bad-'));
+    const dir = await mkdtemp(join(tmpdir(), 'hirex-bot-bad-'));
     const path = join(dir, 'lessons.json');
     await writeFile(path, '{ not json', 'utf8');
 
@@ -194,7 +194,7 @@ describe('lesson-aware prompt registry wiring', () => {
     const { loadLessonAwarePromptRegistry } = await import('@/agents/prompts/memory-registry');
 
     const loaded = await loadLessonAwarePromptRegistry({
-      path: join(tmpdir(), 'first-mile-missing-ledger', 'lessons.json'),
+      path: join(tmpdir(), 'hirex-bot-missing-ledger', 'lessons.json'),
     });
 
     expect(loaded.degradedReason).toBeNull();

@@ -1,6 +1,6 @@
-# First Mile: Definitive Product Requirements Document (PRD) & Priority-Ordered Tooling Architecture
+# HireX Bot: Definitive Product Requirements Document (PRD) & Priority-Ordered Tooling Architecture
 
-**Project Title:** First Mile — Autonomous Proof-of-Work, Apprenticeship, and Employment Architecture for India's Youth Tech Workforce  
+**Project Title:** HireX Bot — Autonomous Proof-of-Work, Apprenticeship, and Employment Architecture for India's Youth Tech Workforce  
 **Hackathon & Track:** [Code for a Billion — Bharat Agentic-AI Hackathon 2026](https://www.google.com/search?q=https%3A%2F%2Fcodeforindia.org%2Fhackathon) | **Track 10: Tech Employment for Youth**  
 **Document Owner:** Head of Product & Engineering Architecture  
 **Planning Date:** October 20, 2026  
@@ -9,15 +9,15 @@
 
 ## 1. Executive Mandate & Strict Priority Governance Model
 
-As Head of Product and Engineering for **First Mile**, the core architectural mandate is uncompromising: **we have 26 days until submission (November 15, 2026) and 46 days until final evaluation (December 5, 2026) to ship an eight-module, multi-agent production system with live student impact telemetry for under $2.00 total out-of-pocket cost.**
+As Head of Product and Engineering for **HireX Bot**, the core architectural mandate is uncompromising: **we have 26 days until submission (November 15, 2026) and 46 days until final evaluation (December 5, 2026) to ship an eight-module, multi-agent production system with live student impact telemetry for under $2.00 total out-of-pocket cost.**
 
 Engineering teams lose hackathons when they waste two weeks building plumbing that a third-party service already solves, or when they face choice paralysis across multiple competing tools. Therefore, this specification enforces two ironclad rules:
 1. **Single-Winner Tool Selection (Zero Ambiguity):** No architectural layer in this document presents "Option A or Option B." Every layer has been interrogated through multi-perspective engineering, product, security, and cost questions to crown **one definitive tool**.
-2. **"RevenueCat-Style" Complexity Offloading:** Just as mobile teams integrate RevenueCat to offload receipt validation, subscription state machines, and webhook edge cases to a managed third party, First Mile offloads its ten hardest infrastructure bottlenecks (AST parsing, sandboxed code execution, multi-board scraping, durable agent retries, OAuth token vaults, PDF layout extraction, and cryptographic audit trails) to free or permanent-free-tier third-party primitives. Any third-party service whose free trial expires before **December 6, 2026** is strictly disqualified and excluded from the core build.
+2. **"RevenueCat-Style" Complexity Offloading:** Just as mobile teams integrate RevenueCat to offload receipt validation, subscription state machines, and webhook edge cases to a managed third party, HireX Bot offloads its ten hardest infrastructure bottlenecks (AST parsing, sandboxed code execution, multi-board scraping, durable agent retries, OAuth token vaults, PDF layout extraction, and cryptographic audit trails) to free or permanent-free-tier third-party primitives. Any third-party service whose free trial expires before **December 6, 2026** is strictly disqualified and excluded from the core build.
 
 ### The 4-Tier Tooling & Requirement Priority Hierarchy
 
-| Priority Tier | Definition & Financial Boundary | Strategic Rule for First Mile Engineering |
+| Priority Tier | Definition & Financial Boundary | Strategic Rule for HireX Bot Engineering |
 | :--- | :--- | :--- |
 | **Priority 0: Hackathon Sponsor & Organizer Stack** | Official tools, APIs, and credits provided by [AgentFoundry.me](https://www.google.com/search?q=https%3A%2F%2Fagentfoundry.me%2F), [TrustModel.ai](https://www.google.com/search?q=https%3A%2F%2Ftrustmodel.ai%2F), [Code for India](https://www.google.com/search?q=https%3A%2F%2Fcodeforindia.org%2Fhackathon), [NASSCOM FutureSkills Prime](https://www.google.com/search?q=https%3A%2F%2Finternship.aicte-india.org%2Finternships%2Fnasscom), and [XSpan.ai](https://www.google.com/search?q=https%3A%2F%2Fcodeforindia.org%2Fhackathon). | **Mandatory Core Foundation.** Maximizes scoring for the ₹1,50,000 Track 10 First Prize and unlocks eligibility for **Best Use of AgentFoundry Agents** and **Best xSpan CareHub Integration** sponsor awards. |
 | **Priority 1: 100% Free Forever (Open-Source, Public & Government APIs)** | MIT/Apache-2.0 libraries, native browser APIs, public JSON feeds, and Government of India digital public infrastructure ($0.00 forever, zero credit card, zero expiration). | **Primary Engineering Default.** Used wherever an open-source library or public government API eliminates complexity without quota limits. |
@@ -157,11 +157,11 @@ Before locking in the technology stack, every architectural subsystem was subjec
 
 ## 4. Master Priority-Ordered Tools Inventory
 
-Every tool required to build, deploy, and validate First Mile is ordered strictly from **Priority 0 (Hackathon Sponsors)** -> **Priority 1 (100% Free Forever)** -> **Priority 2 (Permanent Free Tier Past Dec 5, 2026)** -> **Priority 3 (<$2.00 Optional Contingency)**.
+Every tool required to build, deploy, and validate HireX Bot is ordered strictly from **Priority 0 (Hackathon Sponsors)** -> **Priority 1 (100% Free Forever)** -> **Priority 2 (Permanent Free Tier Past Dec 5, 2026)** -> **Priority 3 (<$2.00 Optional Contingency)**.
 
 ### Priority 0: Hackathon Sponsor & Organizer Products (Mandatory Core Stack — $0.00)
 
-| Tool / Sponsor Product | Exact Role in First Mile | Free Grant / Offer Used | Modules Powered |
+| Tool / Sponsor Product | Exact Role in HireX Bot | Free Grant / Offer Used | Modules Powered |
 | :--- | :--- | :--- | :--- |
 | **[AgentFoundry.me](https://www.google.com/search?q=https%3A%2F%2Fagentfoundry.me%2F) (`SMART-Code` Router)** | Primary IDE and dual-lab LLM router: routes live intake, Socratic bilingual hints, and resume tailoring to **Claude Haiku 4.5**; routes 7-stage question generation, AST repo audits, and rubric grading to **OpenAI GPT-5 Codex**. | **1,000,000 Free Smart-Code Tokens** (1,000 credits/month for 3 months, $0 cost, no API keys needed). | All 8 Modules |
 | **[AgentFoundry.me](https://www.google.com/search?q=https%3A%2F%2Fagentfoundry.me%2F) (`Live Agent Replay` & `memory.jsonl`)** | Records deterministic JSONL execution traces for the Skill Passport and consolidates episodic `session_responses` into semantic candidate memory with `<untrusted-data>` prompt-injection defense. | **100% Free Built-In Core Primitives** inside AgentFoundry. | Modules 1, 5, 6, 8 |
@@ -189,7 +189,7 @@ Every tool required to build, deploy, and validate First Mile is ordered strictl
 
 ### Priority 2: Generous Permanent Free-Tier Tools (Valid Past December 5, 2026 — $0.00 Out-of-Pocket)
 
-| Single Chosen Tool | Exact Role in First Mile | Verified Permanent Free Tier Limit | Why It Never Expires Before Judging (Dec 5, 2026) |
+| Single Chosen Tool | Exact Role in HireX Bot | Verified Permanent Free Tier Limit | Why It Never Expires Before Judging (Dec 5, 2026) |
 | :--- | :--- | :--- | :--- |
 | **[Supabase](https://www.google.com/search?q=https%3A%2F%2Fsupabase.com%2F)** | Hosts the 8-table PostgreSQL schema, Row-Level Security (DPDP compliance), Google/GitHub OAuth login + token passthrough, and Resume PDF bucket. | **500 MB Postgres Database, 1 GB File Storage, 50,000 Monthly Active Users, Unlimited API requests** ($0/month forever). | Permanent free tier (not a time-limited trial). Our 25-student cohort + judge tests will consume <25 MB of database storage (<5% of free quota). |
 | **[Inngest](https://www.google.com/search?q=https%3A%2F%2Fwww.inngest.com%2F)** | Orchestrates the multi-agent state machine (`planned -> running -> awaiting_approval -> completed`), parallel workflows A/B/C, and cron job discovery. | **50,000 to 100,000 free function executions/month** on the Hobby Free Plan ($0/month forever, no credit card required). | Permanent monthly recurring free tier. 25 students running 20 workflows each consumes <5,000 steps/month (<10% of free limit). |
@@ -200,11 +200,11 @@ Every tool required to build, deploy, and validate First Mile is ordered strictl
 
 | Item | Cost | Necessity Level | Decision |
 | :--- | :--- | :--- | :--- |
-| **Custom Vanity Domain (`firstmile.xyz` or `firstmile.in` via Namecheap/Cloudflare)** | **$1.10 (`~₹95`) for 1 Year** | **100% Optional.** Vercel already provides `first-mile-bharat.vercel.app` for $0.00. | Purchase only if the team wants a short custom URL printed on the pitch deck and Skill Passport links; otherwise keep total project spend at **$0.00**. |
+| **Custom Vanity Domain (`hirexbot.xyz` or `hirexbot.in` via Namecheap/Cloudflare)** | **$1.10 (`~₹95`) for 1 Year** | **100% Optional.** Vercel already provides `hirex-bot-bharat.vercel.app` for $0.00. | Purchase only if the team wants a short custom URL printed on the pitch deck and Skill Passport links; otherwise keep total project spend at **$0.00**. |
 
 ## 5. Exhaustive Module-by-Module Project Requirements Specification
 
-Every requirement below is mandatory for full alignment with the First Mile architecture and Track 10 judging rubric. Each requirement specifies its **ID**, **Priority Level (P0 = Day-1 Core Must-Have, P1 = High-Impact Differentiator)**, **Functional & Engineering Specification**, and **Single Assigned Tool**.
+Every requirement below is mandatory for full alignment with the HireX Bot architecture and Track 10 judging rubric. Each requirement specifies its **ID**, **Priority Level (P0 = Day-1 Core Must-Have, P1 = High-Impact Differentiator)**, **Functional & Engineering Specification**, and **Single Assigned Tool**.
 
 ### Module 1: Candidate Intelligence & Low-Friction Intake (`Intake & Baseline Diagnostic Agent`)
 
@@ -254,7 +254,7 @@ Every requirement below is mandatory for full alignment with the First Mile arch
 | **FR-505** | **P0** | **Bilingual Socratic Bridge & Offline Local Mode:** In Mode A, allow candidates to speak or type algorithmic reasoning in **Tamil, Hindi, Telugu, Kannada, Bengali, or Marathi** via BHASHINI ASR/NMT while coaching them to deliver the final 60-second complexity and trade-off summary in professional English. Support offline coding drills via **AgentFoundry's Local Mode (Ollama)** for low-bandwidth environments. | **Digital India BHASHINI API** + **AgentFoundry Local Mode (Ollama)** |
 | **FR-506** | **P0** | **Confirmed-Round Emergency Specialization Override:** If the candidate logs a real employer OA link or interview invite (or Gmail inbox watcher detects one), immediately switch Workflow C into **Confirmed-Round Specialization Mode** calibrated to that exact company, round format, and remaining deadline hours. | **Inngest Event Trigger** + **Gmail REST API** |
 
-### Module 6: Verifiable First-Mile Skill Passport (`Provenance & Certification Agent`)
+### Module 6: Verifiable HireX Bot Skill Passport (`Provenance & Certification Agent`)
 
 | Req ID | Priority | Requirement Specification & Acceptance Criteria | Assigned Tool Stack |
 | :--- | :--- | :--- | :--- |
@@ -265,7 +265,7 @@ Every requirement below is mandatory for full alignment with the First Mile arch
 
 | Req ID | Priority | Requirement Specification & Acceptance Criteria | Assigned Tool Stack |
 | :--- | :--- | :--- | :--- |
-| **FR-701** | **P0** | **Truthful Line-by-Line Resume Tailoring & ATS PDF Export:** For every State 1 and State 2 job, rewrite resume bullet points to align with the employer's exact terminology, highlight the most relevant verified `portfolio_artifacts` and `apprenticeship_sprints`, embed the **First-Mile Skill Passport** URL in the header, and export a clean PDF. **Hard Guardrail:** Never fabricate degrees, employers, metrics, or skills absent from the candidate's verified record. | **AgentFoundry (`Claude Haiku 4.5`)** + **@react-pdf/renderer** |
+| **FR-701** | **P0** | **Truthful Line-by-Line Resume Tailoring & ATS PDF Export:** For every State 1 and State 2 job, rewrite resume bullet points to align with the employer's exact terminology, highlight the most relevant verified `portfolio_artifacts` and `apprenticeship_sprints`, embed the **HireX Bot Skill Passport** URL in the header, and export a clean PDF. **Hard Guardrail:** Never fabricate degrees, employers, metrics, or skills absent from the candidate's verified record. | **AgentFoundry (`Claude Haiku 4.5`)** + **@react-pdf/renderer** |
 | **FR-702** | **P0** | **Warm Proof-of-Work Micro-Deliverable & Outreach Generator:** To beat the `<2%` cold ATS response rate, auto-generate a role-specific 30-minute **Diagnostic Micro-Deliverable** template (e.g., an automated Playwright test script or API schema audit for the target startup) and draft a concise founder/recruiter outreach email embedding both the micro-deliverable and the candidate's Skill Passport link. | **AgentFoundry (`GPT-5 Codex` + `Claude Haiku 4.5`)** + **Gmail REST API** |
 | **FR-703** | **P0** | **4-Level Safe Autonomy Governance & Legal Compliance:** Enforce the candidate's selected autonomy level (**Level 1: Research Independently**, **Level 2: Prepare Work Independently in `awaiting_approval` queue**, **Level 3: Execute Approved Workflows within strict salary/location/daily-cap boundaries**, **Level 4: Adapt Strategy**). Never run unauthorized LinkedIn bots (complying with LinkedIn Section 8.2); use Playwright inside AgentFoundry's Browser Tool only on supported portals with immediate `requires_user_input` handoff for CAPTCHAs or legal declarations. | **Inngest (`step.waitForEvent`)** + **Playwright / AgentFoundry Browser Tool** + **Gmail REST API** |
 

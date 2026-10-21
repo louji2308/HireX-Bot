@@ -1,4 +1,4 @@
-# First Mile
+# HireX Bot
 
 Autonomous proof-of-work, apprenticeship and employment architecture for India's first-time technology job seekers.
 

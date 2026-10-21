@@ -232,7 +232,7 @@ describe('Reflexion agent', () => {
   });
 
   it('records into the ledger and lands as non-injectable until verified', async () => {
-    const dir = await mkdtemp(join(tmpdir(), 'first-mile-reflexion-'));
+    const dir = await mkdtemp(join(tmpdir(), 'hirex-bot-reflexion-'));
     const path = join(dir, 'lessons.json');
     await writeFile(path, JSON.stringify({ schema_version: 1, updated_at: "2026-10-21T00:00:00.000Z", lessons: [] }), 'utf8');
 
@@ -275,7 +275,7 @@ describe('DPO trajectory log', () => {
   });
 
   it('appends one valid, redacted JSON line per decision', async () => {
-    const dir = await mkdtemp(join(tmpdir(), 'first-mile-dpo-'));
+    const dir = await mkdtemp(join(tmpdir(), 'hirex-bot-dpo-'));
     const path = join(dir, 'phase_01_dpo.jsonl');
 
     await appendTrajectory(

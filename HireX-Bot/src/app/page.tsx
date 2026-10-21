@@ -14,7 +14,7 @@ export default function Home() {
           Phase 1 &middot; Cognitive Swarm Foundation
         </p>
         <h1 className="font-display text-[32px] font-light leading-[1.2] tracking-[-0.03em] text-ink-primary">
-          First Mile
+          HireX Bot
         </h1>
         <p className="max-w-xl font-sans text-[14px] leading-[1.55] text-ink-secondary">
           Monochrome foundation verified. Route discovery, proof-of-work and

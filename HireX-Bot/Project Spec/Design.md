@@ -1,6 +1,6 @@
-# First Mile: Psychological UI/UX Design System, Information Architecture & Multi-Perspective Screen Specification
+# HireX Bot: Psychological UI/UX Design System, Information Architecture & Multi-Perspective Screen Specification
 
-**Project Name:** First Mile — Autonomous Proof-of-Work, Apprenticeship, and Employment Architecture for India's Youth Tech Workforce  
+**Project Name:** HireX Bot — Autonomous Proof-of-Work, Apprenticeship, and Employment Architecture for India's Youth Tech Workforce  
 **Hackathon & Track:** [Code for a Billion — Bharat Agentic-AI Hackathon 2026](https://www.google.com/search?q=https%3A%2F%2Fcodeforindia.org%2Fhackathon) | **Track 10: Tech Employment for Youth**  
 **Design Paradigm:** Architectural Monochrome Light Theme · Cognitive-Load Reduction · Behavioral Psychology UX  
 **Typography Stack:** `Google Sans Flex, Arial, Helvetica, sans-serif` (Light/Regular Display & Prompts) + `Raleway, sans-serif` (Elegant Editorial Body & Micro-Copy) + `JetBrains Mono` (Code & Cryptographic Hashes)  
@@ -11,13 +11,13 @@
 
 ## 1. Tri-Perspective Hybrid Design Governance solves the Student, Judge, and Builder Trilemma
 
-Every screen, interaction, word choice, and density boundary in **First Mile** is governed by a **Tri-Perspective Hybrid Decision Matrix**. In a national civic-tech hackathon evaluated on **Size of Problem (25%)**, **Severity (25%)**, **Quality of Solution (25%)**, and **Proven Impact (25%)** ([Code for India Hackathon](https://www.google.com/search?q=https%3A%2F%2Fcodeforindia.org%2Fhackathon)), designing solely for an idealized consumer user risks hiding the deep multi-agent engineering from judges; designing solely for judges creates an intimidating, telemetry-cluttered cockpit that overwhelms a stressed Tier-3 college graduate; and designing without engineering constraints breaks the 26-day build window (November 15, 2026 deadline).
+Every screen, interaction, word choice, and density boundary in **HireX Bot** is governed by a **Tri-Perspective Hybrid Decision Matrix**. In a national civic-tech hackathon evaluated on **Size of Problem (25%)**, **Severity (25%)**, **Quality of Solution (25%)**, and **Proven Impact (25%)** ([Code for India Hackathon](https://www.google.com/search?q=https%3A%2F%2Fcodeforindia.org%2Fhackathon)), designing solely for an idealized consumer user risks hiding the deep multi-agent engineering from judges; designing solely for judges creates an intimidating, telemetry-cluttered cockpit that overwhelms a stressed Tier-3 college graduate; and designing without engineering constraints breaks the 26-day build window (November 15, 2026 deadline).
 
 | Design Dimension | Perspective 1: The User (Tier-2/3 Student Candidate) | Perspective 2: The Hackathon Judge (3-Minute Evaluator) | Perspective 3: Yours (Founder & System Architect) | The Hybrid Design Decision (Best-of-All-Worlds Resolution) |
 | :--- | :--- | :--- | :--- | :--- |
 | **Visual Theme & Emotional Tone** | Suffers from placement anxiety, impostor syndrome, and rejection fatigue after 30+ ghosted applications. Needs a calm, non-judgmental, daylight-readable interface. | Evaluates dozens of dark-mode AI wrappers that look identical. Immediately notices a gallery-grade, high-contrast **Monochrome Light Theme** that signals institutional authority. | Wants a strict token-based color system in Tailwind CSS / Shadcn UI where states never clash and light-theme contrast passes WCAG AAA automatically. | **Architectural Alabaster & Obsidian Monochrome Light Theme:** `#FAFAFA` paper canvas, `#FFFFFF` cards, `#E4E4E7` hairline borders, and `#0A0A0B` obsidian active pills—eliminating neon visual noise while maximizing daylight legibility on budget laptop/mobile screens. |
 | **Navigation Bar & Tab Discovery** | Wants to see only 4–5 clear destinations without overwhelming sidebars or nested sub-menus. | Needs to verify all **4 Track 10 Pillars** (Job Discovery, Portfolio Building, Apprenticeships, Hiring Signals) within 10 seconds of landing. | Needs the 8 backend modules (`M1`–`M8`) mapped cleanly into top-level routes without duplicating state. | **5-Tab Light-Adapted Floating Pill Navbar:** Mirrors the reference pill bar (`Command`, `Opportunities`, `Studio`, `Proof`, `Passport`). Active tab expands into a high-contrast pill with icon + label; inactive tabs show only ultra-thin `1.25px` hollow icons. |
-| **Onboarding & Data Intake (`Module 1`)** | Hates re-typing resume fields and abandons multi-input tax-form screens. Needs **one question at a time** with effortless 1-tap pill answers. | Wants to see the **34 First-Mile Signals**, **DPDP Rule 3 Consent**, and **5-Minute AST Code Probe** working live without taking 15 minutes during the demo. | Needs structured JSON written to `candidate_profiles` in `<3 minutes` total wall-clock time. | **Endowed-Progress Extraction Receipt + One-Card-at-a-Time Auto-Advancing Stack:** Docling/Repomix pre-fills 100% of resume/GitHub facts first, then presents a single-question card stack using 1-tap rounded pills (`180ms` auto-advance) plus a **1-Click "Judge Instant-Seed" Pill** on Login. |
+| **Onboarding & Data Intake (`Module 1`)** | Hates re-typing resume fields and abandons multi-input tax-form screens. Needs **one question at a time** with effortless 1-tap pill answers. | Wants to see the **34 HireX Bot Signals**, **DPDP Rule 3 Consent**, and **5-Minute AST Code Probe** working live without taking 15 minutes during the demo. | Needs structured JSON written to `candidate_profiles` in `<3 minutes` total wall-clock time. | **Endowed-Progress Extraction Receipt + One-Card-at-a-Time Auto-Advancing Stack:** Docling/Repomix pre-fills 100% of resume/GitHub facts first, then presents a single-question card stack using 1-tap rounded pills (`180ms` auto-advance) plus a **1-Click "Judge Instant-Seed" Pill** on Login. |
 | **Information Density & Compactness** | Needs open breathing room during cognitive tasks (answering questions, writing code) so they don't freeze. | Wants high-density evidence when inspecting 5D job scores, 6 ECharts panels, and SHA-256 audit logs. | Needs predictable responsive CSS grid layouts that never overflow on 13-inch laptops. | **Contextual Dual-Density Law:** Single-focus cognitive screens (Login, Onboarding Question Card, Live Coding Prompt) enforce **55%+ open whitespace**; comparative triage screens (5D Job Cards, Panel F History Ledger, 48h Sprint Checklist) enforce **ultra-compact `36px–44px` rows**. |
 | **Sponsor & Agent Telemetry Visibility** | Cares about career outcomes, not whether `Claude Haiku 4.5` or `GPT-5 Codex` ran the prompt. | Explicitly scores **Best Use of AgentFoundry Agents**, **TrustModel AgentCert**, and **xSpan CareHub Integration**. | Needs clean separation between user-facing UI and system observability. | **Ambient Provenance Micro-Badges + Toggleable "Judge X-Ray Pill":** Subtle inline badges (`AgentCert DV Verified`, `SMART-Code: Codex`, `BHASHINI Tamil`) sit quietly in card footers, while a bottom-left pill opens live Inngest/AgentFoundry trace drawers for judges. |
 
@@ -57,7 +57,7 @@ The typographic pairing deliberately contrasts **architectural weightlessness at
 ### 2.3 Ultra-Thin Hollow Iconography, Pill Geometry & Micro-Interactions
 
 1. **Ultra-Thin Hollow Icons (`1.25px` Stroke Specification):**
-   * Every icon across First Mile uses un-filled, hollow vector paths (`fill: none`, `stroke: currentColor`, `stroke-width: 1.25px`, `stroke-linecap: round`, `stroke-linejoin: round`).
+   * Every icon across HireX Bot uses un-filled, hollow vector paths (`fill: none`, `stroke: currentColor`, `stroke-width: 1.25px`, `stroke-linecap: round`, `stroke-linejoin: round`).
    * **Active-State Icon Transformation (Directly Inspired by `image_4f5437.png`):** When a navigation tab or action pill becomes active, the outer pill fills with Obsidian Black (`#0A0A0B`), the icon stroke inverts to Crisp White (`#FFFFFF` at `1.5px` stroke), and a subtle internal structural accent appears inside the icon (such as the twin vertical pause/pillar lines inside the Home roof in the reference image).
 2. **Full-Pill Button & Container Curvature Hierarchy:**
    * **Interactive Buttons, Chips, Toggles & Navbar Shell:** `border-radius: 9999px` (100% full pill).
@@ -69,9 +69,9 @@ The typographic pairing deliberately contrasts **architectural weightlessness at
 
 ## 3. Psychological Copywriting & Framing Architecture
 
-In an employment platform for first-time coders, **words are cognitive interventions**. Standard career portals trigger **threat appraisal** (using words like *Rejected, Weak, Ineligible, Unskilled, Failed Test*), which elevates cortisol and causes candidates to avoid practicing their weakest skills. First Mile replaces deficit language with **Calibration & Agency Framing**.
+In an employment platform for first-time coders, **words are cognitive interventions**. Standard career portals trigger **threat appraisal** (using words like *Rejected, Weak, Ineligible, Unskilled, Failed Test*), which elevates cortisol and causes candidates to avoid practicing their weakest skills. HireX Bot replaces deficit language with **Calibration & Agency Framing**.
 
-| UI Context & Module | Conventional UI Wording (Forbidden) | First Mile Psychological Wording (Enforced) | Exact Adjectives Used | Psychological & Behavioral Mechanism |
+| UI Context & Module | Conventional UI Wording (Forbidden) | HireX Bot Psychological Wording (Enforced) | Exact Adjectives Used | Psychological & Behavioral Mechanism |
 | :--- | :--- | :--- | :--- | :--- |
 | **Login & Welcome (`/login`)** | *"Sign up to find jobs and take mock tests."* | **"Turn your actual code into your strongest hiring signal."** | *Actual, Verifiable, Direct, Immediate* | Shifts locus of control from external pedigree (*college tier*) to internal agency (*code you write*). |
 | **Resume & GitHub Auto-Extraction (`/onboarding`)** | *"Parsing file... Please wait."* | **"Extracting your verified foundation so you never type twice."** | *Verified, Effortless, Zero-Redundancy* | **Endowed Progress Effect:** Shows the user that 60% of profile creation is already done before they answer Question 1. |
@@ -90,13 +90,13 @@ In an employment platform for first-time coders, **words are cognitive intervent
 
 The uploaded reference image (`image_4f5437.png`) demonstrates a high-craft psychological pattern: **Asymmetric Active-Label Expansion**. Instead of rendering 5 text labels side-by-side (which creates visual noise and forces equal visual weight across inactive tabs), **only the active tab displays its text label inside a contrasting pill**, while the other 4 tabs remain quiet, ultra-thin hollow icons.
 
-In **First Mile's Light Theme**, we invert and refine this exact geometry:
+In **HireX Bot's Light Theme**, we invert and refine this exact geometry:
 
 ```
 +---------------------------------------------------------------------------------------------------+
 |  OUTER PAGE HEADER: Alabaster Canvas (#FAFAFA)                                                    |
 |                                                                                                   |
-|   [ First Mile · Track 10 ]      +-------------------------------------------------------+        |
+|   [ HireX Bot · Track 10 ]      +-------------------------------------------------------+        |
 |                                  |  ( [||] Command )     ( O )     ( ◎ )    ( ⌂ )   ( ○ ) |        |
 |                                  +-------------------------------------------------------+        |
 |                                   ^ Active Pill:#0A0A0B   ^--------^--------^-------^             |
@@ -227,7 +227,7 @@ Immediately after the candidate drops their PDF/DOCX resume (`IBM Docling`) and 
 
 ### 6.3 Screen 0.3: The One-At-A-Time 34-Signal Progressive Card Stack (`/onboarding/signals`)
 
-To collect **34 non-inferable human signals** in under 150 seconds without cognitive fatigue, First Mile replaces multi-field forms with a **Single-Question Behavioral Card Stack** governed by five psychological rules:
+To collect **34 non-inferable human signals** in under 150 seconds without cognitive fatigue, HireX Bot replaces multi-field forms with a **Single-Question Behavioral Card Stack** governed by five psychological rules:
 
 1. **Strict One-Prompt-Per-Viewport Rule:** Only **one single question** is visible on screen at any moment (`Google Sans Flex 28px Light` centered at the top of a `580px`-wide card). The next question is physically absent from the DOM viewport until the current one is answered.
 2. **Tap-to-Advance Pill Mechanics (Zero Unnecessary Clicking):**
@@ -263,7 +263,7 @@ Immediately after the last card of Chapter 7, the card smoothly widens (`max-wid
 
 ### 7.1 Tab 1: `Command` — Single-Action Hero & 6-Panel Longitudinal Growth Bento (`Module 8`)
 
-**Psychological Purpose:** Eliminate "dashboard paralysis." When a candidate opens First Mile, they should never wonder which of the 8 modules to click first. Screen 1.1 places the **Deterministic Single Next Action** at the top, followed by the **6 Learning-Analytics Panels** in a high-contrast, scannable Bento Grid.
+**Psychological Purpose:** Eliminate "dashboard paralysis." When a candidate opens HireX Bot, they should never wonder which of the 8 modules to click first. Screen 1.1 places the **Deterministic Single Next Action** at the top, followed by the **6 Learning-Analytics Panels** in a high-contrast, scannable Bento Grid.
 
 ```
 +---------------------------------------------------------------------------------------------------+
@@ -400,7 +400,7 @@ Immediately after the last card of Chapter 7, the card smoothly widens (`max-wid
 
 * **Screen 5.1: Skill Passport Live Preview & Recruiter Inspection Telemetry:**
   * Displays a live interactive preview of the candidate's public `/passport/[passport_id]` page (identical to **Screen 6.1** below), paired with a top compact telemetry bar:
-    * `[ Public URL: firstmile.in/passport/arjun-k-2026 ]` · `( Copy Verified Link )` · `( Download ATS Resume with Embedded Passport QR/Link )` · `● 7 Employer Inspections This Week (Avg. View Time: 54s)`
+    * `[ Public URL: hirexbot.in/passport/arjun-k-2026 ]` · `( Copy Verified Link )` · `( Download ATS Resume with Embedded Passport QR/Link )` · `● 7 Employer Inspections This Week (Avg. View Time: 54s)`
 * **Screen 5.2: Autonomy Governance & DPDP Rules 2025 Privacy Vault:**
   * **4-Level Autonomy Selector Cards:** Allows the candidate to switch between **Level 1 (Research)**, **Level 2 (Prepare & Ask Approval — Default)**, **Level 3 (Auto-Execute Within Rules)**, and **Level 4 (Adapt Strategy)** with explicit compact sliders for Level 3 boundary rules (`Minimum CTC Floor`, `Allowed Cities`, `Max Applications Per Day: 5`).
   * **Itemized DPDP Rule 3 Consent Ledger:** A clean, compact table listing every granted permission (`Resume & GitHub AST Parsing`, `Gmail OAuth Draft Creation`, `Public Skill Passport Hosting`), the exact ISO timestamp granted, and individual toggle switches to revoke any scope independently.
@@ -416,7 +416,7 @@ When a busy startup CTO or GCC hiring manager clicks the Skill Passport link at 
 
 ```
 +---------------------------------------------------------------------------------------------------+
-|  FIRST MILE VERIFIED SKILL PASSPORT · ZERO-LOGIN EMPLOYER VIEW          [ TrustModel AgentCert ✓ ]|
+|  HIREX BOT VERIFIED SKILL PASSPORT · ZERO-LOGIN EMPLOYER VIEW          [ TrustModel AgentCert ✓ ]|
 |  Arjun Krishnamurthy · B.E. CSE (2026) · Target: Backend / Full-Stack SDE                         |
 |  SHA-256 Merkle Root: 8f94e2c...b410a  |  Fair Hiring AI Audit: PASSED (Verify via TrustModel API)|
 +---------------------------------------------------------------------------------------------------+
@@ -449,7 +449,7 @@ Accessible to Tier-2 and Tier-3 Training & Placement Officers (and Hackathon Jud
 
 ## 9. Missing Workflow States & Proactive Edge-Case Screens Resolved
 
-Beyond standard happy-path screens, a production agentic system requires dedicated UI states for real-world interrupts. First Mile includes four proactive micro-screens that prevent user confusion and impress technical judges:
+Beyond standard happy-path screens, a production agentic system requires dedicated UI states for real-world interrupts. HireX Bot includes four proactive micro-screens that prevent user confusion and impress technical judges:
 
 | Missing Edge-Case Scenario | Proactive UI Component & Screen Behavior | Psychological & Architectural Payoff |
 | :--- | :--- | :--- |
@@ -465,7 +465,7 @@ Beyond standard happy-path screens, a production agentic system requires dedicat
 To ensure the engineering team implements this exact design specification on Day 1 without visual drift, the following `tailwind.config.ts` and global CSS token contract locks the typography, curvature, and monochrome palette across `src/app/`:
 
 ```typescript
-// tailwind.config.ts — First Mile Architectural Monochrome & Psychological Typography System
+// tailwind.config.ts — HireX Bot Architectural Monochrome & Psychological Typography System
 import type { Config } from "tailwindcss";
 
 const config: Config = {

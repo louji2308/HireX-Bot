@@ -1,6 +1,6 @@
-# First Mile: 10-Phase Autonomous Cognitive Swarm Build Plan & Engineering Execution Blueprint
+# HireX Bot: 10-Phase Autonomous Cognitive Swarm Build Plan & Engineering Execution Blueprint
 
-**Project Name:** First Mile — Autonomous Proof-of-Work, Apprenticeship, and Employment Architecture for India's Youth Tech Workforce  
+**Project Name:** HireX Bot — Autonomous Proof-of-Work, Apprenticeship, and Employment Architecture for India's Youth Tech Workforce  
 **Hackathon & Track:** [Code for a Billion — Bharat Agentic-AI Hackathon 2026](https://www.google.com/search?q=https%3A%2F%2Fcodeforindia.org%2Fhackathon) | **Track 10: Tech Employment for Youth**  
 **System Architecture Paradigm:** Autonomous Cognitive Swarm Architecture (Ensemble Debate + Sandboxed Ground-Truth Verification + Episodic/Voyager Compounding Memory + DPO Weight Compounding) + Single-Owner Mutex Coding Execution  
 **Companion Specifications Integrated:** `Idea.md` (Problem & 4 Pillars) · `Product Requirements.md` (FR-101 to FR-804 & Priority 0–3 Stack) · `Architecture.md` (12 ADRs, 8 Workflows & 8-Table Schema) · `Design.md` (Obsidian-on-Alabaster Light Theme, 5-Tab Floating Pill Navbar & Screens 0.1–7.1)  
@@ -10,7 +10,7 @@
 
 ## 1. Foundational Autonomous Cognitive Swarm Architecture establishes Consensus Research and Zero-Collision Coding
 
-To build a self-improving swarm that reasons through consensus, learns from errors, and compounds capability over time across all eight modules of **First Mile**, the engineering workflow transitions from a fragile single-prompt loop to an **Autonomous Cognitive Architecture** governed by a strict **Two-Stage Phase Execution Law**:
+To build a self-improving swarm that reasons through consensus, learns from errors, and compounds capability over time across all eight modules of **HireX Bot**, the engineering workflow transitions from a fragile single-prompt loop to an **Autonomous Cognitive Architecture** governed by a strict **Two-Stage Phase Execution Law**:
 
 1. **Stage A — Parallel Research & Multi-Perspective Consensus Swarm (6 to 10 Agents at Every Phase Start):** Every phase begins by spawning 6 to 10 specialized agents in parallel. Dedicated reconnaissance agents each investigate a single orthogonal research domain (schema constraints, third-party API contracts, security boundaries, psychological UX tokens), while a 3-to-5-agent **Ensemble & Debate Subgroup** attacks the phase's highest-stakes architectural decision simultaneously from opposing cognitive biases, cross-critiques every line, and submits to an **Arbitration Judge** to lock an immutable phase blueprint.
 2. **Stage B — Single-Owner Mutex Coding & Sandboxed Verification (Zero Multi-Agent Coding Overlap):** Once the Arbitration Judge locks the phase decision and shared TypeScript/SQL interfaces, **no two agents are ever permitted to write implementation code for the same task or touch the same file**. Each coding work package is assigned to **one exclusive Coding Agent** with an AST/filesystem write lock (`flock`), preceded by an independent **Property-Based Tester Agent** and verified inside an isolated **Piston / Docker Sandbox** with automated **Reflexion Post-Mortems**.
@@ -90,7 +90,7 @@ While in-context memory (`lessons.json` + Qdrant + Voyager) delivers immediate p
 
 ### 1.5 Recommended Open-Source & Sponsor Stack Mapping
 
-| Cognitive Swarm Component | Primary Open-Source / Sponsor Tool | Integration Purpose inside the First Mile Build |
+| Cognitive Swarm Component | Primary Open-Source / Sponsor Tool | Integration Purpose inside the HireX Bot Build |
 | :--- | :--- | :--- |
 | **Orchestration & State Graph** | **LangGraph / CrewAI** (Build Swarm) + **Inngest** (Runtime Bus) | LangGraph manages the cyclic MoA debate, Reflexion loops, and Mutex file locks during build; Inngest manages the 6-state runtime event bus (`ADR-001`). |
 | **Model Serving & Dual-Lab Routing** | **AgentFoundry `SMART-Code`** (`Claude Haiku 4.5` + `GPT-5 Codex`) + **vLLM / Ollama** | Uses the 1,000,000 free Smart-Code tokens for cloud swarm execution plus local **vLLM / Ollama** for offline drills and LoRA weight compounding (`ADR-002`, `ADR-011`). |
@@ -100,7 +100,7 @@ While in-context memory (`lessons.json` + Qdrant + Voyager) delivers immediate p
 
 ### 1.6 The Ironclad Single-Owner Coding Partition Protocol (Why Coding Agents Never Collide)
 
-A fatal flaw in naive multi-agent coding swarms is allowing multiple agents to generate or edit code for the same feature simultaneously—resulting in overwritten imports, incompatible state shapes, duplicate helper functions, and broken builds. **First Mile enforces five hard orchestrator rules across every phase:**
+A fatal flaw in naive multi-agent coding swarms is allowing multiple agents to generate or edit code for the same feature simultaneously—resulting in overwritten imports, incompatible state shapes, duplicate helper functions, and broken builds. **HireX Bot enforces five hard orchestrator rules across every phase:**
 
 1. **Debate Many, Execute One:** Up to 10 agents run in parallel during **Research & Decision** (with 3–5 agents debating the *exact same* critical design decision), but once the **Arbitration Judge** emits the locked `PhaseContract.ts` / SQL spec, **every coding task has a concurrency factor of `1`**.
 2. **Contract-First Freeze (`Step 2.5`):** Before any Coding Agent starts, the Arbitration Judge writes and freezes the shared interface file (e.g., `src/types/phase_X_contracts.ts`) as **read-only** for all Coding Agents.
@@ -114,7 +114,7 @@ A fatal flaw in naive multi-agent coding swarms is allowing multiple agents to g
 
 The 10 phases are ordered strictly by data, state, and architectural dependencies so that no phase ever mocks a database table, event bus, or UI token that should already exist in production.
 
-| Phase | Phase Title & Architectural Scope | First Mile Modules, ADRs & Screens Delivered | Swarm Size (Research / Decision) | Single-Owner Coding Agents (Mutex Partitioned) |
+| Phase | Phase Title & Architectural Scope | HireX Bot Modules, ADRs & Screens Delivered | Swarm Size (Research / Decision) | Single-Owner Coding Agents (Mutex Partitioned) |
 | :--- | :--- | :--- | :--- | :--- |
 | **Phase 1** | **Practical First Step: 2-Agent Bootstrap Loop, Cognitive Swarm Harness & Next.js 15 Monochrome Foundation** | Meta-Swarm (`lessons.json`, Qdrant, Piston/Docker), `Design.md` CSS Tokens, `ADR-002` (`SMART-Code` Router) | **2 -> 8 Agents** (Bootstrap -> Full Swarm) | **4 Coders** (`Coder-Swarm`, `Coder-Theme`, `Coder-Router`, `Coder-Sandbox`) |
 | **Phase 2** | **Hybrid Persistence Substrate: 8-Table Immutable PostgreSQL 16 Schema, DPDP RLS & `memory.jsonl` Engine** | `ADR-007`, `FR-801`, `FR-103`, All 8 Supabase Tables, Append-Only Triggers, `<untrusted-data>` Guard | **8 Agents** (4 Recon + 4 DB/RLS Debate) | **4 Coders** (`Coder-DDL`, `Coder-Triggers-RLS`, `Coder-Memory`, `Coder-DPDP-Erase`) |
@@ -214,7 +214,7 @@ Once the 2-agent loop passes verification, scale out the **Phase 1 Swarm (8 Agen
 | **Decision Swarm D1 (Shared Task)** | **The Pragmatic Architect** (`Codex`) | **Shared Critical Decision:** *Design the PostgreSQL Immutability Trigger, RLS Policies, and Public Skill Passport Read Bypass.* Proposes standard `auth.uid() = candidate_id` RLS policies and `BEFORE UPDATE` trigger on `practice_sessions` and `session_responses`. | Draft A: Baseline DDL + RLS + `prevent_historical_score_overwrite()` trigger. |
 | **Decision Swarm D2 (Shared Task)** | **The Adversarial Red-Teamer** (`Codex`) | **Same Decision Task as D1:** Finds two critical bugs in Draft A: (1) When Module 6 mints a `merkle_root_hash` or `trustmodel_cert_url` *after* a `practice_session` is inserted, a naive `BEFORE UPDATE` trigger blocks the certification column update! (2) Strict `auth.uid() = candidate_id` RLS blocks unauthenticated employers from viewing `/passport/[passport_id]` (Screen 6.1) and blocks TPOs from viewing cohort tables (Screen 7.1)! | Draft B: Refines trigger to freeze `weighted_score`, `baseline_delta`, `rubric_version_id`, `difficulty_vector`, and `candidate_code_or_text` as strictly immutable while permitting one-time `NULL -> non-NULL` write of cryptographic certification URLs; adds dedicated read-only RLS policy for public passport projections and TPO cohort scopes. |
 | **Decision Swarm D3 (Shared Task)** | **The Performance Specialist** (`Codex`) | **Same Decision Task as D1/D2:** Critiques query performance for Module 8's 6 ECharts panels querying `candidate_skill_history` and `practice_sessions`. | Draft C: Adds composite covering indexes `(candidate_id, company_name, job_role, round_type, session_number)` so Panel B/C/D queries execute in `<15ms`. |
-| **Arbitration Judge J2** | **Lead Database Arbiter** (`Codex`) | Synthesizes D1, D2, and D3 critiques into the final SQL migration and TypeScript database types (`src/types/database.types.ts`). | Locked `0001_first_mile_8_tables_and_immutability_triggers.sql` spec & Mutex Partition Table. |
+| **Arbitration Judge J2** | **Lead Database Arbiter** (`Codex`) | Synthesizes D1, D2, and D3 critiques into the final SQL migration and TypeScript database types (`src/types/database.types.ts`). | Locked `0001_hirex_bot_8_tables_and_immutability_triggers.sql` spec & Mutex Partition Table. |
 
 #### Step 2.3: Pre-Coding Automated Test Generation (The Verifier Gate)
 * **Tester Agent (`Tester-P2` — Exclusive Lock on `tests/phase2/**`):**
@@ -226,7 +226,7 @@ Once the 2-agent loop passes verification, scale out the **Phase 1 Swarm (8 Agen
 
 | Single-Owner Agent ID | Exclusive File Mutex Lock (`flock` Scope) | Exact Engineering Implementation Tasks |
 | :--- | :--- | :--- |
-| **`Coder-DDL`** | `supabase/migrations/0001_first_mile_schema.sql`, `src/types/database.types.ts` | Writes the complete 8-table PostgreSQL 16 DDL (`candidate_profiles`, `portfolio_artifacts`, `apprenticeship_sprints`, `interview_blueprints`, `practice_sessions`, `session_responses`, `candidate_skill_history`, `employment_pipeline_events`), `CHECK` constraints, and composite indexes. |
+| **`Coder-DDL`** | `supabase/migrations/0001_hirex_bot_schema.sql`, `src/types/database.types.ts` | Writes the complete 8-table PostgreSQL 16 DDL (`candidate_profiles`, `portfolio_artifacts`, `apprenticeship_sprints`, `interview_blueprints`, `practice_sessions`, `session_responses`, `candidate_skill_history`, `employment_pipeline_events`), `CHECK` constraints, and composite indexes. |
 | **`Coder-Triggers-RLS`** | `supabase/migrations/0002_triggers_and_rls.sql`, `supabase/seed.sql` | Writes `prevent_historical_score_overwrite()` trigger, RLS policies for candidate isolation, public passport read views, TPO cohort access, and deterministic seed data for the **Judge 1-Click Demo Candidate** (`Arjun Krishnamurthy`, Sessions S1–S4). |
 | **`Coder-Memory`** | `src/lib/memory/consolidator.ts` | Implements the `memory.jsonl` episodic-to-semantic consolidator that distills raw `session_responses` into semantic candidate knowledge with SHA-256 provenance links and `<untrusted-data>` sanitization. |
 | **`Coder-DPDP-Erase`** | `src/app/api/candidate/erase/route.ts`, `src/lib/supabase/server.ts` | Implements the Supabase SSR/Server client, encrypted OAuth token vault accessor, OAuth token revocation handler, and 1-click DPDP Rule 3 cascading erasure endpoint. |
@@ -255,7 +255,7 @@ Once the 2-agent loop passes verification, scale out the **Phase 1 Swarm (8 Agen
 | :--- | :--- | :--- | :--- |
 | **Research Agent R1** | `Navbar & Icon Geometry Recon` (`Haiku 4.5`) | Audits `Design.md` Section 2.3 & 4.1 (`#FFFFFF` outer track, `56px` height, `#0A0A0B` active pill, `1.25px` hollow SVG icons that invert to `1.5px` `#FFFFFF` with internal structural accents when active). | Exact SVG path and Framer Motion `layoutId="active-pill-tab"` spring physics spec (`280ms cubic-bezier(0.22, 1, 0.36, 1)`). |
 | **Research Agent R2** | `Psychological Copy Auditor` (`Haiku 4.5`) | Audits `Design.md` Section 3 table of forbidden vs. enforced psychological phrasing across all 8 modules. | Static linter dictionary (`src/lib/ux/copy-guardrail.ts`) that rejects forbidden deficit strings at build/test time. |
-| **Research Agent R3** | `Inngest Event Bus Cataloger` (`Codex`) | Audits `Architecture.md` Section 4 Master Event Bus Catalog (all 8 canonical events, payload JSON schemas, concurrency limits, and retry policies). | Strict TypeScript event map (`FirstMileEventMap`) for Inngest client. |
+| **Research Agent R3** | `Inngest Event Bus Cataloger` (`Codex`) | Audits `Architecture.md` Section 4 Master Event Bus Catalog (all 8 canonical events, payload JSON schemas, concurrency limits, and retry policies). | Strict TypeScript event map (`HireXBotEventMap`) for Inngest client. |
 | **Research Agent R4** | `Judge X-Ray & Telemetry Recon` (`Haiku 4.5`) | Audits `Design.md` Section 1 & 9 Edge-Case #4 (`[ 🔍 Judge Inspector: OFF/ON ]` bottom-left floating pill overlaying model, latency, Inngest Run ID, Supabase table, and `AgentCert` status). | React Context + non-intrusive telemetry overlay badge specification. |
 | **Decision Swarm D1 (Shared Task)** | **The Pragmatic Architect** (`Codex`) | **Shared Critical Decision:** *Architect the Global 6-State Inngest Durable State Machine (`planned -> running -> awaiting_approval / requires_user_input -> completed / failed`) and Real-Time UI Pulse Synchronization.* Proposes Inngest step wrappers writing state transitions to Supabase. | Draft A: Standard Inngest middleware logging task state to Postgres. |
 | **Decision Swarm D2 (Shared Task)** | **The Adversarial Red-Teamer** (`Codex`) | **Same Decision Task as D1:** Identifies race conditions when a candidate clicks `"Approve & Send"` twice rapidly in the UI, or when `step.waitForEvent("application/approval.resolved", { timeout: "72h" })` expires without user action. | Draft B: Adds idempotency keys (`event_id + step_name`), optimistic locking on state transitions, and graceful timeout expiration that transitions expired tasks to `requires_user_input` with a calm UI notification rather than a silent crash. |

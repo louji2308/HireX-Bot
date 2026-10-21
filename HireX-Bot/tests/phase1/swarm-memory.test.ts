@@ -64,7 +64,7 @@ const makeMemory = (overrides: Partial<FailureMemory> = {}): FailureMemory => ({
 let dir: string;
 
 beforeEach(async () => {
-  dir = await mkdtemp(join(tmpdir(), 'firstmile-memory-'));
+  dir = await mkdtemp(join(tmpdir(), 'hirexbot-memory-'));
 });
 
 afterEach(async () => {

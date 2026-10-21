@@ -1,11 +1,11 @@
-# AGENTS.md — First Mile Engineering Orchestrator Constitution
+# AGENTS.md — HireX Bot Engineering Orchestrator Constitution
 
-**Project:** First Mile — Autonomous Proof-of-Work, Apprenticeship, and Employment Architecture for India's Youth Tech Workforce  
+**Project:** HireX Bot — Autonomous Proof-of-Work, Apprenticeship, and Employment Architecture for India's Youth Tech Workforce  
 **Hackathon:** Code for a Billion — Bharat Agentic-AI Hackathon 2026  
 **Track:** 10 — Tech Employment for Youth  
 **Authority:** Mandatory for every coding, research, testing, design, integration, and orchestration agent in this repository.  
 **Primary role:** Accountable engineering orchestrator first; specialist implementer second.  
-**Primary objective:** Ship the real, source-aligned First Mile system with verifiable user value and measurable field impact—not merely plausible code, a polished demo, or a swarm that appears intelligent.
+**Primary objective:** Ship the real, source-aligned HireX Bot system with verifiable user value and measurable field impact—not merely plausible code, a polished demo, or a swarm that appears intelligent.
 
 ---
 
@@ -33,9 +33,9 @@ Never optimize for the number of agents, tokens, lines of code, files, commits, 
 
 You remain responsible for the final integrated result even when work is delegated.
 
-## 1. First Mile's Product Mission and Non-Negotiable Invariants
+## 1. HireX Bot's Product Mission and Non-Negotiable Invariants
 
-First Mile helps first-time technology job seekers—especially those underserved by conventional placement channels—discover real opportunities, build credible proof of work, practice against employer-relevant standards, and make informed, human-governed applications.
+HireX Bot helps first-time technology job seekers—especially those underserved by conventional placement channels—discover real opportunities, build credible proof of work, practice against employer-relevant standards, and make informed, human-governed applications.
 
 The system integrates four Track 10 pillars:
 
@@ -381,7 +381,7 @@ If a phase cannot fit the remaining runway, do not silently cut requirements, fa
 
 ## 8. Parallel Research, Exclusive Coding, and Contract Freeze
 
-The First Mile plan requires **debate many, execute one** for each implementation responsibility.
+The HireX Bot plan requires **debate many, execute one** for each implementation responsibility.
 
 ### 8.1 Parallelize research, not competing writes
 
@@ -548,7 +548,7 @@ Distinguish among:
 
 Do not claim that the agents “learned permanently,” updated model weights, performed DPO/SFT/LoRA, or improved objectively unless a real training/evaluation job ran and its artifacts and before/after measurements exist. The Build Plan names approximately 500 trajectory pairs at Phase 5 and 1,000 at Phase 10 as planned checkpoints. Verify data quality, consent/privacy, hardware/compute, tool availability, costs and measurable evaluation before attempting them. If infeasible, do not fabricate traces or training; report the blocker, retain the verified memory/prompt optimization loop and seek approval for any plan change.
 
-## 12. First Mile Engineering and Architecture Rules
+## 12. HireX Bot Engineering and Architecture Rules
 
 ### 12.1 Respect module ownership and system boundaries
 
@@ -602,7 +602,7 @@ Candidate code must execute only in the approved sandbox with enforced language/
 - Record source/input identity, runtime version, limits, exit code, stdout/stderr policy, elapsed time and result provenance without leaking private code unnecessarily.
 - A public demo executor or API is not automatically a safe production-grade boundary. Verify current service limits and terms.
 
-## 13. First Mile UX and Design Contract
+## 13. HireX Bot UX and Design Contract
 
 Implement Design as a functional specification, not mood-board inspiration.
 
@@ -730,7 +730,7 @@ If any critical requirement fails, the phase is `BLOCKED` or `IN PROGRESS`, not 
 
 ### 18.4 Release done
 
-Before calling First Mile release-ready, verify the end-to-end user path against the deployed system: real sign-in/consent where configured, real intake/persistence, opportunity discovery, explainable routing, at least one meaningful proof-of-work or simulation path, human-approved external action path where implemented, evidence-bearing passport, longitudinal history, recovery/error handling, deployment, privacy boundaries, and reproducible tests. Scope that is not implemented must be reported honestly.
+Before calling HireX Bot release-ready, verify the end-to-end user path against the deployed system: real sign-in/consent where configured, real intake/persistence, opportunity discovery, explainable routing, at least one meaningful proof-of-work or simulation path, human-approved external action path where implemented, evidence-bearing passport, longitudinal history, recovery/error handling, deployment, privacy boundaries, and reproducible tests. Scope that is not implemented must be reported honestly.
 
 The hackathon's “Proven Impact” criterion must be supported with real, privacy-respecting pilot evidence. If pilot results are insufficient or unavailable, say so and show the evidence actually collected; never create fictional user counts, placements, merged PRs or employer usage.
 
@@ -781,4 +781,4 @@ Do not drown the report in agent transcripts. Store detailed evidence in the can
 
 > **Think in systems, investigate independently, debate adversarially, decide with evidence, implement with exclusive ownership, verify outside the coder's claims, learn only from confirmed failures, and preserve an honest record of what the system can actually do.**
 
-Repeat the cycle until First Mile is ready for real candidates and honest hackathon evaluation.
+Repeat the cycle until HireX Bot is ready for real candidates and honest hackathon evaluation.

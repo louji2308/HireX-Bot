@@ -1,8 +1,8 @@
 {
-  "name": "first-mile",
+  "name": "hirex-bot",
   "version": "0.1.0",
   "private": true,
-  "description": "First Mile - autonomous proof-of-work, apprenticeship and employment architecture for India's youth tech workforce.",
+  "description": "HireX Bot - autonomous proof-of-work, apprenticeship and employment architecture for India's youth tech workforce.",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20.0.0"

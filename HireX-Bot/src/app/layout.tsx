@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'First Mile',
+  title: 'HireX Bot',
   description:
     'Autonomous proof-of-work, apprenticeship and employment architecture for India\u2019s youth tech workforce.',
 };

@@ -14,10 +14,10 @@ $repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $script = @'
 set -e
 cd "$1"
-docker volume create first-mile-node-modules >/dev/null
+docker volume create hirex-bot-node-modules >/dev/null
 docker run --rm \
   -v "$1":/app \
-  -v first-mile-node-modules:/app/node_modules \
+  -v hirex-bot-node-modules:/app/node_modules \
   -w /app \
   node:20-bookworm-slim \
   sh -lc 'npm ci --no-audit --no-fund && npx tsc --noEmit && npx vitest run'
