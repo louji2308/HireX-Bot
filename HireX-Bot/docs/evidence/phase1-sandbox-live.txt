@@ -1,0 +1,33 @@
+Phase 1 sandbox evidence â€” self-hosted Piston (WSL2 + Docker)
+Captured: 2026-10-21T09:01:42Z
+Endpoint: http://127.0.0.1:2000/api/v2
+
+== GET /runtimes ==
+[{"language":"python","version":"3.10.0","aliases":["py","py3","python3","python3.10"]}]
+
+== execute: print(sum(range(10))) ==
+{"run":{"signal":null,"stdout":"45\n","stderr":"","code":0,"output":"45\n","memory":3276000,"message":null,"status":null,"cpu_time":41,"wall_time":57},"language":"python","version":"3.10.0"}
+
+== execute: while True: pass (run_timeout/run_cpu_time 3000ms) ==
+{"run":{"signal":"SIGKILL","stdout":"","stderr":"","code":null,"output":"","memory":3216000,"message":"Time limit exceeded (wall clock)","status":"TO","cpu_time":3071,"wall_time":3102},"language":"python","version":"3.10.0"}
+
+== execute: bytearray(400MB) (run_memory_limit 134217728) ==
+{"run":{"signal":null,"stdout":"","stderr":"/piston/packages/python/3.10.0/run: line 3:     3 Killed                  /piston/packages/python/3.10.0/bin/python3.10 \"$@\"\n","code":137,"output":"/piston/packages/python/3.10.0/run: line 3:     3 Killed                  /piston/packages/python/3.10.0/bin/python3.10 \"$@\"\n","memory":134216000,"message":"Exited with error status 137","status":"RE","cpu_time":414,"wall_time":452},"language":"python","version":"3.10.0"}
+== 2026-10-21T10:20:00Z: Node runtime installed, polyglot verified ==
+== GET /runtimes (after install) ==
+[{"language":"python","version":"3.10.0","aliases":["py","py3","python3","python3.10"]},{"language":"javascript","version":"20.11.1","aliases":["node-javascript","node-js","javascript","js"],"runtime":"node"}]
+
+== execute: javascript [...Array(10).keys()].reduce(sum) ==
+{"run":{"signal":null,"stdout":"45\n","stderr":"","code":0,"output":"45\n","memory":7372000,"message":null,"status":null,"cpu_time":42,"wall_time":88},"language":"javascript","version":"20.11.1"}
+
+== live suite result ==
+npx vitest run tests/integration/piston-live.test.ts  (PISTON_LIVE=1)
+Test Files 1 passed (1) | Tests 5 passed (5) | Duration 4.81s
+
+== runtimes NOT installed ==
+typescript 5.0.3 (install attempt timed out inside WSL), java 21, c++ 20, sqlite3.
+The client maps typescript -> main.ts and sql -> main.sql, but executing either
+returns `unsupported_language` until the package is installed. This is reported,
+not hidden.
+== 2026-10-21T10:57Z: /api/health runtime probe ==
+GET /api/health -> 200; verifiedLanguages ["javascript","python"]; executor 127.0.0.1:2000/api/v2; 676 ms (cold probe of both languages).

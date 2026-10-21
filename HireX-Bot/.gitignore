@@ -1,0 +1,38 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# production
+/build
+/dist
+
+# testing
+/coverage
+
+# typescript
+*.tsbuildinfo
+
+# environment - never commit real values
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# local runtime payloads (schemas and seed records are committed; runtime data is not)
+/swarm/memory/*.runtime.jsonl
+/trajectories/*.runtime.jsonl

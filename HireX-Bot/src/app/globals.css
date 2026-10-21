@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Self-hosted OFL faces. `Google Sans Flex` is not publicly served, so the
+ * display stack still declares it and falls back as recorded in Progress.md.
+ * Each file is the latin subset (U+0000-00FF) served by Google Fonts.
+ * Licence texts: public/fonts/OFL-Raleway.txt, public/fonts/OFL-JetBrainsMono.txt
+ */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/raleway-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/raleway-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/raleway-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-400.woff2') format('woff2');
+}
+
+:root {
+  --bg-canvas: #FAFAFA;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #F4F4F5;
+  --bg-obsidian: #0A0A0B;
+  --border-hairline: #E4E4E7;
+  --border-focus: #18181B;
+  --text-primary: #0A0A0B;
+  --text-secondary: #52525B;
+  --text-muted: #71717A;
+  --signal-verified: filled-dot;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: 'Raleway', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.55;
+  }
+
+  ::selection {
+    background-color: var(--bg-obsidian);
+    color: var(--bg-surface);
+  }
+
+  :focus-visible {
+    outline: 1.5px solid var(--border-focus);
+    outline-offset: 2px;
+  }
+}

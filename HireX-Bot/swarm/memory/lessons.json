@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-21T10:58:00.000Z",
+  "lessons": [
+    {
+      "schema_version": 1,
+      "lesson_id": "L-001",
+      "phase": 1,
+      "module": "security/untrusted-envelope",
+      "task_id": "Step 1.1",
+      "root_cause": "A delimiter-stripping regex that runs before entity/URI decoding is trivially bypassed: %3C/untrusted-data%3E, &#60;/untrusted-data&#62; and full-width variants all survive NFC-only normalisation and break out of the envelope.",
+      "prevention_rule": "Normalise with NFKC, then decode HTML entities and percent-encoding (bounded passes), then strip closing-delimiter variants, then escape every angle bracket in the body. Decode before stripping, always.",
+      "confidence": 0.95,
+      "verification_state": "verified",
+      "provenance": {
+        "source": "documented_contract",
+        "agent_role": "Red-Team Security Reviewer",
+        "run_id": "phase-01-swarm",
+        "commit_sha": null,
+        "file_paths": [
+          "src/lib/security/untrusted-envelope.ts",
+          "tests/bootstrap/untrusted-envelope.test.ts"
+        ],
+        "evidence_ref": "tests/bootstrap/untrusted-envelope.test.ts :: decodes URL-encoded closing tags before stripping (lesson L-001)"
+      },
+      "regression_test": "tests/bootstrap/untrusted-envelope.test.ts",
+      "created_at": "2026-10-21T00:00:00.000Z",
+      "verified_at": "2026-10-21T00:00:00.000Z",
+      "tags": [
+        "security",
+        "prompt-injection",
+        "encoding"
+      ],
+      "supersedes": null
+    },
+    {
+      "schema_version": 1,
+      "lesson_id": "L-002",
+      "phase": 1,
+      "module": "agents/router",
+      "task_id": "Step 1.2",
+      "root_cause": "A router that returns a bare string lets a caller present a local or failed-over result as a verified primary-cloud assessment, which would let a degraded model produce hiring evidence.",
+      "prevention_rule": "Make provenance structurally unavoidable: successes carry evidence (source, tier, prompt hash, untrusted digest, schema hash, budget level) and failures carry no output field at all. Certifiable task classes may never resolve to the local tier.",
+      "confidence": 0.9,
+      "verification_state": "verified",
+      "provenance": {
+        "source": "documented_contract",
+        "agent_role": "Adversarial Red Teamer",
+        "run_id": "phase-01-swarm",
+        "commit_sha": null,
+        "file_paths": [
+          "src/types/phase1_contracts.ts",
+          "src/agents/router.ts"
+        ],
+        "evidence_ref": "src/types/phase1_contracts.ts#CERTIFIABLE_TASK_CLASSES"
+      },
+      "regression_test": "tests/phase1/smart-code-router.test.ts",
+      "created_at": "2026-10-21T00:00:00.000Z",
+      "verified_at": "2026-10-21T00:00:00.000Z",
+      "tags": [
+        "router",
+        "provenance",
+        "evidence-integrity"
+      ],
+      "supersedes": null
+    },
+    {
+      "schema_version": 1,
+      "lesson_id": "L-003",
+      "phase": 1,
+      "module": "lib/piston/client",
+      "task_id": "Step 1.5",
+      "root_cause": "Assuming a public runtimes catalogue implies a usable execution endpoint. Verified 2026-10-21: GET /api/v2/piston/runtimes returns 200 while POST /api/v2/piston/execute returns 401 without credentials, and Docker is not installed locally.",
+      "prevention_rule": "Probe read and write capability separately and keep them separate in the type union. Never report a candidate's submission as failed because the executor is unauthenticated or unreachable; surface unauthorized/infra_error and block the phase honestly.",
+      "confidence": 0.95,
+      "verification_state": "verified",
+      "provenance": {
+        "source": "runtime_failure",
+        "agent_role": "Integration / API Investigator",
+        "run_id": "phase-01-swarm",
+        "commit_sha": null,
+        "file_paths": [
+          "src/lib/piston/client.ts"
+        ],
+        "evidence_ref": "tests/phase1/piston-client.test.ts :: probes capability honestly"
+      },
+      "regression_test": "tests/phase1/piston-client.test.ts",
+      "created_at": "2026-10-21T00:00:00.000Z",
+      "verified_at": "2026-10-21T00:00:00.000Z",
+      "tags": [
+        "piston",
+        "sandbox",
+        "external-integration"
+      ],
+      "supersedes": null
+    },
+    {
+      "schema_version": 1,
+      "lesson_id": "L-004",
+      "phase": 1,
+      "module": "lib/piston/client",
+      "task_id": "Step 1.5 (unblock)",
+      "root_cause": "A self-hosted Piston install failed three different ways for three different reasons, and each looked like 'the sandbox is broken'. (1) The catalogue stayed empty because the loader scans packages/<language>/<version>/ and requires a .ppman-installed marker; extracting into packages/<language>-<version>/ is silently ignored. (2) Execution answered 'runtime is unknown' for the same reason, then 'python3.10: command not found' because the package's run script resolves the interpreter through PATH, so the interpreter must be absolute. (3) Windows requests to the published port fail with ECONNREFUSED whenever the WSL2 VM has idled out, even though the container has --restart unless-stopped, because an HTTP request cannot wake the VM.",
+      "prevention_rule": "Read the loader source and reproduce its exact on-disk contract instead of guessing a directory layout. Verify each layer separately (catalogue -> execute -> interpreter -> host reachability) so one failure is never reported as another. Treat host reachability as its own failure mode: keep the VM alive explicitly for demos and keep infra_error distinct from a candidate's code failing.",
+      "confidence": 0.92,
+      "verification_state": "verified",
+      "provenance": {
+        "source": "runtime_failure",
+        "agent_role": "Integration / API Investigator",
+        "run_id": "phase-01-sandbox-unblock",
+        "commit_sha": null,
+        "file_paths": [
+          "src/lib/piston/client.ts",
+          "scripts/sandbox-up.ps1",
+          "tests/integration/piston-live.test.ts"
+        ],
+        "evidence_ref": "tests/integration/piston-live.test.ts :: 4 passed (real stdout, 3.1s SIGKILL, exit 137 at 134,216,000 bytes)"
+      },
+      "regression_test": "tests/integration/piston-live.test.ts",
+      "created_at": "2026-10-21T14:25:00.000Z",
+      "verified_at": "2026-10-21T14:25:00.000Z",
+      "tags": [
+        "piston",
+        "sandbox",
+        "wsl2",
+        "docker",
+        "host-reachability"
+      ],
+      "supersedes": null
+    },
+    {
+      "schema_version": 1,
+      "lesson_id": "L-005",
+      "phase": 1,
+      "module": "lib/piston/client",
+      "task_id": "Step 1.4",
+      "root_cause": "The probe sent body: \"\" with a GET request. Every unit test used an injected fetch that ignored the body, so the suite stayed green while the real Fetch API threw \"Request with GET/HEAD method cannot have body\" before opening a socket. /api/health therefore reported the live executor as unreachable.",
+      "prevention_rule": "Send a request body only when the method allows one, and exercise the adapter with the platform fetch at least once. A fake transport can hide a protocol violation that only the real runtime rejects.",
+      "confidence": 0.93,
+      "verification_state": "verified",
+      "provenance": {
+        "source": "test_failure",
+        "agent_role": "Independent Verifier",
+        "run_id": "phase-01-gate",
+        "commit_sha": null,
+        "file_paths": [
+          "src/lib/piston/client.ts",
+          "src/lib/piston/service.ts",
+          "src/app/api/health/route.ts"
+        ],
+        "evidence_ref": "tests/phase1/piston-client.test.ts :: sends no body with GET requests"
+      },
+      "regression_test": "tests/phase1/piston-client.test.ts",
+      "created_at": "2026-10-21T10:58:00.000Z",
+      "verified_at": "2026-10-21T10:58:00.000Z",
+      "tags": [
+        "piston",
+        "fetch",
+        "test-double-blind-spot"
+      ],
+      "supersedes": null
+    },
+    {
+      "schema_version": 1,
+      "lesson_id": "L-006",
+      "phase": 1,
+      "module": "lib/swarm/budget-ledger",
+      "task_id": "Step 1.4",
+      "root_cause": "The ledger checked session and student caps against settled spend only, so two concurrent reservations could each pass the same cap. A request id that had already been settled returned a stale reservation, and the following settle always failed ALREADY_SETTLED, permanently stranding capacity.",
+      "prevention_rule": "Scope caps must count settled spend plus live reservations. A request id is single-use after settlement or release, and expired reservations must be reclaimed before caps are read.",
+      "confidence": 0.93,
+      "verification_state": "verified",
+      "provenance": {
+        "source": "test_failure",
+        "agent_role": "Independent Verifier",
+        "run_id": "phase-01-gate",
+        "commit_sha": null,
+        "file_paths": [
+          "src/lib/swarm/budget-ledger.ts"
+        ],
+        "evidence_ref": "tests/phase1/budget-ledger.test.ts :: budget ledger reservation identity"
+      },
+      "regression_test": "tests/phase1/budget-ledger.test.ts",
+      "created_at": "2026-10-21T10:58:00.000Z",
+      "verified_at": "2026-10-21T10:58:00.000Z",
+      "tags": [
+        "budget",
+        "concurrency",
+        "cap-bypass"
+      ],
+      "supersedes": null
+    },
+    {
+      "schema_version": 1,
+      "lesson_id": "L-007",
+      "phase": 1,
+      "module": "lib/piston/service",
+      "task_id": "Step 1.4",
+      "root_cause": "PISTON_BASE_URL was declared in .env.example but no production module read it; the client was constructed only inside tests. The default was the public host whose /execute returns 401, so the configured self-hosted executor would never have been used by the app.",
+      "prevention_rule": "A configuration value without a composition root is documentation, not behaviour. Wire the environment into one server-side factory, default to the endpoint that can execute, and prove it with a runtime request rather than only unit tests.",
+      "confidence": 0.93,
+      "verification_state": "verified",
+      "provenance": {
+        "source": "test_failure",
+        "agent_role": "Independent Verifier",
+        "run_id": "phase-01-gate",
+        "commit_sha": null,
+        "file_paths": [
+          "src/lib/piston/service.ts",
+          "src/lib/piston/client.ts",
+          ".env.example"
+        ],
+        "evidence_ref": "tests/phase1/sandbox-service.test.ts :: defaults to the self-hosted loopback executor"
+      },
+      "regression_test": "tests/phase1/sandbox-service.test.ts",
+      "created_at": "2026-10-21T10:58:00.000Z",
+      "verified_at": "2026-10-21T10:58:00.000Z",
+      "tags": [
+        "configuration",
+        "composition-root",
+        "sandbox"
+      ],
+      "supersedes": null
+    }
+  ]
+}
