@@ -2,7 +2,7 @@
 
 Autonomous proof-of-work, apprenticeship and employment architecture for India's first-time technology job seekers.
 
-Built for **Code for a Billion — Bharat Agentic-AI Hackathon 2026**, Track 10 (Tech Employment for Youth).
+Built for **Code for a Billion â€” Bharat Agentic-AI Hackathon 2026**, Track 10 (Tech Employment for Youth).
 
 > **Status: Phase 1 (cognitive swarm foundation).** There is no database, no authentication and no candidate-facing workflow yet. Nothing is deployed. See [Progress.md](Progress.md) for the verified state, evidence and open blockers.
 
@@ -14,11 +14,11 @@ Built for **Code for a Billion — Bharat Agentic-AI Hackathon 2026**, Track 10 
 |---|---|
 | Design foundation | Monochrome "obsidian on alabaster" tokens, Tailwind contract, self-hosted Raleway + JetBrains Mono, single-focus home route |
 | Untrusted-data envelope | Sanitises resume/JD/code/web text before it can enter a prompt, and returns a SHA-256 digest for provenance |
-| Smart-Code router | Deterministic task → model routing across two labs, typed failures, rate-limit failover, bounded backoff, one schema repair, circuit breaker, single deadline |
-| Budget ledger | Reserve / settle / release with scope binding, settle-exactly-once, live-reservation-aware caps and an L0–L4 conservation ladder |
+| Smart-Code router | Deterministic task â†’ model routing across two labs, typed failures, rate-limit failover, bounded backoff, one schema repair, circuit breaker, single deadline |
+| Budget ledger | Reserve / settle / release with scope binding, settle-exactly-once, live-reservation-aware caps and an L0â€“L4 conservation ladder |
 | Verified memory | Append-only `swarm/memory/lessons.json`, lesson injection into every system prompt, JSONL episodic store with an optional Qdrant adapter |
 | Voyager skills | Three promoted skills with documented inputs, outputs, security notes and artifact verification |
-| Swarm orchestration | Independent proposals → critique → arbitration, with mandatory evidence and testable claims; Reflexion drafts that cannot be promoted without a passing regression test |
+| Swarm orchestration | Independent proposals â†’ critique â†’ arbitration, with mandatory evidence and testable claims; Reflexion drafts that cannot be promoted without a passing regression test |
 | Sandbox | Piston adapter with a typed outcome union, per-language probe verification, endpoint failover and a live suite proving the 3 s / 128 MiB limits |
 | Readiness surface | `GET /api/health` reports the probed sandbox capability, lesson injection count, active memory store and skill artifact state |
 
@@ -121,7 +121,7 @@ The same suite was re-run inside a `node:20-bookworm-slim` container (`scripts/v
 3. **The SMART-Code gateway is not exercised.** Model IDs and the 1,000,000-token grant are unverified; the ledger clamps to 300k and reports `grantVerified: false`. The Ollama transport exists but has never reached a live model.
 4. **No lint or CI yet.** Deferred deliberately; the Phase 1 gate is typecheck + tests.
 5. **`Google Sans Flex` is not publicly served**, so the display stack falls back to a system face. Raleway and JetBrains Mono are self-hosted under the OFL.
-6. **No git history.** The repository has not been initialised or committed.
+6. **Repository layout.** Git's root is the Windows home directory, so the project lives at HireX-Bot/ inside it; the remote tracks only that folder.
 7. **Swarm modules are not yet on a user path.** The orchestrator and Reflexion have tests but no product workflow calls them; that arrives with the later modules.
 8. **The health route is the only server surface.** It is read-only and never executes candidate code; an execution endpoint belongs behind authenticated Studio routes in Phase 7.
 
@@ -132,6 +132,6 @@ The same suite was re-run inside a `node:20-bookworm-slim` container (`scripts/v
 - Candidate text is always wrapped in `<untrusted-data>` and never placed in a system prompt.
 - Injected lessons are wrapped as untrusted memory; they are advisory and cannot change a role, schema or rubric.
 - Instructions found inside untrusted content are treated as data, not commands.
-- Logs carry identifiers, codes and counts only — never prompt text, model output or personal data.
+- Logs carry identifiers, codes and counts only â€” never prompt text, model output or personal data.
 - Rate limits and outages fail over; they are never reported as candidate failure.
 - Local or degraded model output can never be certified as an employer-facing assessment.
