@@ -6,14 +6,14 @@ Canonical implementation ledger (AGENTS.md §15). One file, no duplicates.
 
 ## Current Phase / Status
 
-**Phase 1 ? Cognitive Swarm Foundation**
-Status: **GATE MET WITH FOUR RECORDED DEVIATIONS.** Typecheck, 165 offline tests, 5 live sandbox tests, a container re-run, a production build and a live `/api/health` check all pass. The remaining gaps are explicit, tested-in-the-negative deviations (polyglot coverage, AgentFoundry host, LangGraph, automatic Reflexion invocation) rather than missing Phase 1 code. Phase 2 is committed as `3f120bc` and pushed to `origin/main`; see the Phase 2 section at the end of this file.
+**Phase 3 - Workspace Shell, Floating Navigation, Event Bus**
+Status: **GATE MET WITH RECORDED LOCAL LIMITS.** Typecheck, 239 offline tests, the production build and browser checks pass. Phase 3 is committed in `ad4a4ba` (contracts/bus) and `09c8f88` (workspace UI) on `main`. The Inngest endpoint is local-only verified: GET introspection returns 200 in dev mode, while POST/PUT cannot register without a running Inngest dev server or signing key. Phase 1 and Phase 2 history follows below.
 
 ---
 
 ## Current Objective
 
-Open Phase 3 (light-theme UI shell, five-tab floating pill navigation, shared primitives, durable Inngest event bus) with its prescribed 8-agent swarm before coding.
+Close the Phase 3 gate: record evidence, push the final Phase 3 commit, then open Phase 4 (M1 intake) with its prescribed 9-agent phase-start swarm before coding.
 
 ---
 
@@ -259,3 +259,65 @@ hosted has_column_privilege          -> authenticated cannot read candidate_prof
 ### Next action
 
 Phase 2 is committed and pushed. Open Phase 3 with its prescribed 8-agent swarm before coding.
+
+---
+
+## Phase 3 - Workspace Shell, Floating Navigation, Event Bus
+
+### Status
+
+**GATE MET WITH RECORDED LOCAL LIMITS.** Phase 3 contracts and bus are committed in `ad4a4ba`; the workspace shell, navigation, telemetry surfaces and their tests are committed in `09c8f88`. Both are pushed to `origin/main`. Typecheck, 239 offline tests and the production build pass. Browser checks cover desktop and mobile layouts. The Inngest endpoint is verified only against local dev introspection; no cloud signing key or Inngest dev server exists in this environment.
+
+### Verified complete
+
+| Capability | Evidence |
+|---|---|
+| Frozen Phase 3 contract: six workflow states, 11 transitions, eight trigger events, two resolution events, nav/pulse/provenance shapes | `src/types/phase3_contracts.ts`; `tests/phase3/state-machine.test.ts`, `event-contracts.test.ts` |
+| Typed Inngest v4 event registry using `eventType(name, { schema })` and `zod` schemas, not the removed `EventSchemas().fromZod` API | `src/inngest/events.ts`, `client.ts`; event-contract tests validate every payload and reject unknown event names |
+| State machine with expiry-aware approval decisions, resolution-id matching, retry cap and optimistic version checks | `src/inngest/state-machine.ts`; 10 tests cover all transitions, before/after 72-hour expiry, stale input and retry exhaustion |
+| Idempotency and append-only audit chain: JSON-array key, first valid decision wins, canonical SHA-256 chained `prevHash`, chain verification | `src/inngest/task-state-store.ts`, `audit.ts`; state-machine tests cover duplicate/conflict/rejected outcomes |
+| Real Next.js Inngest serve route with GET/POST/PUT and zero functions until Phase 4 wires workflows | `src/app/api/inngest/route.ts`; `tests/phase3/inngest-route.test.ts` |
+| Five-tab floating pill navigation with exact active/inactive geometry and hidden public/focus routes | `src/lib/navigation/nav-model.ts`, `FloatingPillNavView.tsx`, `FocusStrip.tsx`; `tests/phase3/navigation.test.ts`, `floating-pill-nav.test.tsx` |
+| Shared workspace primitives, honest empty/loading-free placeholders, mobile layout and focus mode | `src/components/workspace/**`, `src/components/navigation/**`, `src/app/(workspace)/**`; production build + browser checks |
+| Judge X-Ray default-off, static-real provenance only, compact mobile icon | `src/lib/telemetry/provenance.ts`, `JudgeXRayInspector.tsx`; `tests/phase3/xray-and-pulse.test.tsx` |
+| Parallel pulse strip with null counts, no fabricated activity, one unavailable lane surfaced honestly | `src/lib/telemetry/pulse.ts`, `ParallelPulseStrip.tsx`; dashboard is the only host |
+| Copy guardrail rejects deficit language and guarantees; rendered workspace pages are scanned as well as the copy module | `src/lib/ux/copy.ts`; `tests/phase3/psychological-copy.test.tsx` |
+| Responsive/no-overflow/browser verification with screenshots | `docs/evidence/phase3-dashboard.png`, `phase3-dashboard-mobile.png`, `phase3-focus-mode.png` |
+
+### Phase 3 decisions and limits
+
+| Item | State | Consequence |
+|---|---|---|
+| Inngest production sync | **BLOCKED** | No signing key or local Inngest dev server. `GET /api/inngest` returns 200 introspection with `INNGEST_DEV=1`; POST/PUT return 500 because registration cannot reach `ECONNREFUSED`. Do not claim cloud sync or durable execution |
+| Workflow persistence | **EPHEMERAL BY DESIGN** | `InMemoryWorkflowStateStore` has `durable: false`; optimistic concurrency and idempotency are tested in-process only. Inngest run state is eventual, not the Phase 2 eight-table store |
+| Approval expiry | **FROZEN** | `APPROVAL_TIMEOUT_HOURS = 72`; expiry moves `awaiting_approval -> requires_user_input`, not to a seventh state |
+| User-input window | **ASSUMPTION** | `USER_INPUT_TIMEOUT = '30d'` is recorded as a contract assumption, not an employer-derived requirement |
+| Motion | **DEVIATION** | CSS transition `280ms cubic-bezier(0.22, 1, 0.36, 1)` replaces Design's Framer Motion `layoutId`; no Framer dependency added |
+| UI test harness | **DEVIATION** | No jsdom/testing-library; tests use `react-dom/server` `renderToStaticMarkup` in Node, so event-level pointer behavior is covered by markup/props rather than a DOM simulation |
+| Role switcher | **INERT** | Candidate/Institution control is visibly disabled; no auth/session exists yet, so no role can be assumed |
+| Navigation scope | **FROZEN** | `/passport-vault` and `/passport/*` are distinct; nav is hidden on public/auth/TPO routes and unknown paths |
+| Dependencies | **RECORDED** | `inngest@4.25.0` installed with `--legacy-peer-deps`; npm reports 15 vulnerabilities (6 moderate, 7 high, 2 critical), untriaged. No forced audit fix |
+
+### Phase 3 gate evidence
+
+```text
+npm run typecheck                    -> clean
+npm test                             -> 239 passed, 48 skipped, 31 files (23 passed, 8 skipped)
+npm run build                        -> clean; 10 static routes + /interview/[id], /api/inngest, /api/health, /api/candidate/erase
+INNGEST_DEV=1 + next start :3000     -> GET /api/inngest 200, {"function_count":0,"mode":"dev",...}
+POST/PUT /api/inngest {}             -> 500 registration failure (fetch failed, ECONNREFUSED; no dev server)
+browser /dashboard (1440x900)        -> no page errors; nav active; pulse honest; screenshot saved
+browser /dashboard (390x844)         -> no horizontal overflow; compact X-Ray; screenshot saved
+browser /interview/session-1         -> focus strip instead of nav; no page errors; screenshot saved
+browser /opportunities               -> Opportunities active; no page errors
+```
+
+One non-blocking browser warning remains: the preloaded `raleway-400.woff2` was reported unused within the load window. It is a warning, not a failed request.
+
+### Phase-start swarm record
+
+Role-based reconnaissance and decision passes ran before the UI implementation: contract/state and Inngest v4 API verification; nav, accessibility and responsive design; honesty/telemetry and test strategy; then arbitration on durability, audit shape, expiry semantics and motion. Runtime: these were distinct role passes inside the available OpenCode session, not eight separately configured custom agent profiles. No nested swarm was created.
+
+### Next action
+
+Commit this ledger and the three screenshots, push `origin/main`, then open Phase 4 (M1 intake) with its prescribed 9-agent phase-start swarm before coding. Phase 4 must wire real persistence and functions behind the frozen bus rather than treating the empty Inngest route as a completed integration.
