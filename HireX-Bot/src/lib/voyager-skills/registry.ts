@@ -15,6 +15,9 @@ export const VOYAGER_SKILL_IDS = [
   'skill:supabase-rls-client-v1',
   'skill:episodic-memory-consolidator-v1',
   'skill:dpdp-cascade-eraser-v1',
+  'skill:inngest-6state-guard-v1',
+  'skill:monochrome-pill-primitives-v1',
+  'skill:judge-xray-telemetry-v1',
 ] as const;
 
 export type VoyagerSkillId = (typeof VOYAGER_SKILL_IDS)[number];
@@ -168,6 +171,71 @@ export const VOYAGER_SKILLS: readonly VoyagerSkill[] = [
       ],
     },
     promotedAt: '2026-10-21T16:00:00.000Z',
+  },
+  {
+    id: 'skill:inngest-6state-guard-v1',
+    version: 1,
+    name: 'Inngest six-state approval guard',
+    phase: 3,
+    summary:
+      'Applies the frozen six-state workflow with optimistic versions, duplicate suppression, an audit chain, a user-input request identity, and a side-effect guard that requires recorded approval.',
+    inputs: ['WorkflowTransitionRequest', 'WorkflowTaskSnapshot'],
+    outputs: ['WorkflowApplyResult', 'WorkflowAuditRecord[]', 'ApprovalResolution'],
+    securityNotes: [
+      'A side-effecting completion is rejected unless the task previously recorded approval.',
+      'A manual retry is rejected after a side effect so an external action cannot repeat.',
+      'A requires_user_input transition must carry the request id that a later response has to match.',
+    ],
+    artifacts: {
+      modulePath: 'src/inngest/task-state-store.ts',
+      testPath: 'tests/phase3/state-machine.test.ts',
+      supportingTests: [
+        'tests/phase3/event-contracts.test.ts',
+        'tests/phase3/durable-waits.test.ts',
+      ],
+    },
+    promotedAt: '2026-10-22T00:00:00.000Z',
+  },
+  {
+    id: 'skill:monochrome-pill-primitives-v1',
+    version: 1,
+    name: 'Monochrome floating pill primitives',
+    phase: 3,
+    summary:
+      'Renders the five-tab floating pill navigation and focus strip with hollow icons, a single active pill, truthful chrome resolution, and accessible labels for icon-only tabs.',
+    inputs: ['activeTabId', 'resolved workspace chrome'],
+    outputs: ['navigation markup', 'focus-strip markup'],
+    securityNotes: [
+      'Each destination is a real link and the active tab is exposed with aria-current.',
+      'Icon-only tabs keep an accessible label instead of relying on the tooltip.',
+      'Focus mode removes the five-tab pill rather than hiding it visually.',
+    ],
+    artifacts: {
+      modulePath: 'src/components/navigation/FloatingPillNavView.tsx',
+      testPath: 'tests/phase3/floating-pill-nav.test.tsx',
+      supportingTests: ['tests/phase3/navigation.test.ts'],
+    },
+    promotedAt: '2026-10-22T00:00:00.000Z',
+  },
+  {
+    id: 'skill:judge-xray-telemetry-v1',
+    version: 1,
+    name: 'Honest Judge X-Ray telemetry',
+    phase: 3,
+    summary:
+      'Shows provenance and parallel-pulse state as static or unavailable instead of inventing latency, run ids, table reads or workflow counts, and only points assistive technology at a panel that exists.',
+    inputs: ['provenance entries', 'initial pulse lanes'],
+    outputs: ['Judge Inspector markup', 'parallel pulse markup'],
+    securityNotes: [
+      'No live model, latency, run id or table read is fabricated.',
+      'The toggle only sets aria-controls while the panel is rendered.',
+      'Pulse lanes report not started or unavailable instead of a fake zero.',
+    ],
+    artifacts: {
+      modulePath: 'src/components/telemetry/JudgeXRayInspector.tsx',
+      testPath: 'tests/phase3/xray-and-pulse.test.tsx',
+    },
+    promotedAt: '2026-10-22T00:00:00.000Z',
   },
 ];
 

@@ -89,6 +89,7 @@ describe('workflow state machine', () => {
     expect(granted.snapshot).toMatchObject({
       state: 'running',
       approvalExpiresAt: null,
+      approvalGranted: true,
       version: 4,
     });
 
@@ -105,9 +106,31 @@ describe('workflow state machine', () => {
       state: 'completed',
       outcome: 'succeeded',
       sideEffectExecuted: true,
+      approvalGranted: true,
       version: 5,
     });
     expect(verifyWorkflowAuditChain(store.history(TASK_ID))).toEqual({ valid: true, errors: [] });
+  });
+
+  it('refuses a side-effecting completion that skipped recorded approval', () => {
+    const store = new InMemoryWorkflowStateStore();
+    enqueue(store);
+    store.apply(transition('running', 'worker_acquired', 1, { eventId: 'run-1' }));
+
+    const unsafe = store.apply(
+      transition('completed', 'step_succeeded', 2, {
+        eventId: 'complete-with-side-effect',
+        outcome: 'succeeded',
+        sideEffectExecuted: true,
+      }),
+    );
+
+    expect(unsafe.code).toBe('APPROVAL_REQUIRED_FOR_SIDE_EFFECT');
+    expect(unsafe.snapshot).toMatchObject({
+      state: 'running',
+      sideEffectExecuted: false,
+      approvalGranted: false,
+    });
   });
 
   it('treats candidate rejection as a cancelled completion with no external side effect', () => {
@@ -155,9 +178,17 @@ describe('workflow state machine', () => {
     const early = store.apply(
       transition('requires_user_input', 'approval_window_expired', 3, {
         occurredAt: T1,
+        userInputRequestId: 'input-1',
       }),
     );
     expect(early.code).toBe('APPROVAL_WINDOW_OPEN');
+
+    const missingInputRequest = store.apply(
+      transition('requires_user_input', 'approval_window_expired', 3, {
+        occurredAt: EXPIRES,
+      }),
+    );
+    expect(missingInputRequest.code).toBe('INPUT_REQUEST_REQUIRED');
 
     const expired = store.apply(
       transition('requires_user_input', 'approval_window_expired', 3, {
@@ -201,17 +232,39 @@ describe('workflow state machine', () => {
     expect(
       resolveApprovalDecision(
         snapshot,
-        { decision: 'approved', eventId: 'decision-1', occurredAt: T1 },
+        {
+          decision: 'approved',
+          candidateId: CANDIDATE_ID,
+          eventId: 'decision-1',
+          occurredAt: T1,
+        },
         T1,
       ).decision,
     ).toBe('approved');
     expect(
       resolveApprovalDecision(
         snapshot,
-        { decision: 'rejected', eventId: 'decision-2', occurredAt: EXPIRES },
+        {
+          decision: 'rejected',
+          candidateId: CANDIDATE_ID,
+          eventId: 'decision-2',
+          occurredAt: EXPIRES,
+        },
         EXPIRES,
       ).decision,
     ).toBe('expired');
+    expect(
+      resolveApprovalDecision(
+        snapshot,
+        {
+          decision: 'approved',
+          candidateId: '00000000-0000-4000-8000-000000000002',
+          eventId: 'decision-3',
+          occurredAt: T1,
+        },
+        T1,
+      ).decision,
+    ).toBe('invalid');
   });
 
   it('is idempotent across duplicate approval clicks and detects stale versions', () => {
@@ -266,6 +319,35 @@ describe('workflow state machine', () => {
       transition('planned', 'manual_retry', 9, { eventId: 'retry-4' }),
     );
     expect(exhausted.code).toBe('ATTEMPT_LIMIT');
+  });
+
+  it('refuses a manual retry after a side effect was recorded', () => {
+    const store = new InMemoryWorkflowStateStore();
+    enqueue(store);
+    store.apply(transition('running', 'worker_acquired', 1, { eventId: 'run-1' }));
+
+    const failed = store.apply(
+      transition('failed', 'retries_exhausted', 2, {
+        eventId: 'fail-after-side-effect',
+        sideEffectExecuted: true,
+      }),
+    );
+    expect(failed.status).toBe('applied');
+    expect(failed.snapshot).toMatchObject({
+      state: 'failed',
+      sideEffectExecuted: true,
+      approvalGranted: false,
+    });
+
+    const retry = store.apply(
+      transition('planned', 'manual_retry', 3, { eventId: 'retry-after-side-effect' }),
+    );
+    expect(retry.code).toBe('SIDE_EFFECT_UNSAFE');
+    expect(retry.snapshot).toMatchObject({
+      state: 'failed',
+      attempt: 1,
+      sideEffectExecuted: true,
+    });
   });
 
   it('rejects illegal edges and wrong reasons with distinct codes', () => {

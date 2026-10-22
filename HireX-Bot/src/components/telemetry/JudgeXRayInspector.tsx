@@ -47,7 +47,7 @@ export function JudgeXRayInspector() {
         data-xray-toggle="true"
         aria-label={`Judge Inspector, ${isOpen ? 'on' : 'off'}`}
         aria-expanded={isOpen}
-        aria-controls="judge-xray-panel"
+        aria-controls={isOpen ? 'judge-xray-panel' : undefined}
         onClick={() => setIsOpen((current) => !current)}
         className="flex h-9 items-center gap-2 rounded-pill border border-hairline bg-surface px-3 font-mono text-[10px] uppercase tracking-[0.1em] text-ink-secondary shadow-card transition-colors hover:border-focus hover:text-ink-primary"
       >

@@ -12,6 +12,7 @@ describe('Judge Inspector', () => {
 
     expect(html).toContain('Judge Inspector · Off');
     expect(html).toContain('aria-expanded="false"');
+    expect(html).not.toContain('aria-controls="judge-xray-panel"');
     expect(html).not.toContain('data-xray-panel');
     expect(html).not.toContain('No table read');
     expect(html).not.toContain('Not invoked on this route');

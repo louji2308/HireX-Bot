@@ -4,7 +4,7 @@ Autonomous proof-of-work, apprenticeship and employment architecture for India's
 
 Built for **Code for a Billion — Bharat Agentic-AI Hackathon 2026**, Track 10 (Tech Employment for Youth).
 
-> **Status: Phase 2 (hybrid persistence substrate).** The eight-table schema, RLS, DPDP erase cascade, token vault and LLM-backed memory consolidation are implemented and tested. There is still no candidate-facing UI or deployed origin; see [Progress.md](Progress.md) for the verified state, evidence and open blockers.
+> **Status: Phase 3 (monochrome workspace shell and event contracts).** The five-tab workspace, six-state workflow store, Inngest event contracts, governance placeholder and honest telemetry are implemented and locally tested. There is no deployed origin, authenticated session, durable checkpoint store, or registered Inngest function yet; see [Progress.md](Progress.md) for the verified state, evidence and open blockers.
 
 ---
 
@@ -12,12 +12,12 @@ Built for **Code for a Billion — Bharat Agentic-AI Hackathon 2026**, Track 10 
 
 | Area | What it does |
 |---|---|
-| Design foundation | Monochrome "obsidian on alabaster" tokens, Tailwind contract, self-hosted Raleway + JetBrains Mono, single-focus home route |
+| Design foundation | Monochrome "obsidian on alabaster" tokens, Tailwind contract, self-hosted Raleway + JetBrains Mono, five-tab floating pill shell and focus strip |
 | Untrusted-data envelope | Sanitises resume/JD/code/web text before it can enter a prompt, and returns a SHA-256 digest for provenance |
 | Smart-Code router | Deterministic task → model routing across two labs, typed failures, rate-limit failover, bounded backoff, one schema repair, circuit breaker, single deadline |
 | Budget ledger | Reserve / settle / release with scope binding, settle-exactly-once, live-reservation-aware caps and an L0–L4 conservation ladder |
 | Verified memory | Append-only `swarm/memory/lessons.json`, lesson injection into every system prompt, JSONL episodic store with an optional Qdrant adapter |
-| Voyager skills | Three promoted skills with documented inputs, outputs, security notes and artifact verification |
+| Voyager skills | Nine promoted skills across Phases 1-3 with documented inputs, outputs, security notes and artifact verification |
 | Swarm orchestration | Independent proposals → critique → arbitration, with mandatory evidence and testable claims; Reflexion drafts that cannot be promoted without a passing regression test |
 | Sandbox | Piston adapter with a typed outcome union, per-language probe verification, endpoint failover and a live suite proving the 3 s / 128 MiB limits |
 | Readiness surface | `GET /api/health` reports the probed sandbox capability, lesson injection count, active memory store and skill artifact state |
@@ -97,15 +97,35 @@ The local harness applies `supabase/local/0000_auth_shim.sql` (never deployed) s
 
 ---
 
+## Workspace shell and event contracts (Phase 3)
+
+Phase 3 adds the candidate-facing shell and the workflow contracts the later modules will use:
+
+- **Five-tab floating pill:** Command, Opportunities, Studio, Proof and Passport map to the eight backend modules without duplicating state. The active pill expands; icon-only tabs keep accessible labels.
+- **Routes:** `/dashboard`, `/opportunities`, `/interview`, `/interview/[id]`, `/proof`, `/passport-vault` and `/governance`. `/governance` is an explicit placeholder for the not-yet-built autonomy, consent and erase controls.
+- **Six-state workflow contract:** `planned`, `running`, `awaiting_approval`, `requires_user_input`, `completed` and `failed`, with eleven legal edges, optimistic versions, duplicate suppression and a SHA-256 audit chain.
+- **Approval safety:** a side-effecting completion requires a recorded `approval_granted` transition. A manual retry is rejected after a side effect is recorded, and an expired approval window must create a real `userInputRequestId` so the task cannot become unreachable.
+- **Event contracts:** eight trigger events plus `application/approval.resolved` and `user.input.supplied`. URLs are restricted to HTTP(S), text and array sizes are bounded, commit SHAs are 7-40 hex characters, and unknown fields are rejected.
+- **Durable waits:** `waitForApproval` and `waitForUserInput` match the task and candidate, and the input wait also matches the exact request id. A timeout is returned as a distinct outcome.
+- **Inngest route:** `GET/POST/PUT /api/inngest` is a real serve handler with zero registered functions. It is not a durable execution implementation yet.
+- **Honest telemetry:** the Judge Inspector shows only static or unavailable provenance, and the pulse strip reports not-started/unavailable instead of invented counts or latency.
+
+There is no auth session, no Supabase checkpoint store and no registered Inngest workflow. The workspace is publicly reachable and the shell contains no live candidate data.
+
+---
+
 ## Layout
 
 ```
 src/
-  app/                      # Next.js App Router (/, icon, /api/health, /api/candidate/erase)
+  app/                      # App Router: workspace tabs, /governance, health, erase, Inngest
   agents/
     router.ts               # deterministic SMART-Code router
     prompts/                # trusted system prompts + lesson injection
+  components/               # navigation, workspace shell and telemetry components
+  inngest/                  # event schemas, state machine, store and audit chain
   lib/
+    navigation/             # route-to-chrome resolution
     security/untrusted-envelope.ts
     supabase/               # config, server clients, AES-256-GCM token vault
     memory/                 # deterministic consolidation + erasure receipts
@@ -113,12 +133,13 @@ src/
     voyager-skills/         # promoted skill registry
     piston/                 # sandbox client + server composition root
   types/phase1_contracts.ts # frozen Phase 1 interface (one documented amendment)
+  types/phase3_contracts.ts # frozen Phase 3 workflow, navigation and telemetry contracts
   types/database.types.ts   # generated from the hosted schema
 supabase/
   migrations/               # 0001 schema, 0002 triggers/RLS/RPCs, 0003 grant hardening, 0004 contract refinements
   local/0000_auth_shim.sql  # local-only auth schema/roles; never deployed
   seed.sql                  # deterministic fixtures
-tests/                      # bootstrap/, phase1/, phase2/, integration/ (opt-in live)
+tests/                      # bootstrap/, phase1/, phase2/, phase3/, integration/ (opt-in live)
 scripts/                    # sandbox, verify-container, pg-up/down/verify
 swarm/memory/lessons.json   # verified prevention rules
 trajectories/               # decision log (NOT training data)
@@ -132,13 +153,13 @@ docs/evidence/              # captured verification artifacts
 ## Verification
 
 ```bash
-npm run verify        # typecheck + 251 offline tests (5 live tests skipped)
-npm run pg:verify     # 80 Phase 2 tests against real PostgreSQL 16
+npm run verify        # typecheck + 247 offline tests (48 database/live tests skipped)
+npm run pg:verify     # Phase 2 database suites against real PostgreSQL 16
 npm run build
-npm run test:sandbox  # 5/5 live tests against a real executor
+npm run test:sandbox  # live tests against a real executor
 ```
 
-Last verified: typecheck clean, 251 offline tests passing across 23 files (5 live tests skipped), 80/80 Phase 2 tests on PostgreSQL 16, production build clean, page rendered on `:3100` with no console errors and 18.96:1 primary contrast (screenshot in `docs/evidence/phase1-home.png`). Live sandbox: real stdout for Python and JavaScript, a runaway loop killed at ~3.1 s, and a 400 MB allocation killed at 134,216,000 bytes. `GET /api/health` returned 200 with `verifiedLanguages: ["javascript","python"]`, top-3 injected lessons and no skill-artifact problems.
+Last verified: typecheck clean, **247 offline tests passing across 33 files** (48 database/live tests skipped), production build clean, and the Phase 3 workspace rendered at desktop, mobile and focus-mode widths with no console errors (screenshots in `docs/evidence/phase3-*.png`). The Inngest route returns a real 200 in dev mode with zero registered functions; it has not been connected to a running Inngest server. Live sandbox verification from Phase 1 remains: real stdout for Python and JavaScript, a runaway loop killed at ~3.1 s, and a 400 MB allocation killed at 134,216,000 bytes.
 
 The Phase 2 privilege matrix is also verified on the hosted project after `0004`: `anon` can only execute `get_public_passport`; `authenticated` can publish/unpublish, ask for its own session ownership and read the consent-gated TPO cohort; only `service_role` can use the writer RPCs, record sessions, mint certificates or erase. `authenticated` cannot read `candidate_profiles.oauth_token_vault`. Evidence is in `docs/evidence/phase2-*`.
 
@@ -152,14 +173,15 @@ The same suite was re-run inside a `node:20-bookworm-slim` container (`scripts/v
 2. **Persistence exists but is not yet on a user path.** The Phase 2 schema, RLS, erase route and token vault are verified by tests, but no UI or workflow reads them yet, and the budget ledger is still process-local. Phase 4+ will wire them.
 3. **Hosted database differs by one major version.** Supabase runs PostgreSQL 17 while the spec and local tests use 16. Migration behavior is verified locally; hosted parity is not exhaustively tested.
 4. **Hosted end-to-end auth is unverified.** No OAuth client credentials or service-role key were available in this environment, so sign-in and a live hosted erase call have not been executed. The route is tested with injected clients.
-5. **Auth user deletion is not wired.** Erasure removes all eight tables and memory records but leaves the `auth.users` row; deletion needs the service-role admin API in a later phase.
-6. **Memory consolidation is deterministic only.** SMART-Code is not reachable with a verified key, so no LLM summarizes sessions; facts come from criterion scores.
+5. **Hosted auth deletion is unverified.** The erase handler calls `client.auth.admin.deleteUser(candidateId)` after the table and memory purge, but no live service-role call has been executed because the credentials were unavailable.
+6. **LLM consolidation is implemented but not exercised live.** SMART-Code is not reachable with a verified key; the deterministic consolidator remains the only path verified end to end.
 7. **The SMART-Code gateway is not exercised.** Model IDs and the 1,000,000-token grant are unverified; the ledger clamps to 300k and reports `grantVerified: false`. The Ollama transport exists but has never reached a live model.
-8. **No lint or CI yet.** Deferred deliberately; the current gate is typecheck + tests.
+8. **No ESLint gate yet.** CI now runs typecheck, tests and build; linting still needs a real ESLint configuration rather than a no-rule script.
 9. **`Google Sans Flex` is not publicly served**, so the display stack falls back to a system face. Raleway and JetBrains Mono are self-hosted under the OFL.
 10. **Repository layout.** Git's root is the Windows home directory, so the project lives at HireX-Bot/ inside it; the remote tracks only that folder.
 11. **Swarm modules are not yet on a user path.** The orchestrator and Reflexion have tests but no product workflow calls them; that arrives with the later modules.
-12. **The health route is the only public server surface.** `/api/candidate/erase` is the other route and requires a real bearer token.
+12. **The public server surface is small but not protected end to end.** `GET /api/health` is unauthenticated, `DELETE /api/candidate/erase` requires a bearer token, and `/api/inngest` serves zero registered functions. There is no candidate session, so the workspace routes themselves are public.
+13. **Phases 4-10 are not implemented.** Opportunity discovery, scoring, simulation, proof-of-work, the passport and analytics have contracts or design notes but no working user path.
 
 ---
 

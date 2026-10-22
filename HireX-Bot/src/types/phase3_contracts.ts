@@ -97,6 +97,11 @@ export interface WorkflowTaskSnapshot {
   readonly approvalExpiresAt: string | null;
   readonly userInputRequestId: string | null;
   readonly sideEffectExecuted: boolean;
+  /**
+   * True only after this task transitioned through `approval_granted`.
+   * A side-effecting completion is rejected unless this is true.
+   */
+  readonly approvalGranted: boolean;
 }
 
 export interface WorkflowTransitionRequest {
@@ -153,6 +158,7 @@ export type WorkflowRejectionCode =
   | 'INPUT_REQUEST_REQUIRED'
   | 'INPUT_REQUEST_MISMATCH'
   | 'SIDE_EFFECT_UNSAFE'
+  | 'APPROVAL_REQUIRED_FOR_SIDE_EFFECT'
   | 'ATTEMPT_LIMIT';
 
 export interface WorkflowTransitionResult {
@@ -174,6 +180,7 @@ export type ApprovalDecision = 'approved' | 'rejected';
 
 export interface ApprovalResolution {
   readonly decision: ApprovalDecision | 'expired' | 'invalid';
+  readonly candidateId: string;
   readonly eventId: string;
   readonly occurredAt: string;
 }
@@ -298,6 +305,7 @@ export interface HireXBotEventPayloads {
 
 export interface ApplicationApprovalResolvedPayload {
   taskId: string;
+  candidateId: string;
   decision: ApprovalDecision;
   eventId: string;
   resolvedAt: string;
@@ -305,6 +313,7 @@ export interface ApplicationApprovalResolvedPayload {
 
 export interface UserInputSuppliedPayload {
   taskId: string;
+  candidateId: string;
   inputRequestId: string;
   suppliedAt: string;
 }

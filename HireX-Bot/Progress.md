@@ -7,13 +7,13 @@ Canonical implementation ledger (AGENTS.md §15). One file, no duplicates.
 ## Current Phase / Status
 
 **Phase 3 - Workspace Shell, Floating Navigation, Event Bus**
-Status: **GATE MET WITH RECORDED LOCAL LIMITS.** Typecheck, 239 offline tests, the production build and browser checks pass. Phase 3 is committed in `ad4a4ba` (contracts/bus) and `09c8f88` (workspace UI) on `main`. The Inngest endpoint is local-only verified: GET introspection returns 200 in dev mode, while POST/PUT cannot register without a running Inngest dev server or signing key. Phase 1 and Phase 2 history follows below.
+Status: **LOCALLY REMEDIATED; NOT PRODUCTION-COMPLETE.** Typecheck, **247 offline tests** (48 database/live tests skipped) and the production build pass. Phase 3 is committed in `ad4a4ba` (contracts/bus) and `09c8f88` (workspace UI) on `main`; the audit remediation is committed separately. The 2026-10-22 audit found and fixed real state-machine, event-validation, routing, telemetry and documentation faults. The Inngest endpoint is still local-only: GET introspection returns 200 in dev mode, but there is no durable checkpoint store, registered workflow, cloud signing key or auth session. Phase 1 and Phase 2 history follows below.
 
 ---
 
 ## Current Objective
 
-Close the Phase 3 gate: record evidence, push the final Phase 3 commit, then open Phase 4 (M1 intake) with its prescribed 9-agent phase-start swarm before coding.
+Finish and verify the Phase 3 audit remediation, record the remaining production blockers honestly, then open Phase 4 (M1 intake) with its prescribed 9-agent phase-start swarm before coding. Do not treat the empty Inngest route, in-memory store or static telemetry as a completed durable workflow.
 
 ---
 
@@ -266,23 +266,46 @@ Phase 2 is committed and pushed. Open Phase 3 with its prescribed 8-agent swarm 
 
 ### Status
 
-**GATE MET WITH RECORDED LOCAL LIMITS.** Phase 3 contracts and bus are committed in `ad4a4ba`; the workspace shell, navigation, telemetry surfaces and their tests are committed in `09c8f88`. Both are pushed to `origin/main`. Typecheck, 239 offline tests and the production build pass. Browser checks cover desktop and mobile layouts. The Inngest endpoint is verified only against local dev introspection; no cloud signing key or Inngest dev server exists in this environment.
+**LOCALLY REMEDIATED; GATE NOT CLAIMED.** Phase 3 contracts and bus are committed in `ad4a4ba`; the workspace shell, navigation and telemetry surfaces are committed in `09c8f88`. Both are pushed to `origin/main`. The 2026-10-22 remediation changes the frozen contract and is committed separately. Typecheck, **247 offline tests** (48 database/live tests skipped) and the production build pass. Browser checks cover desktop, mobile and focus-mode layouts. The Inngest endpoint is verified only against local dev introspection; no cloud signing key or Inngest dev server exists, and the workflow store remains in-memory.
 
 ### Verified complete
 
 | Capability | Evidence |
 |---|---|
 | Frozen Phase 3 contract: six workflow states, 11 transitions, eight trigger events, two resolution events, nav/pulse/provenance shapes | `src/types/phase3_contracts.ts`; `tests/phase3/state-machine.test.ts`, `event-contracts.test.ts` |
-| Typed Inngest v4 event registry using `eventType(name, { schema })` and `zod` schemas, not the removed `EventSchemas().fromZod` API | `src/inngest/events.ts`, `client.ts`; event-contract tests validate every payload and reject unknown event names |
-| State machine with expiry-aware approval decisions, resolution-id matching, retry cap and optimistic version checks | `src/inngest/state-machine.ts`; 10 tests cover all transitions, before/after 72-hour expiry, stale input and retry exhaustion |
+| Typed Inngest v4 event registry using `eventType(name, { schema })` and strict `zod` schemas, not the removed `EventSchemas().fromZod` API | `src/inngest/events.ts`, `client.ts`; event-contract tests validate every payload, HTTP(S)-only URLs, bounded text, 7-40 hex commit SHAs and unknown-field rejection |
+| State machine with expiry-aware approval decisions, candidate-bound resolution, retry cap and optimistic version checks | `src/inngest/state-machine.ts`; 12 tests cover all transitions, before/after 72-hour expiry, wrong-candidate rejection and retry exhaustion |
+| Approval and side-effect guard: `approvalGranted` is set only by `approval_granted`; a side-effecting completion or manual retry after a side effect is rejected | `src/inngest/task-state-store.ts`; `state-machine.test.ts` covers both refusal paths |
+| Durable wait helpers with candidate/request identity and a distinct timeout outcome | `src/inngest/state-machine.ts`; `tests/phase3/durable-waits.test.ts` (4 tests) |
 | Idempotency and append-only audit chain: JSON-array key, first valid decision wins, canonical SHA-256 chained `prevHash`, chain verification | `src/inngest/task-state-store.ts`, `audit.ts`; state-machine tests cover duplicate/conflict/rejected outcomes |
 | Real Next.js Inngest serve route with GET/POST/PUT and zero functions until Phase 4 wires workflows | `src/app/api/inngest/route.ts`; `tests/phase3/inngest-route.test.ts` |
 | Five-tab floating pill navigation with exact active/inactive geometry and hidden public/focus routes | `src/lib/navigation/nav-model.ts`, `FloatingPillNavView.tsx`, `FocusStrip.tsx`; `tests/phase3/navigation.test.ts`, `floating-pill-nav.test.tsx` |
 | Shared workspace primitives, honest empty/loading-free placeholders, mobile layout and focus mode | `src/components/workspace/**`, `src/components/navigation/**`, `src/app/(workspace)/**`; production build + browser checks |
+| `/governance` route exists instead of 404ing and states that autonomy, consent and erase controls are inactive | `src/app/(workspace)/governance/page.tsx`; `tests/phase3/governance-page.test.tsx` |
 | Judge X-Ray default-off, static-real provenance only, compact mobile icon | `src/lib/telemetry/provenance.ts`, `JudgeXRayInspector.tsx`; `tests/phase3/xray-and-pulse.test.tsx` |
 | Parallel pulse strip with null counts, no fabricated activity, one unavailable lane surfaced honestly | `src/lib/telemetry/pulse.ts`, `ParallelPulseStrip.tsx`; dashboard is the only host |
 | Copy guardrail rejects deficit language and guarantees; rendered workspace pages are scanned as well as the copy module | `src/lib/ux/copy.ts`; `tests/phase3/psychological-copy.test.tsx` |
 | Responsive/no-overflow/browser verification with screenshots | `docs/evidence/phase3-dashboard.png`, `phase3-dashboard-mobile.png`, `phase3-focus-mode.png` |
+
+### Audit remediation (2026-10-22)
+
+The user approved the audit's recommended fix order. The remediation was bounded to Phase 3 correctness, honest artifacts and routing; it did not start Phase 4.
+
+| Finding | Resolution | Regression evidence |
+|---|---|---|
+| `approval_window_expired` could leave `userInputRequestId` null and make the task unreachable | Transition into `requires_user_input` now requires a non-empty request id; otherwise `INPUT_REQUEST_REQUIRED` | `tests/phase3/state-machine.test.ts` expiry case |
+| `running -> completed` accepted `sideEffectExecuted: true` without approval | `approvalGranted` is recorded only on `approval_granted`; side-effecting completion requires it | `state-machine.test.ts` direct-completion case |
+| `failed -> planned` erased side-effect evidence | Failed transitions preserve `sideEffectExecuted`; manual retry after a side effect returns `SIDE_EFFECT_UNSAFE` | `state-machine.test.ts` retry case |
+| Approval/input resolution trusted task id alone | Both resolution payloads and `ApprovalResolution` carry `candidateId`; wait helpers match candidate and request id | `tests/phase3/durable-waits.test.ts`, `state-machine.test.ts` |
+| Event schemas accepted unsafe URLs, unbounded text and weak SHAs | HTTP(S)-only URLs, bounds, hex SHA, `.strict()` | `tests/phase3/event-contracts.test.ts` |
+| `/governance` was mapped but absent | Added an honest placeholder page and route test | `tests/phase3/governance-page.test.tsx` |
+| X-Ray pointed `aria-controls` at an absent panel | `aria-controls` is set only while the panel exists | `tests/phase3/xray-and-pulse.test.tsx` |
+| Phase 3 skills, lessons, LICENSE and CI were missing | Added three skill entries, L-009 to L-011, Apache-2.0 LICENSE and CI | `tests/phase1/memory-and-skills.test.ts`, `swarm/memory/lessons.json`, `.github/workflows/ci.yml` |
+| README/Progress claimed the gate without these controls | Status downgraded to locally remediated; stale test counts and the false auth-deletion limitation corrected | This ledger and `README.md` |
+
+**Rejected alternatives:** a ninth database table for checkpoints (violates the eight-table lock without approval); a fabricated Phase 3 DPO file (violates evidence rules); a no-rule lint script (would create a false gate); moving the bottom-nav tooltip below the nav (would clip it outside the viewport). The tooltip position remains a recorded design deviation; its typography now follows Raleway 11px.
+
+**Still blocked after remediation:** Supabase checkpoint persistence, a registered Inngest workflow, auth/session, live LLM and sandbox execution in CI, Phase 3 DPO, and hosted erase verification. These are not silently marked complete.
 
 ### Phase 3 decisions and limits
 
@@ -291,7 +314,14 @@ Phase 2 is committed and pushed. Open Phase 3 with its prescribed 8-agent swarm 
 | Inngest production sync | **BLOCKED** | No signing key or local Inngest dev server. `GET /api/inngest` returns 200 introspection with `INNGEST_DEV=1`; POST/PUT return 500 because registration cannot reach `ECONNREFUSED`. Do not claim cloud sync or durable execution |
 | Workflow persistence | **EPHEMERAL BY DESIGN** | `InMemoryWorkflowStateStore` has `durable: false`; optimistic concurrency and idempotency are tested in-process only. Inngest run state is eventual, not the Phase 2 eight-table store |
 | Approval expiry | **FROZEN** | `APPROVAL_TIMEOUT_HOURS = 72`; expiry moves `awaiting_approval -> requires_user_input`, not to a seventh state |
+| Approval/side-effect semantics | **AMENDED 2026-10-22** | `WorkflowTaskSnapshot.approvalGranted` added; a side-effecting completion requires a prior `approval_granted`; a manual retry after a recorded side effect is rejected. `APPROVAL_REQUIRED_FOR_SIDE_EFFECT` is a new rejection code |
+| Resolution identity | **AMENDED 2026-10-22** | `ApplicationApprovalResolvedPayload`, `UserInputSuppliedPayload` and `ApprovalResolution` now carry `candidateId`; `waitForApproval` and `waitForUserInput` match it. Rejected alternative: trusting `taskId` alone, which permits cross-candidate resolution |
+| User-input identity | **AMENDED 2026-10-22** | `requires_user_input` must carry a non-empty `userInputRequestId`; otherwise `INPUT_REQUEST_REQUIRED` is returned. This prevents the stuck-task path found in the audit |
+| Event validation | **HARDENED 2026-10-22** | HTTP(S)-only URLs, bounded strings/arrays, 7-40 hex `commit_sha`, `.strict()` objects. Unknown fields now fail validation |
 | User-input window | **ASSUMPTION** | `USER_INPUT_TIMEOUT = '30d'` is recorded as a contract assumption, not an employer-derived requirement |
+| Phase 3 DPO | **BLOCKED** | No real Phase 3 trajectories exist. No `phase_03_dpo.jsonl` was created; fabricating pairs would violate the evidence rule |
+| Phase 3 skills | **ADDED 2026-10-22** | Three Phase 3 entries registered with real module/test paths; the Phase 1 skill-list assertion and swarm-runtime count were updated |
+| CI / license | **ADDED 2026-10-22** | `.github/workflows/ci.yml` runs install, typecheck, tests and build; Apache-2.0 `LICENSE` added. No ESLint config exists, so no lint claim is made |
 | Motion | **DEVIATION** | CSS transition `280ms cubic-bezier(0.22, 1, 0.36, 1)` replaces Design's Framer Motion `layoutId`; no Framer dependency added |
 | UI test harness | **DEVIATION** | No jsdom/testing-library; tests use `react-dom/server` `renderToStaticMarkup` in Node, so event-level pointer behavior is covered by markup/props rather than a DOM simulation |
 | Role switcher | **INERT** | Candidate/Institution control is visibly disabled; no auth/session exists yet, so no role can be assumed |
@@ -302,14 +332,15 @@ Phase 2 is committed and pushed. Open Phase 3 with its prescribed 8-agent swarm 
 
 ```text
 npm run typecheck                    -> clean
-npm test                             -> 239 passed, 48 skipped, 31 files (23 passed, 8 skipped)
-npm run build                        -> clean; 10 static routes + /interview/[id], /api/inngest, /api/health, /api/candidate/erase
+npm test                             -> 247 passed, 48 skipped, 295 tests across 33 files (25 passed, 8 skipped)
+npm run build                        -> clean; 11 static routes including /governance, plus /interview/[id], /api/inngest, /api/health, /api/candidate/erase
 INNGEST_DEV=1 + next start :3000     -> GET /api/inngest 200, {"function_count":0,"mode":"dev",...}
 POST/PUT /api/inngest {}             -> 500 registration failure (fetch failed, ECONNREFUSED; no dev server)
 browser /dashboard (1440x900)        -> no page errors; nav active; pulse honest; screenshot saved
 browser /dashboard (390x844)         -> no horizontal overflow; compact X-Ray; screenshot saved
 browser /interview/session-1         -> focus strip instead of nav; no page errors; screenshot saved
 browser /opportunities               -> Opportunities active; no page errors
+GET /governance (next start :3100)   -> 200; placeholder heading rendered; /dashboard also 200
 ```
 
 One non-blocking browser warning remains: the preloaded `raleway-400.woff2` was reported unused within the load window. It is a warning, not a failed request.
@@ -320,4 +351,4 @@ Role-based reconnaissance and decision passes ran before the UI implementation: 
 
 ### Next action
 
-Commit this ledger and the three screenshots, push `origin/main`, then open Phase 4 (M1 intake) with its prescribed 9-agent phase-start swarm before coding. Phase 4 must wire real persistence and functions behind the frozen bus rather than treating the empty Inngest route as a completed integration.
+Finish the final typecheck/test/build run, commit the audit remediation, and then open Phase 4 (M1 intake) with its prescribed 9-agent phase-start swarm before coding. Phase 4 must wire real persistence and functions behind the frozen bus rather than treating the empty Inngest route or in-memory store as a completed integration. The next agent should preserve the eight-table lock, the candidate-bound resolution contract and the side-effect guard.

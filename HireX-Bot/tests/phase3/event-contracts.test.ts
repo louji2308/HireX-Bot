@@ -124,6 +124,7 @@ describe('Phase 3 event catalog', () => {
     expect(
       applicationApprovalResolvedSchema.safeParse({
         taskId: 'task-1',
+        candidateId: CANDIDATE_ID,
         decision: 'approved',
         eventId: 'decision-1',
         resolvedAt: NOW,
@@ -132,6 +133,7 @@ describe('Phase 3 event catalog', () => {
     expect(
       applicationApprovalResolvedSchema.safeParse({
         taskId: 'task-1',
+        candidateId: CANDIDATE_ID,
         decision: 'maybe',
         eventId: 'decision-1',
         resolvedAt: NOW,
@@ -140,9 +142,45 @@ describe('Phase 3 event catalog', () => {
     expect(
       userInputSuppliedSchema.safeParse({
         taskId: 'task-1',
+        candidateId: CANDIDATE_ID,
         inputRequestId: 'input-1',
         suppliedAt: NOW,
       }).success,
     ).toBe(true);
+  });
+
+  it('rejects unsafe URLs, oversized text, malformed commit SHAs and unknown fields', () => {
+    expect(
+      HIREX_BOT_EVENT_SCHEMAS['job/discovered.batch'].safeParse({
+        ...samples['job/discovered.batch'],
+        jobs: [
+          {
+            ...samples['job/discovered.batch'].jobs[0],
+            job_url: 'javascript:alert(1)',
+          },
+        ],
+      }).success,
+    ).toBe(false);
+
+    expect(
+      HIREX_BOT_EVENT_SCHEMAS['interview/invite.detected'].safeParse({
+        ...samples['interview/invite.detected'],
+        invite_text: 'x'.repeat(20_001),
+      }).success,
+    ).toBe(false);
+
+    expect(
+      HIREX_BOT_EVENT_SCHEMAS['repo/push.verified'].safeParse({
+        ...samples['repo/push.verified'],
+        commit_sha: 'not-a-sha',
+      }).success,
+    ).toBe(false);
+
+    expect(
+      candidateOnboardingCompletedSchema.safeParse({
+        ...samples['candidate/onboarding.completed'],
+        unexpected_field: true,
+      }).success,
+    ).toBe(false);
   });
 });

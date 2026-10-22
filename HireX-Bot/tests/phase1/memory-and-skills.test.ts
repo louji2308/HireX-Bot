@@ -202,7 +202,7 @@ describe('lesson-aware prompt registry wiring', () => {
   });
 });
 describe('Voyager skill registry (Build Plan Step 1.4/1.5)', () => {
-  it('registers the named Phase 1 and Phase 2 skills', async () => {
+  it('registers the named Phase 1, Phase 2 and Phase 3 skills', async () => {
     const { VOYAGER_SKILLS, VOYAGER_SKILL_IDS } = await import('@/lib/voyager-skills/registry');
 
     expect(VOYAGER_SKILLS.map((skill) => skill.id)).toEqual([...VOYAGER_SKILL_IDS]);
@@ -213,8 +213,12 @@ describe('Voyager skill registry (Build Plan Step 1.4/1.5)', () => {
       'skill:supabase-rls-client-v1',
       'skill:episodic-memory-consolidator-v1',
       'skill:dpdp-cascade-eraser-v1',
+      'skill:inngest-6state-guard-v1',
+      'skill:monochrome-pill-primitives-v1',
+      'skill:judge-xray-telemetry-v1',
     ]);
     expect(VOYAGER_SKILLS.filter((skill) => skill.phase === 2)).toHaveLength(3);
+    expect(VOYAGER_SKILLS.filter((skill) => skill.phase === 3)).toHaveLength(3);
   });
 
   it('points every skill at files that exist in this repository', async () => {

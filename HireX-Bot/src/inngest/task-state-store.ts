@@ -125,6 +125,7 @@ export class InMemoryWorkflowStateStore implements WorkflowStateStore {
         approvalExpiresAt: null,
         userInputRequestId: null,
         sideEffectExecuted: false,
+        approvalGranted: false,
       };
 
       return this.commit(snapshot, request, null, idempotencyKey);
@@ -152,6 +153,10 @@ export class InMemoryWorkflowStateStore implements WorkflowStateStore {
         ? 'REASON_MISMATCH'
         : 'ILLEGAL_TRANSITION';
       return rejection(code, cloneSnapshot(current));
+    }
+
+    if (request.to === 'requires_user_input' && !hasText(request.userInputRequestId)) {
+      return rejection('INPUT_REQUEST_REQUIRED', cloneSnapshot(current));
     }
 
     const occurredAtMs = Date.parse(request.occurredAt);
@@ -201,8 +206,14 @@ export class InMemoryWorkflowStateStore implements WorkflowStateStore {
       }
     }
 
-    if (request.reason === 'manual_retry' && current.attempt >= MAX_WORKFLOW_ATTEMPTS) {
-      return rejection('ATTEMPT_LIMIT', cloneSnapshot(current));
+    if (request.reason === 'manual_retry') {
+      if (current.sideEffectExecuted || request.sideEffectExecuted === true) {
+        return rejection('SIDE_EFFECT_UNSAFE', cloneSnapshot(current));
+      }
+
+      if (current.attempt >= MAX_WORKFLOW_ATTEMPTS) {
+        return rejection('ATTEMPT_LIMIT', cloneSnapshot(current));
+      }
     }
 
     if (
@@ -219,9 +230,18 @@ export class InMemoryWorkflowStateStore implements WorkflowStateStore {
       return rejection('SIDE_EFFECT_UNSAFE', cloneSnapshot(current));
     }
 
+    if (
+      request.to === 'completed' &&
+      request.sideEffectExecuted === true &&
+      !current.approvalGranted
+    ) {
+      return rejection('APPROVAL_REQUIRED_FOR_SIDE_EFFECT', cloneSnapshot(current));
+    }
+
     let approvalExpiresAt = current.approvalExpiresAt;
     let userInputRequestId = current.userInputRequestId;
     let sideEffectExecuted = current.sideEffectExecuted;
+    let approvalGranted = current.approvalGranted;
     let attempt = current.attempt;
 
     switch (request.to) {
@@ -229,16 +249,19 @@ export class InMemoryWorkflowStateStore implements WorkflowStateStore {
         attempt = current.attempt + 1;
         approvalExpiresAt = null;
         userInputRequestId = null;
-        sideEffectExecuted = false;
+        approvalGranted = false;
         break;
       case 'running':
         approvalExpiresAt = null;
         userInputRequestId = null;
+        if (request.reason === 'approval_granted') {
+          approvalGranted = true;
+        }
         break;
       case 'awaiting_approval':
         approvalExpiresAt = request.approvalExpiresAt ?? null;
         userInputRequestId = null;
-        sideEffectExecuted = false;
+        approvalGranted = false;
         break;
       case 'requires_user_input':
         approvalExpiresAt = null;
@@ -252,6 +275,7 @@ export class InMemoryWorkflowStateStore implements WorkflowStateStore {
       case 'failed':
         approvalExpiresAt = null;
         userInputRequestId = null;
+        sideEffectExecuted = request.sideEffectExecuted ?? current.sideEffectExecuted;
         break;
     }
 
@@ -266,6 +290,7 @@ export class InMemoryWorkflowStateStore implements WorkflowStateStore {
       approvalExpiresAt,
       userInputRequestId,
       sideEffectExecuted,
+      approvalGranted,
     };
 
     return this.commit(snapshot, request, current, idempotencyKey);
