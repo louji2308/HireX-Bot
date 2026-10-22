@@ -7,9 +7,12 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  esbuild: {
+    jsx: 'automatic',
+  },
   test: {
     environment: 'node',
-    include: ['tests/**/*.test.ts'],
+    include: ['tests/**/*.test.{ts,tsx}'],
     exclude: ['node_modules', '.next', 'tests/**/*.spec.ts'],
     testTimeout: 30000,
     fileParallelism: false,
