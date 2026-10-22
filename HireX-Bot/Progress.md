@@ -7,13 +7,13 @@ Canonical implementation ledger (AGENTS.md §15). One file, no duplicates.
 ## Current Phase / Status
 
 **Phase 1 ? Cognitive Swarm Foundation**
-Status: **GATE MET WITH FOUR RECORDED DEVIATIONS.** Typecheck, 165 offline tests, 5 live sandbox tests, a container re-run, a production build and a live `/api/health` check all pass. The remaining gaps are explicit, tested-in-the-negative deviations (polyglot coverage, AgentFoundry host, LangGraph, automatic Reflexion invocation) rather than missing Phase 1 code. Phase 2 is gate-met and awaiting commit; see the Phase 2 section at the end of this file.
+Status: **GATE MET WITH FOUR RECORDED DEVIATIONS.** Typecheck, 165 offline tests, 5 live sandbox tests, a container re-run, a production build and a live `/api/health` check all pass. The remaining gaps are explicit, tested-in-the-negative deviations (polyglot coverage, AgentFoundry host, LangGraph, automatic Reflexion invocation) rather than missing Phase 1 code. Phase 2 is committed as `3f120bc` and pushed to `origin/main`; see the Phase 2 section at the end of this file.
 
 ---
 
 ## Current Objective
 
-Review and commit Phase 2 (hybrid persistence: eight-table Postgres schema, RLS/audit triggers, DPDP erase with OAuth/storage/identity cascade, episodic memory substrate), then open Phase 3 with its prescribed swarm.
+Open Phase 3 (light-theme UI shell, five-tab floating pill navigation, shared primitives, durable Inngest event bus) with its prescribed 8-agent swarm before coding.
 
 ---
 
@@ -191,7 +191,7 @@ Decision log (not training data): `trajectories/phase_01_dpo.jsonl` — 4 prefer
 
 ## Last Verified Commit / Deployment
 
-- Commit: **`5f1e05a`** on `main` (Phase 1). Phase 2 changes are unstaged at the time of writing.
+- Commit: **`3f120bc`** on `main` (Phase 2), pushed to `origin/main`; Phase 1 was `5f1e05a`.
 - Deployment: **local only** --- production build served on `http://127.0.0.1:3100`; `/api/health` returned 210 at verification time.
 - Verification identity: Node `v24.13.0` (host) / `node:21-bookworm-slim` (container), npm `11.6.2`, Next `15.5.28`, Vitest `2.1.9`, TypeScript `5.9.3`.
 
@@ -212,7 +212,7 @@ Decision log (not training data): `trajectories/phase_01_dpo.jsonl` — 4 prefer
 
 ### Status
 
-**GATE MET, PENDING COMMIT.** Local gate: typecheck clean, `251` offline tests pass across `23` files (`5` live sandbox tests skipped), and `80/80` Phase 2 database tests pass against real PostgreSQL 16.15. Hosted migrations `0001`--`0004` are applied and the privilege matrix is verified. Evidence is captured in `docs/evidence/phase2-*`. The phase is not marked committed until the diff is reviewed and the user approves the commit.
+**GATE MET AND COMMITTED (`3f120bc`, pushed to `origin/main`).** Local gate: typecheck clean, `251` offline tests pass across `23` files (`5` live sandbox tests skipped), and `80/80` Phase 2 database tests pass against real PostgreSQL 16.15. Hosted migrations `0001`--`0004` are applied and the privilege matrix is verified. Evidence is captured in `docs/evidence/phase2-*`.
 
 ### Verified complete
 
@@ -258,4 +258,4 @@ hosted has_column_privilege          -> authenticated cannot read candidate_prof
 
 ### Next action
 
-Review the unstaged Phase 2 diff, then ask for commit approval. After that, open Phase 3 with its prescribed swarm.
+Phase 2 is committed and pushed. Open Phase 3 with its prescribed 8-agent swarm before coding.
