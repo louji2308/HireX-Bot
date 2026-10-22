@@ -1,0 +1,269 @@
+
+> hirex-bot@0.1.0 pg:verify
+> powershell -NoProfile -ExecutionPolicy Bypass -File scripts/pg-verify.ps1
+
+Recreating hirex-pg (PostgreSQL 16, tmpfs data directory)...
+Applying local auth shim, schema and RLS...
+CREATE SCHEMA
+CREATE TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+DO
+GRANT
+GRANT
+GRANT ROLE
+GRANT
+CREATE TABLE
+CREATE INDEX
+CREATE TABLE
+CREATE INDEX
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE TABLE
+CREATE INDEX
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+ALTER TABLE
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+CREATE POLICY
+CREATE POLICY
+CREATE POLICY
+CREATE POLICY
+CREATE POLICY
+CREATE POLICY
+CREATE POLICY
+CREATE POLICY
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+CREATE FUNCTION
+ALTER TABLE
+ALTER TABLE
+CREATE FUNCTION
+CREATE TRIGGER
+ALTER TABLE
+DROP FUNCTION
+CREATE FUNCTION
+REVOKE
+GRANT
+ALTER TABLE
+ALTER TABLE
+CREATE INDEX
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE INDEX
+CREATE INDEX
+REVOKE
+GRANT
+GRANT
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+hirex-pg ready at postgres://postgres:hirex@127.0.0.1:55432/hirex_test (database is empty; tests seed it).
+node.exe : The CJS build of Vite's Node API is deprecated. See 
+https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (The CJS bu...e details.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+ RUN  v2.1.9 C:/Users/LOUJAN B/HireX-Bot
+
+ Γ£ô tests/phase2/contract-refinements.test.ts > phase 2 - contract refinements (0004) > uses the exact five-tier confidence vocabulary with em dashes
+ Γ£ô tests/phase2/contract-refinements.test.ts > phase 2 - contract refinements (0004) > rejects any mutation of a published blueprint version
+ Γ£ô tests/phase2/contract-refinements.test.ts > phase 2 - contract refinements (0004) > snapshots the blueprint version and replay URL on a recorded session
+ Γ£ô tests/phase2/contract-refinements.test.ts > phase 2 - contract refinements (0004) > rejects a session whose company, role or round differs from its blueprint
+ Γ£ô tests/phase2/contract-refinements.test.ts > phase 2 - contract refinements (0004) > rejects skill history that does not belong to the candidate and session
+ Γ£ô tests/phase2/contract-refinements.test.ts > phase 2 - contract refinements (0004) > links skill history to the exact response that produced it
+ Γ£ô tests/phase2/contract-refinements.test.ts > phase 2 - contract refinements (0004) > never regresses a pipeline outcome or decision state
+ Γ£ô tests/phase2/contract-refinements.test.ts > phase 2 - contract refinements (0004) > merges onboarding signals and consent scopes instead of overwriting them
+ Γ£ô tests/phase2/contract-refinements.test.ts > phase 2 - contract refinements (0004) > provides a write path for every previously unwritable table
+ Γ£ô tests/phase2/contract-refinements.test.ts > phase 2 - contract refinements (0004) > grants writer RPCs to service_role only
+ Γ£ô tests/phase2/contract-refinements.test.ts > phase 2 - contract refinements (0004) > hides the ciphertext vault from authenticated column reads
+ Γ£ô tests/phase2/contract-refinements.test.ts > phase 2 - contract refinements (0004) > exposes the consented cohort with a real improvement curve
+ Γ£ô tests/phase2/contract-refinements.test.ts > phase 2 - contract refinements (0004) > denies the cohort to a non-TPO caller
+ Γ£ô tests/phase2/contract-refinements.test.ts > phase 2 - contract refinements (0004) > erases candidate-owned blueprints but keeps shared ones
+ Γ£ô tests/phase2/schema-immutability.test.ts > phase 2 ΓÇö append-only historical scoring (FR-801) > rejects a score mutation even for the table owner
+ Γ£ô tests/phase2/schema-immutability.test.ts > phase 2 ΓÇö append-only historical scoring (FR-801) > rejects a score mutation at the trigger for the migration owner
+ Γ£ô tests/phase2/schema-immutability.test.ts > phase 2 ΓÇö append-only historical scoring (FR-801) > rejects rewriting stored responses for non-eraser roles
+ Γ£ô tests/phase2/schema-immutability.test.ts > phase 2 ΓÇö append-only historical scoring (FR-801) > rejects response rewrites at the trigger for the migration owner
+ Γ£ô tests/phase2/schema-immutability.test.ts > phase 2 ΓÇö append-only historical scoring (FR-801) > freezes derived skill history as well
+ Γ£ô tests/phase2/schema-immutability.test.ts > phase 2 ΓÇö append-only historical scoring (FR-801) > records a retake as a new session with its responses atomically
+ Γ£ô tests/phase2/schema-immutability.test.ts > phase 2 ΓÇö append-only historical scoring (FR-801) > rolls back the whole retake when a response is malformed
+ Γ£ô tests/phase2/schema-immutability.test.ts > phase 2 ΓÇö append-only historical scoring (FR-801) > refuses two responses with the same question index
+ Γ£ô tests/phase2/schema-immutability.test.ts > phase 2 ΓÇö append-only historical scoring (FR-801) > mints a certificate once and refuses to overwrite it
+ Γ£ô tests/phase2/erase-route.test.ts > phase 2 ΓÇö DPDP erase route > requires a bearer token
+ Γ£ô tests/phase2/erase-route.test.ts > phase 2 ΓÇö DPDP erase route > reports an unconfigured backend without attempting erasure
+ Γ£ô tests/phase2/erase-route.test.ts > phase 2 ΓÇö DPDP erase route > rejects an invalid session
+ Γ£ô tests/phase2/erase-route.test.ts > phase 2 ΓÇö DPDP erase route > erases database and memory, then records a PII-free receipt
+ Γ£ô tests/phase2/erase-route.test.ts > phase 2 ΓÇö DPDP erase route > makes repeated requests idempotent at the receipt level
+ Γ£ô tests/phase2/erase-route.test.ts > phase 2 ΓÇö DPDP erase route > runs every erasure stage in dependency order
+ Γ£ô tests/phase2/erase-route.test.ts > phase 2 ΓÇö DPDP erase route > keeps erasing when token revocation fails and reports partial
+ Γ£ô tests/phase2/erase-route.test.ts > phase 2 ΓÇö DPDP erase route > reports partial when storage objects remain
+ Γ£ô tests/phase2/erase-route.test.ts > phase 2 ΓÇö DPDP erase route > reports partial when the auth identity is not deleted
+ Γ£ô tests/phase2/erase-route.test.ts > phase 2 ΓÇö DPDP erase route > treats a retry after the profile is gone as a successful erasure
+ Γ£ô tests/phase2/erase-route.test.ts > phase 2 ΓÇö DPDP erase route > does not record success when the database erasure fails
+ Γ£ô tests/phase2/erase-route.test.ts > phase 2 ΓÇö DPDP erase route > marks a receipt partial when memory cannot be purged
+ Γ£ô tests/phase2/erase-route.test.ts > phase 2 ΓÇö DPDP erase route > reports receipt failure instead of claiming completion
+ Γ£ô tests/phase2/memory-consolidator.test.ts > phase 2 ΓÇö deterministic memory consolidation > derives facts only from supplied criterion scores
+ Γ£ô tests/phase2/memory-consolidator.test.ts > phase 2 ΓÇö deterministic memory consolidation > is byte-identical when replayed on the same evidence
+ Γ£ô tests/phase2/memory-consolidator.test.ts > phase 2 ΓÇö deterministic memory consolidation > stores hashes instead of raw response prose or the candidate UUID
+ Γ£ô tests/phase2/memory-consolidator.test.ts > phase 2 ΓÇö deterministic memory consolidation > skips responses without scores instead of inventing them
+ Γ£ô tests/phase2/memory-consolidator.test.ts > phase 2 ΓÇö deterministic memory consolidation > skips unsafe criterion labels instead of quoting them into memory
+ Γ£ô tests/phase2/memory-consolidator.test.ts > phase 2 ΓÇö deterministic memory consolidation > never re-adds facts for an erased candidate
+ Γ£ô tests/phase2/memory-consolidator.test.ts > phase 2 ΓÇö deterministic memory consolidation > keeps a single tombstone across repeated erasure requests
+ Γ£ô tests/phase2/memory-consolidator.test.ts > phase 2 ΓÇö deterministic memory consolidation > appends idempotently and erases one candidate with a tombstone
+ Γ£ô tests/phase2/rls-isolation.test.ts > phase 2 ΓÇö row level security isolation (DPDP Rule 3) > limits every table to the signed-in candidate
+ Γ£ô tests/phase2/rls-isolation.test.ts > phase 2 ΓÇö row level security isolation (DPDP Rule 3) > never exposes candidate-specific blueprints to another candidate
+ Γ£ô tests/phase2/rls-isolation.test.ts > phase 2 ΓÇö row level security isolation (DPDP Rule 3) > answers ownership checks per candidate without leaking existence
+ Γ£ô tests/phase2/rls-isolation.test.ts > phase 2 ΓÇö row level security isolation (DPDP Rule 3) > gives anonymous callers no direct table access
+ Γ£ô tests/phase2/rls-isolation.test.ts > phase 2 ΓÇö row level security isolation (DPDP Rule 3) > gives candidates no direct write path
+ Γ£ô tests/phase2/rls-isolation.test.ts > phase 2 ΓÇö row level security isolation (DPDP Rule 3) > defines only SELECT policies on the eight canonical tables
+ Γ£ô tests/phase2/public-passport.test.ts > phase 2 ΓÇö evidence-bearing public passport (M6) > refuses publication without explicit hosting consent
+ Γ£ô tests/phase2/public-passport.test.ts > phase 2 ΓÇö evidence-bearing public passport (M6) > publishes a read-only, PII-free snapshot and withdraws it on unpublish
+ Γ£ô tests/phase2/public-passport.test.ts > phase 2 ΓÇö evidence-bearing public passport (M6) > rejects a slug that is already taken
+ Γ£ô tests/phase2/public-passport.test.ts > phase 2 ΓÇö evidence-bearing public passport (M6) > stops serving a published snapshot when consent is withdrawn 969ms
+ Γ£ô tests/phase2/revocation-storage.test.ts > phase 2 ΓÇö OAuth revocation > reads only well-formed sealed entries
+ Γ£ô tests/phase2/revocation-storage.test.ts > phase 2 ΓÇö OAuth revocation > revokes a Google grant with the documented endpoint
+ Γ£ô tests/phase2/revocation-storage.test.ts > phase 2 ΓÇö OAuth revocation > counts a GitHub revocation as failed when app credentials are absent
+ Γ£ô tests/phase2/revocation-storage.test.ts > phase 2 ΓÇö OAuth revocation > revokes a GitHub grant when app credentials are configured
+ Γ£ô tests/phase2/revocation-storage.test.ts > phase 2 ΓÇö OAuth revocation > fails closed on ciphertext bound to another candidate
+ Γ£ô tests/phase2/revocation-storage.test.ts > phase 2 ΓÇö OAuth revocation > treats an empty vault as fully revoked
+ Γ£ô tests/phase2/revocation-storage.test.ts > phase 2 ΓÇö storage purge > removes every object under the candidate prefix in each bucket
+ Γ£ô tests/phase2/revocation-storage.test.ts > phase 2 ΓÇö storage purge > treats a missing bucket as already erased
+ Γ£ô tests/phase2/revocation-storage.test.ts > phase 2 ΓÇö storage purge > reports incomplete for a real storage error
+ Γ£ô tests/phase2/revocation-storage.test.ts > phase 2 ΓÇö storage purge > parses the bucket allowlist from the environment
+ Γ£ô tests/phase2/dpdp-cascade.test.ts > phase 2 ΓÇö DPDP erasure cascade (FR-103) > erases every candidate-owned row and preserves unrelated candidates and shared blueprints
+ Γ£ô tests/phase2/dpdp-cascade.test.ts > phase 2 ΓÇö DPDP erasure cascade (FR-103) > cascades from an authorized profile deletion without orphaned evidence
+ Γ£ô tests/phase2/dpdp-cascade.test.ts > phase 2 ΓÇö DPDP erasure cascade (FR-103) > does not cascade to another candidate when the same shared blueprint is used
+ Γ£ô tests/phase2/dpdp-cascade.test.ts > phase 2 ΓÇö DPDP erasure cascade (FR-103) > denies erasure to candidates and to anonymous callers
+ Γ£ô tests/phase2/panel-indexes.test.ts > phase 2 ΓÇö canonical schema shape, constraints and panel indexes > exposes exactly the eight canonical tables
+ Γ£ô tests/phase2/panel-indexes.test.ts > phase 2 ΓÇö canonical schema shape, constraints and panel indexes > keeps the panel A/B/C/D query indexes
+ Γ£ô tests/phase2/panel-indexes.test.ts > phase 2 ΓÇö canonical schema shape, constraints and panel indexes > uses NULLS NOT DISTINCT for job and blueprint idempotency keys
+ Γ£ô tests/phase2/panel-indexes.test.ts > phase 2 ΓÇö canonical schema shape, constraints and panel indexes > anchors historical rows to candidate, blueprint and rubric version
+ Γ£ô tests/phase2/token-vault.test.ts > phase 2 ΓÇö OAuth token vault (AES-256-GCM) > round-trips a token bound to candidate, provider and purpose
+ Γ£ô tests/phase2/token-vault.test.ts > phase 2 ΓÇö OAuth token vault (AES-256-GCM) > refuses to open a token under another candidate, provider or purpose
+ Γ£ô tests/phase2/token-vault.test.ts > phase 2 ΓÇö OAuth token vault (AES-256-GCM) > detects ciphertext and tag tampering
+ Γ£ô tests/phase2/token-vault.test.ts > phase 2 ΓÇö OAuth token vault (AES-256-GCM) > supports key rotation while retaining old ciphertext readability
+ Γ£ô tests/phase2/token-vault.test.ts > phase 2 ΓÇö OAuth token vault (AES-256-GCM) > rejects malformed keyrings and empty tokens
+ Γ£ô tests/phase2/token-vault.test.ts > phase 2 ΓÇö OAuth token vault (AES-256-GCM) > reads configuration exclusively from the environment
+ Γ£ô tests/phase2/privilege-matrix.test.ts > phase 2 ΓÇö least-privilege matrix > exposes only the intended function grants
+ Γ£ô tests/phase2/privilege-matrix.test.ts > phase 2 ΓÇö least-privilege matrix > keeps tables read-only for candidate and service roles
+
+ Test Files  11 passed (11)
+      Tests  80 passed (80)
+   Start at  19:12:27
+   Duration  21.27s (transform 471ms, setup 0ms, collect 2.29s, tests 10.19s, environment 5ms, prepare 3.22s)
+
+Phase 2 database gate passed.

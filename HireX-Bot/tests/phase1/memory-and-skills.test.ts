@@ -202,7 +202,7 @@ describe('lesson-aware prompt registry wiring', () => {
   });
 });
 describe('Voyager skill registry (Build Plan Step 1.4/1.5)', () => {
-  it('registers exactly the three named Phase 1 skills', async () => {
+  it('registers the named Phase 1 and Phase 2 skills', async () => {
     const { VOYAGER_SKILLS, VOYAGER_SKILL_IDS } = await import('@/lib/voyager-skills/registry');
 
     expect(VOYAGER_SKILLS.map((skill) => skill.id)).toEqual([...VOYAGER_SKILL_IDS]);
@@ -210,7 +210,11 @@ describe('Voyager skill registry (Build Plan Step 1.4/1.5)', () => {
       'skill:untrusted-envelope-v1',
       'skill:smart-code-router-v1',
       'skill:piston-polyglot-runner-v1',
+      'skill:supabase-rls-client-v1',
+      'skill:episodic-memory-consolidator-v1',
+      'skill:dpdp-cascade-eraser-v1',
     ]);
+    expect(VOYAGER_SKILLS.filter((skill) => skill.phase === 2)).toHaveLength(3);
   });
 
   it('points every skill at files that exist in this repository', async () => {

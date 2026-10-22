@@ -1,0 +1,54 @@
+
+> hirex-bot@0.1.0 verify
+> npm run typecheck && npm run test
+
+
+> hirex-bot@0.1.0 typecheck C:\Users\LOUJAN B\HireX-Bot
+> tsc --noEmit
+
+
+> hirex-bot@0.1.0 test C:\Users\LOUJAN B\HireX-Bot
+> vitest run
+
+node.exe : The CJS build of Vite's Node API is deprecated. See 
+https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (The CJS bu...e details.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+ RUN  v2.1.9 C:/Users/LOUJAN B/HireX-Bot
+
+ Γ£ô tests/phase1/smart-code-router.test.ts (19 tests) 52ms
+ Γ£ô tests/phase1/piston-client.test.ts (25 tests) 19ms
+ Γ£ô tests/phase1/swarm-orchestration.test.ts (18 tests) 64ms
+ Γ£ô tests/phase2/contract-refinements.test.ts (14 tests) 1252ms
+ Γ£ô tests/phase1/memory-and-skills.test.ts (18 tests) 72ms
+ Γ£ô tests/phase1/swarm-memory.test.ts (12 tests) 161ms
+ Γ£ô tests/phase1/design-tokens.test.ts (24 tests) 12ms
+ Γ£ô tests/phase2/schema-immutability.test.ts (9 tests) 897ms
+ Γ£ô tests/phase2/erase-route.test.ts (13 tests) 29ms
+ Γ£ô tests/phase2/memory-consolidator.test.ts (8 tests) 113ms
+ Γ£ô tests/phase2/llm-consolidator.test.ts (6 tests) 61ms
+ Γ£ô tests/phase1/budget-ledger.test.ts (12 tests) 8ms
+ Γ£ô tests/phase2/rls-isolation.test.ts (6 tests) 1225ms
+ Γ£ô tests/phase2/public-passport.test.ts (4 tests) 1307ms
+   Γ£ô phase 2 ΓÇö evidence-bearing public passport (M6) > stops serving a published snapshot when consent is withdrawn 693ms
+ Γ£ô tests/phase1/episodic-store-qdrant.test.ts (7 tests) 20ms
+ Γ£ô tests/phase2/revocation-storage.test.ts (10 tests) 17ms
+ Γ£ô tests/bootstrap/untrusted-envelope.test.ts (17 tests) 41ms
+ Γ£ô tests/phase2/dpdp-cascade.test.ts (4 tests) 700ms
+ Γåô tests/integration/piston-live.test.ts (5 tests | 5 skipped)
+ Γ£ô tests/phase1/sandbox-service.test.ts (8 tests) 11ms
+ Γ£ô tests/phase2/panel-indexes.test.ts (4 tests) 713ms
+ Γ£ô tests/phase2/token-vault.test.ts (6 tests) 12ms
+ Γ£ô tests/phase2/privilege-matrix.test.ts (2 tests) 623ms
+ Γ£ô tests/phase1/swarm-runtime.test.ts (5 tests) 43ms
+
+ Test Files  23 passed | 1 skipped (24)
+      Tests  251 passed | 5 skipped (256)
+   Start at  19:42:43
+   Duration  21.82s (transform 651ms, setup 0ms, collect 3.37s, tests 7.45s, environment 7ms, prepare 4.29s)
+

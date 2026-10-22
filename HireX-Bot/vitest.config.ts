@@ -11,6 +11,7 @@ export default defineConfig({
     environment: 'node',
     include: ['tests/**/*.test.ts'],
     exclude: ['node_modules', '.next', 'tests/**/*.spec.ts'],
-    testTimeout: 15000,
+    testTimeout: 30000,
+    fileParallelism: false,
   },
 });

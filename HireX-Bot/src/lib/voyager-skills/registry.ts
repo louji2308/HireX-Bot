@@ -12,6 +12,9 @@ export const VOYAGER_SKILL_IDS = [
   'skill:untrusted-envelope-v1',
   'skill:smart-code-router-v1',
   'skill:piston-polyglot-runner-v1',
+  'skill:supabase-rls-client-v1',
+  'skill:episodic-memory-consolidator-v1',
+  'skill:dpdp-cascade-eraser-v1',
 ] as const;
 
 export type VoyagerSkillId = (typeof VOYAGER_SKILL_IDS)[number];
@@ -99,6 +102,72 @@ export const VOYAGER_SKILLS: readonly VoyagerSkill[] = [
       supportingTests: ['tests/integration/piston-live.test.ts'],
     },
     promotedAt: '2026-10-21T14:25:00.000Z',
+  },
+  {
+    id: 'skill:supabase-rls-client-v1',
+    version: 1,
+    name: 'RLS-scoped Supabase client',
+    phase: 2,
+    summary:
+      'Creates user-scoped and service-role clients from lazy configuration, forwards the caller token, and never lets a browser session read the ciphertext vault.',
+    inputs: ['accessToken', 'SupabaseConfig (url, anonKey, serviceRoleKey)'],
+    outputs: ['SupabaseClient<Database>', 'SupabaseUnavailableError when unconfigured'],
+    securityNotes: [
+      'Authorization is enforced by RLS plus SECURITY DEFINER RPCs, never by hiding a UI control.',
+      'The service-role client is server-only and never imported into client components.',
+      'Authenticated column grants exclude oauth_token_vault.',
+    ],
+    artifacts: {
+      modulePath: 'src/lib/supabase/server.ts',
+      testPath: 'tests/phase2/privilege-matrix.test.ts',
+      supportingTests: ['tests/phase2/rls-isolation.test.ts'],
+    },
+    promotedAt: '2026-10-21T16:00:00.000Z',
+  },
+  {
+    id: 'skill:episodic-memory-consolidator-v1',
+    version: 1,
+    name: 'Deterministic episodic consolidator',
+    phase: 2,
+    summary:
+      'Turns stored session responses into hash-provenanced memory facts, skips missing or unsafe scores, refuses to re-add facts after erasure, and keeps exactly one tombstone.',
+    inputs: ['ConsolidationInput', 'ConsolidatedFact[]'],
+    outputs: ['ConsolidatedFact[]', 'ErasureTombstone', 'AppendOutcome'],
+    securityNotes: [
+      'Stores SHA-256 digests of source prose instead of the prose itself.',
+      'Rejects criterion labels outside a narrow grammar and unknown round types.',
+      'Erasure tombstones block later re-consolidation for that candidate.',
+    ],
+    artifacts: {
+      modulePath: 'src/lib/memory/consolidator.ts',
+      testPath: 'tests/phase2/memory-consolidator.test.ts',
+    },
+    promotedAt: '2026-10-21T16:00:00.000Z',
+  },
+  {
+    id: 'skill:dpdp-cascade-eraser-v1',
+    version: 1,
+    name: 'DPDP cascade eraser',
+    phase: 2,
+    summary:
+      'Revokes provider grants, deletes database rows, purges memory and storage, deletes the auth identity, and records a truthful partial-or-complete receipt without personal data.',
+    inputs: ['bearer token', 'EraseDependencies'],
+    outputs: ['HTTP receipt', 'ErasureReceipt (PII-free)'],
+    securityNotes: [
+      'Every stage runs even when one fails; the receipt reports partial instead of success.',
+      'OAuth revocation happens before the vault row is deleted.',
+      'Receipts contain only a salted candidate reference and aggregate counts.',
+    ],
+    artifacts: {
+      modulePath: 'src/lib/supabase/erase-handler.ts',
+      testPath: 'tests/phase2/erase-route.test.ts',
+      supportingTests: [
+        'tests/phase2/dpdp-cascade.test.ts',
+        'tests/phase2/token-vault.test.ts',
+        'tests/phase2/revocation-storage.test.ts',
+      ],
+    },
+    promotedAt: '2026-10-21T16:00:00.000Z',
   },
 ];
 

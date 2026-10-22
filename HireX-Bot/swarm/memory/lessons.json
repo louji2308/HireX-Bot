@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-21T10:58:00.000Z",
+  "updated_at": "2026-10-21T18:20:00.000Z",
   "lessons": [
     {
       "schema_version": 1,
@@ -219,6 +219,39 @@
         "configuration",
         "composition-root",
         "sandbox"
+      ],
+      "supersedes": null
+    },
+    {
+      "schema_version": 1,
+      "lesson_id": "L-008",
+      "phase": 2,
+      "module": "supabase/migrations",
+      "task_id": "Step 2.2",
+      "root_cause": "Supabase default privileges grant EXECUTE on newly created functions to anon, authenticated and service_role. Revoking from PUBLIC only left those role grants intact, so an anonymous caller could execute erase_candidate and publish_passport on the hosted project; local PostgreSQL did not reproduce it because the shim roles had no default grants.",
+      "prevention_rule": "On hosted Postgres, verify privileges by role with has_function_privilege after every migration. Revoke from PUBLIC and from every Supabase role explicitly, then re-grant the minimum. Never infer least privilege from a clean local run.",
+      "confidence": 0.97,
+      "verification_state": "verified",
+      "provenance": {
+        "source": "runtime_failure",
+        "agent_role": "Security / Privacy Investigator",
+        "run_id": "phase-02-hosted-verify",
+        "commit_sha": null,
+        "file_paths": [
+          "supabase/migrations/0002_triggers_and_rls.sql",
+          "supabase/migrations/0003_function_privilege_hardening.sql",
+          "tests/phase2/privilege-matrix.test.ts"
+        ],
+        "evidence_ref": "docs/evidence/phase2-hosted-privileges.md"
+      },
+      "regression_test": "tests/phase2/privilege-matrix.test.ts",
+      "created_at": "2026-10-21T18:20:00.000Z",
+      "verified_at": "2026-10-21T18:20:00.000Z",
+      "tags": [
+        "security",
+        "least-privilege",
+        "supabase",
+        "hosted-parity"
       ],
       "supersedes": null
     }

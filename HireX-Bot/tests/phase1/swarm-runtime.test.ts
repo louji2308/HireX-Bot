@@ -26,7 +26,7 @@ describe('swarm runtime composition', () => {
   it('reports the promoted Voyager skills and their artifact state', async () => {
     const runtime = await getSwarmRuntime();
 
-    expect(runtime.skills).toHaveLength(3);
+    expect(runtime.skills).toHaveLength(6);
     expect(runtime.skillArtifactProblems).toEqual([]);
   });
 
