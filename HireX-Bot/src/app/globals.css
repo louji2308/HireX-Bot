@@ -79,3 +79,12 @@
     outline-offset: 2px;
   }
 }
+
+.pulse-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.pulse-scroll::-webkit-scrollbar {
+  display: none;
+}
