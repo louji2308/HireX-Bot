@@ -7,7 +7,7 @@ Canonical implementation ledger (AGENTS.md §15). One file, no duplicates.
 ## Current Phase / Status
 
 **Phase 3 - Workspace Shell, Floating Navigation, Event Bus**
-Status: **LOCALLY REMEDIATED; NOT PRODUCTION-COMPLETE.** Typecheck, **247 offline tests** (48 database/live tests skipped) and the production build pass. Phase 3 is committed in `ad4a4ba` (contracts/bus) and `09c8f88` (workspace UI) on `main`; the audit remediation is committed separately. The 2026-10-22 audit found and fixed real state-machine, event-validation, routing, telemetry and documentation faults. The Inngest endpoint is still local-only: GET introspection returns 200 in dev mode, but there is no durable checkpoint store, registered workflow, cloud signing key or auth session. Phase 1 and Phase 2 history follows below.
+Status: **LOCALLY REMEDIATED; NOT PRODUCTION-COMPLETE.** Typecheck, **247 offline tests** (48 database/live tests skipped) and the production build pass. Phase 3 is committed in `ad4a4ba` (contracts/bus) and `09c8f88` (workspace UI) on `main`; the audit remediation is committed in `24fe39c`. The 2026-10-22 audit found and fixed real state-machine, event-validation, routing, telemetry and documentation faults. The Inngest endpoint is still local-only: GET introspection returns 200 in dev mode, but there is no durable checkpoint store, registered workflow, cloud signing key or auth session. Phase 1 and Phase 2 history follows below.
 
 ---
 
@@ -191,8 +191,8 @@ Decision log (not training data): `trajectories/phase_01_dpo.jsonl` — 4 prefer
 
 ## Last Verified Commit / Deployment
 
-- Commit: **`3f120bc`** on `main` (Phase 2), pushed to `origin/main`; Phase 1 was `5f1e05a`.
-- Deployment: **local only** --- production build served on `http://127.0.0.1:3100`; `/api/health` returned 210 at verification time.
+- Commit: **`24fe39c`** on `main` (Phase 3 remediation), local only; preceding Phase 3 commits `ad4a4ba`/`09c8f88`/`718a638` were pushed to `origin/main`. Phase 2 was `3f120bc`.
+- Deployment: **local only** --- production build from `24fe39c` served on `http://127.0.0.1:3100`; `/governance` and `/dashboard` returned 200.
 - Verification identity: Node `v24.13.0` (host) / `node:21-bookworm-slim` (container), npm `11.6.2`, Next `15.5.28`, Vitest `2.1.9`, TypeScript `5.9.3`.
 
 ---
@@ -266,7 +266,7 @@ Phase 2 is committed and pushed. Open Phase 3 with its prescribed 8-agent swarm 
 
 ### Status
 
-**LOCALLY REMEDIATED; GATE NOT CLAIMED.** Phase 3 contracts and bus are committed in `ad4a4ba`; the workspace shell, navigation and telemetry surfaces are committed in `09c8f88`. Both are pushed to `origin/main`. The 2026-10-22 remediation changes the frozen contract and is committed separately. Typecheck, **247 offline tests** (48 database/live tests skipped) and the production build pass. Browser checks cover desktop, mobile and focus-mode layouts. The Inngest endpoint is verified only against local dev introspection; no cloud signing key or Inngest dev server exists, and the workflow store remains in-memory.
+**LOCALLY REMEDIATED; GATE NOT CLAIMED.** Phase 3 contracts and bus are committed in `ad4a4ba`; the workspace shell, navigation and telemetry surfaces are committed in `09c8f88`. Both are pushed to `origin/main`. The 2026-10-22 remediation changes the frozen contract and is committed in `24fe39c`. Typecheck, **247 offline tests** (48 database/live tests skipped) and the production build pass. Browser checks cover desktop, mobile and focus-mode layouts. The Inngest endpoint is verified only against local dev introspection; no cloud signing key or Inngest dev server exists, and the workflow store remains in-memory.
 
 ### Verified complete
 
