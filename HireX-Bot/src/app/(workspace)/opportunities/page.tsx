@@ -1,5 +1,5 @@
-import { WorkspacePage } from '@/components/workspace/WorkspacePage';
+import { OpportunityBoardClient } from '@/components/opportunities/OpportunityBoardClient';
 
 export default function OpportunitiesPage() {
-  return <WorkspacePage tab="opportunities" />;
+  return <OpportunityBoardClient />;
 }

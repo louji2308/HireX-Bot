@@ -1,0 +1,39 @@
+{
+  "schema_version": "phase5.snapshot.v1",
+  "source": "greenhouse_public",
+  "source_job_id": "8229735",
+  "company": "HackerRank",
+  "title": "Software Development Engineer Intern",
+  "url": "https://job-boards.greenhouse.io/hackerrank/jobs/8229735",
+  "locations": ["bengaluru"],
+  "location_text": "Onsite in Bangalore",
+  "work_modes": ["onsite"],
+  "employment_type": "internship",
+  "compensation": {
+    "kind": "unknown",
+    "currency": "INR",
+    "min": null,
+    "max": null,
+    "period": null
+  },
+  "joining": {
+    "earliest": "2027-01-01",
+    "latest": "2027-06-30"
+  },
+  "requirements": {
+    "core_skills": ["javascript", "typescript", "data_structures", "algorithms"],
+    "preferred_skills": ["git", "problem_solving"],
+    "min_experience_years": 0,
+    "max_experience_years": null,
+    "degree_required": null,
+    "graduation_years": null
+  },
+  "captured_at": "2026-10-24T00:00:00.000Z",
+  "source_updated_at": "2026-10-15T07:56:34-04:00",
+  "published_at": null,
+  "valid_through": null,
+  "description_excerpt": "HackerRank is looking for high-potential Hacker Interns to join our team of world-class full-time Hackers. This is a 6-month full-time onsite internship (Jan - June 2027) in the Bengaluru office. Interns are paired with a mentor and contribute to production work from the first month.",
+  "quality_excerpt": "This is a 6-month full-time onsite internship (Jan - June 2027). Please apply only if you are available full-time to work from the Bengaluru office for the entire duration. What benefits do I avail apart from the stipend? There is insurance, coverage of two-way travel, various reimbursements and more. HackerRank is an equal opportunity and affirmative action employer.",
+  "capture_method": "manual_api_capture",
+  "synthetic": false
+}

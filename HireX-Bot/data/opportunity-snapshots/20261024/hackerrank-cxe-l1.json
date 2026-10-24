@@ -1,0 +1,39 @@
+{
+  "schema_version": "phase5.snapshot.v1",
+  "source": "greenhouse_public",
+  "source_job_id": "8127535",
+  "company": "HackerRank",
+  "title": "Customer Experience Engineer, L1",
+  "url": "https://job-boards.greenhouse.io/hackerrank/jobs/8127535",
+  "locations": ["bengaluru"],
+  "location_text": "Hybrid in Bangalore, India",
+  "work_modes": ["hybrid"],
+  "employment_type": "full_time",
+  "compensation": {
+    "kind": "unknown",
+    "currency": "INR",
+    "min": null,
+    "max": null,
+    "period": null
+  },
+  "joining": {
+    "earliest": null,
+    "latest": null
+  },
+  "requirements": {
+    "core_skills": ["javascript", "python"],
+    "preferred_skills": ["sql", "apis", "debugging", "communication"],
+    "min_experience_years": 0,
+    "max_experience_years": 3,
+    "degree_required": null,
+    "graduation_years": null
+  },
+  "captured_at": "2026-10-24T00:00:00.000Z",
+  "source_updated_at": "2026-10-09T11:31:20-04:00",
+  "published_at": null,
+  "valid_through": null,
+  "description_excerpt": "Customer Experience Engineering is where customers, product, and engineering meet. CXE 1 investigates real technical problems across the platform, APIs, integrations, data, and customer workflows. A recent graduate or early-career engineer with up to 3 years of relevant experience is encouraged to apply, including strong freshers.",
+  "quality_excerpt": "A recent graduate or early-career engineer with up to 3 years of relevant experience. Strong freshers are encouraged to apply. Strong programming fundamentals and comfort reading code; experience with Python, JavaScript, Java, or a similar language. Open to rotational shifts and occasional on-call coverage across a global customer base.",
+  "capture_method": "manual_api_capture",
+  "synthetic": false
+}

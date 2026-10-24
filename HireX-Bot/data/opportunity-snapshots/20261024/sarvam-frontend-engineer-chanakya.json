@@ -1,0 +1,39 @@
+{
+  "schema_version": "phase5.snapshot.v1",
+  "source": "ashby_public",
+  "source_job_id": "10a352d0-a65b-4599-8998-e09deef34349",
+  "company": "Sarvam",
+  "title": "Frontend Engineer, Chanakya",
+  "url": "https://jobs.ashbyhq.com/sarvam/10a352d0-a65b-4599-8998-e09deef34349",
+  "locations": ["bengaluru"],
+  "location_text": "Bengaluru",
+  "work_modes": ["onsite"],
+  "employment_type": "full_time",
+  "compensation": {
+    "kind": "unknown",
+    "currency": "INR",
+    "min": null,
+    "max": null,
+    "period": null
+  },
+  "joining": {
+    "earliest": null,
+    "latest": null
+  },
+  "requirements": {
+    "core_skills": ["react", "typescript", "css", "state_management", "data_visualization"],
+    "preferred_skills": ["websocket", "threejs", "offline_first"],
+    "min_experience_years": 3,
+    "max_experience_years": 6,
+    "degree_required": null,
+    "graduation_years": null
+  },
+  "captured_at": "2026-10-24T00:00:00.000Z",
+  "source_updated_at": null,
+  "published_at": "2026-04-17T20:10:41.942+00:00",
+  "valid_through": null,
+  "description_excerpt": "Frontend engineers on this team build interfaces on top of Sarvam's AI stack for demanding environments, including offline-first and low-bandwidth clients. The role asks for 3-6 years of frontend engineering, deep React and TypeScript proficiency, modern CSS, component architecture, and state management.",
+  "quality_excerpt": "3-6 years in frontend engineering with shipped, production-grade products. Deep React proficiency; TypeScript; modern CSS (Tailwind or equivalent); strong component architecture instincts. State management proficiency: Zustand, Redux Toolkit, or equivalent; strong async data patterns. Data visualisation experience: D3.js, Mapbox/Leaflet, Deck.gl for geospatial, Recharts, or equivalent.",
+  "capture_method": "manual_api_capture",
+  "synthetic": false
+}

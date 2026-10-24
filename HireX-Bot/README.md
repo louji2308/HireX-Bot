@@ -4,7 +4,7 @@ Autonomous proof-of-work, apprenticeship and employment architecture for India's
 
 Built for **Code for a Billion — Bharat Agentic-AI Hackathon 2026**, Track 10 (Tech Employment for Youth).
 
-> **Status: Phase 3 (monochrome workspace shell and event contracts).** The five-tab workspace, six-state workflow store, Inngest event contracts, governance placeholder and honest telemetry are implemented and locally tested. There is no deployed origin, authenticated session, durable checkpoint store, or registered Inngest function yet; see [Progress.md](Progress.md) for the verified state, evidence and open blockers.
+> **Status: Phase 5 (M4 opportunity discovery, snapshot-only).** Phase 4 candidate intake and Phase 5 opportunity discovery are implemented and locally tested. Phase 5 loads seven manually captured public job snapshots, assesses five dimensions deterministically, routes each role to one of four decision states, and serves a local triage board. There is no live ingestion, LLM scoring, database write path, deployed origin, authenticated session, or registered Inngest function yet; see [Progress.md](Progress.md) for verified evidence and open blockers.
 
 ---
 
@@ -21,6 +21,8 @@ Built for **Code for a Billion — Bharat Agentic-AI Hackathon 2026**, Track 10 
 | Swarm orchestration | Independent proposals → critique → arbitration, with mandatory evidence and testable claims; Reflexion drafts that cannot be promoted without a passing regression test |
 | Sandbox | Piston adapter with a typed outcome union, per-language probe verification, endpoint failover and a live suite proving the 3 s / 128 MiB limits |
 | Readiness surface | `GET /api/health` reports the probed sandbox capability, lesson injection count, active memory store and skill artifact state |
+| Candidate intake (Phase 4) | Local intake session, deterministic resume/GitHub extraction with review, 34-signal answers, consent, practice probe and local fan-out; database and Inngest writes are not connected |
+| Opportunity discovery (Phase 5) | Seven captured public snapshots, deterministic eligibility/role-fit/quality assessment, total four-state routing, local saved state and a monochrome triage board; no live ingestion and no application submission |
 
 Every successful model call returns `evidence` (source, model, tier, prompt hash, untrusted digest, schema hash, budget level). Every failure returns **no output field at all**. Tasks that can become hiring evidence (`QUESTION_QC`, `RESPONSE_GRADING`) can never be produced by the local model.
 
@@ -114,6 +116,23 @@ There is no auth session, no Supabase checkpoint store and no registered Inngest
 
 ---
 
+## Candidate intake and opportunity discovery (Phases 4-5)
+
+Phase 4 adds the real M1 intake path. A candidate starts a local intake session, pastes a resume or GitHub URL for deterministic extraction, reviews the extracted signals, completes the bounded question flow, records consent and runs the practice probe. Sessions and completion are stored in `.hirex-local/`; no candidate record is written to the hosted database and no `candidate/onboarding.completed` event is emitted because Inngest has no registered functions.
+
+Phase 5 adds a real, deliberately narrow M4 vertical slice:
+
+- **Snapshot source:** `data/opportunity-snapshots/20261024/` contains four HackerRank Greenhouse roles and three Sarvam Ashby roles, each with its source URL, source job ID, capture date and `PROVENANCE.md` note. The board always labels this as captured data, not live discovery.
+- **Deterministic assessment:** candidate normalization, eligibility, declared-skill role fit (80% core, 20% preferred), a narrow fee/deposit/bond quality scan and candidate-scoped deduplication run without an LLM. Identity, college, college tier, gender, language, autonomy, consent and confidence fields cannot change a score.
+- **Four-state router:** `State_1` (pursue now) is unreachable because evidence and readiness are `not_assessed` in this phase. Roles route to `State_2` (worth a closer look / confirmation needed), `State_3` (build evidence first) or `State_4` (confirmed hard conflict or high-confidence fee signal).
+- **Local APIs and store:** `GET /api/opportunities` serves a sample preview or the candidate workspace; `POST /api/opportunities/discover` requires completed intake; `POST /api/opportunities/[pipelineId]/save` toggles saved state with revision checks; `DELETE /api/opportunities` clears the local workspace. Onboarding deletion also erases it.
+- **Pure integration mapper:** `toEmploymentPipelineRow()` produces the frozen Phase 2 `employment_pipeline_events` insert shape, but no request path calls it in Phase 5. It refuses synthetic preview data and invalid candidate UUIDs.
+- **Triage UI:** `/opportunities` has four state filters, five inspector pills, source/provenance disclosure, eligibility and quality findings, and a saved-state toggle. Preview mode disables saving and links back to intake. There is no apply, dispatch or PDF action.
+
+The sample preview returns seven jobs with State counts `State_1: 0`, `State_2: 2`, `State_3: 1`, `State_4: 4`, and reports `live: false`, `durable: false`. These are local snapshot results, not hiring probabilities. Salary is unknown unless the captured job page stated it.
+
+---
+
 ## Layout
 
 ```
@@ -121,11 +140,14 @@ src/
   app/                      # App Router: workspace tabs, /governance, health, erase, Inngest
   agents/
     router.ts               # deterministic SMART-Code router
+    module4-discovery/      # candidate adapter, eligibility, role fit, quality, router, dedupe
     prompts/                # trusted system prompts + lesson injection
-  components/               # navigation, workspace shell and telemetry components
+  components/               # navigation, workspace shell, telemetry, onboarding, opportunities
   inngest/                  # event schemas, state machine, store and audit chain
   lib/
     navigation/             # route-to-chrome resolution
+    onboarding/             # local intake session, extraction and probe stores
+    opportunities/          # snapshot schema/loader and local workspace store
     security/untrusted-envelope.ts
     supabase/               # config, server clients, AES-256-GCM token vault
     memory/                 # deterministic consolidation + erasure receipts
@@ -134,12 +156,15 @@ src/
     piston/                 # sandbox client + server composition root
   types/phase1_contracts.ts # frozen Phase 1 interface (one documented amendment)
   types/phase3_contracts.ts # frozen Phase 3 workflow, navigation and telemetry contracts
+  types/phase4_contracts.ts # frozen Phase 4 intake contracts
+  types/phase5_contracts.ts # frozen Phase 5 discovery contracts
   types/database.types.ts   # generated from the hosted schema
+data/opportunity-snapshots/ # manually captured public jobs with provenance
 supabase/
   migrations/               # 0001 schema, 0002 triggers/RLS/RPCs, 0003 grant hardening, 0004 contract refinements
   local/0000_auth_shim.sql  # local-only auth schema/roles; never deployed
   seed.sql                  # deterministic fixtures
-tests/                      # bootstrap/, phase1/, phase2/, phase3/, integration/ (opt-in live)
+tests/                      # bootstrap/, phase1/, phase2/, phase3/, phase4/, phase5/, integration/ (opt-in live)
 scripts/                    # sandbox, verify-container, pg-up/down/verify
 swarm/memory/lessons.json   # verified prevention rules
 trajectories/               # decision log (NOT training data)
@@ -153,13 +178,13 @@ docs/evidence/              # captured verification artifacts
 ## Verification
 
 ```bash
-npm run verify        # typecheck + 247 offline tests (48 database/live tests skipped)
+npm run verify        # typecheck + 345 offline tests (48 database/live tests skipped)
 npm run pg:verify     # Phase 2 database suites against real PostgreSQL 16
 npm run build
 npm run test:sandbox  # live tests against a real executor
 ```
 
-Last verified: typecheck clean, **247 offline tests passing across 33 files** (48 database/live tests skipped), production build clean, and the Phase 3 workspace rendered at desktop, mobile and focus-mode widths with no console errors (screenshots in `docs/evidence/phase3-*.png`). The Inngest route returns a real 200 in dev mode with zero registered functions; it has not been connected to a running Inngest server. Live sandbox verification from Phase 1 remains: real stdout for Python and JavaScript, a runaway loop killed at ~3.1 s, and a 400 MB allocation killed at 134,216,000 bytes.
+Last verified: typecheck clean, **345 offline tests passing across 44 files, with 8 database/live files (48 tests) skipped**, production build clean, `/opportunities` returned HTTP 200, `GET /api/opportunities` served 7 snapshot jobs with State counts `0/2/1/4` and `live: false`, `durable: false`, and the dynamic save route returned 401 without an intake session. Phase 3 earlier rendered at desktop, mobile and focus-mode widths with no console errors (screenshots in `docs/evidence/phase3-*.png`); Phase 5 UI coverage is static markup plus the runtime shell, not a browser interaction test. The Inngest route returns a real 200 in dev mode with zero registered functions; it has not been connected to a running Inngest server. Live sandbox verification from Phase 1 remains: real stdout for Python and JavaScript, a runaway loop killed at ~3.1 s, and a 400 MB allocation killed at 134,216,000 bytes.
 
 The Phase 2 privilege matrix is also verified on the hosted project after `0004`: `anon` can only execute `get_public_passport`; `authenticated` can publish/unpublish, ask for its own session ownership and read the consent-gated TPO cohort; only `service_role` can use the writer RPCs, record sessions, mint certificates or erase. `authenticated` cannot read `candidate_profiles.oauth_token_vault`. Evidence is in `docs/evidence/phase2-*`.
 
@@ -170,7 +195,7 @@ The same suite was re-run inside a `node:20-bookworm-slim` container (`scripts/v
 ## Known limitations
 
 1. **The sandbox is a local developer host, not a deployment.** It runs in WSL2 + Docker on one machine, has two runtimes (python 3.10.0, node 20.11.1), and must be started with `npm run sandbox:up`. It cannot serve a deployed demo yet; only the client contract and enforcement evidence are portable.
-2. **Persistence exists but is not yet on a user path.** The Phase 2 schema, RLS, erase route and token vault are verified by tests, but no UI or workflow reads them yet, and the budget ledger is still process-local. Phase 4+ will wire them.
+2. **Hosted persistence is not yet on a user path.** The Phase 2 schema, RLS, erase route and token vault are verified by tests, but Phase 4 intake and Phase 5 opportunities currently use local JSON stores. No candidate or opportunity record is written to Supabase; a pure Phase 2 row mapper exists but is not called, and the budget ledger is still process-local.
 3. **Hosted database differs by one major version.** Supabase runs PostgreSQL 17 while the spec and local tests use 16. Migration behavior is verified locally; hosted parity is not exhaustively tested.
 4. **Hosted end-to-end auth is unverified.** No OAuth client credentials or service-role key were available in this environment, so sign-in and a live hosted erase call have not been executed. The route is tested with injected clients.
 5. **Hosted auth deletion is unverified.** The erase handler calls `client.auth.admin.deleteUser(candidateId)` after the table and memory purge, but no live service-role call has been executed because the credentials were unavailable.
@@ -180,8 +205,9 @@ The same suite was re-run inside a `node:20-bookworm-slim` container (`scripts/v
 9. **`Google Sans Flex` is not publicly served**, so the display stack falls back to a system face. Raleway and JetBrains Mono are self-hosted under the OFL.
 10. **Repository layout.** Git's root is the Windows home directory, so the project lives at HireX-Bot/ inside it; the remote tracks only that folder.
 11. **Swarm modules are not yet on a user path.** The orchestrator and Reflexion have tests but no product workflow calls them; that arrives with the later modules.
-12. **The public server surface is small but not protected end to end.** `GET /api/health` is unauthenticated, `DELETE /api/candidate/erase` requires a bearer token, and `/api/inngest` serves zero registered functions. There is no candidate session, so the workspace routes themselves are public.
-13. **Phases 4-10 are not implemented.** Opportunity discovery, scoring, simulation, proof-of-work, the passport and analytics have contracts or design notes but no working user path.
+12. **The public server surface is not protected end to end.** `GET /api/health` is unauthenticated, `DELETE /api/candidate/erase` requires a bearer token, and `/api/inngest` serves zero registered functions. There is no authenticated candidate session; intake uses a local cookie, and the workspace routes themselves are public.
+13. **Phases 6-10 are not implemented.** Interview simulation, proof-of-work, the skill passport, human-approved applications and analytics have contracts or design notes but no working user path.
+14. **Opportunity discovery is snapshot-only.** The seven jobs were manually captured on 2026-10-24; there is no live refresh, ATS crawl or application submission. `State_1` is unreachable because evidence and readiness are not assessed, and fit scores are descriptive, not hiring probabilities.
 
 ---
 

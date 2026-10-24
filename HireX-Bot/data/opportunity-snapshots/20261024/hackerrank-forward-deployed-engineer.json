@@ -1,0 +1,39 @@
+{
+  "schema_version": "phase5.snapshot.v1",
+  "source": "greenhouse_public",
+  "source_job_id": "7461142",
+  "company": "HackerRank",
+  "title": "Forward Deployed Engineer",
+  "url": "https://job-boards.greenhouse.io/hackerrank/jobs/7461142",
+  "locations": ["bengaluru"],
+  "location_text": "Hybrid in Bengaluru, India",
+  "work_modes": ["hybrid"],
+  "employment_type": "full_time",
+  "compensation": {
+    "kind": "unknown",
+    "currency": "INR",
+    "min": null,
+    "max": null,
+    "period": null
+  },
+  "joining": {
+    "earliest": null,
+    "latest": null
+  },
+  "requirements": {
+    "core_skills": ["ruby", "solution_delivery", "enterprise_integrations"],
+    "preferred_skills": ["python", "apis", "javascript"],
+    "min_experience_years": null,
+    "max_experience_years": null,
+    "degree_required": null,
+    "graduation_years": null
+  },
+  "captured_at": "2026-10-24T00:00:00.000Z",
+  "source_updated_at": "2026-10-14T10:44:41-04:00",
+  "published_at": null,
+  "valid_through": null,
+  "description_excerpt": "A Forward Deployed Engineer works onsite with customers as the primary technical presence in engagements, leading pilots, demos, and adoption. The role needs enough full-stack depth to configure, debug, and explain web applications, integrations, and API scripts in Ruby or Python.",
+  "quality_excerpt": "A customer-facing technical lead with enough full-stack depth to configure, debug, and explain web applications, integrations, and generate API scripts as needed (Ruby or Python). Confident leading conversations onsite with prospects and enterprise customers while gathering requirements and shaping technical approaches.",
+  "capture_method": "manual_api_capture",
+  "synthetic": false
+}

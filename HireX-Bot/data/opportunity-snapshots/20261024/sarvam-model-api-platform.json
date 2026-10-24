@@ -1,0 +1,39 @@
+{
+  "schema_version": "phase5.snapshot.v1",
+  "source": "ashby_public",
+  "source_job_id": "0371342b-5cb8-487b-9310-4d0eb5b37f47",
+  "company": "Sarvam",
+  "title": "Software Engineer - Model API Platform",
+  "url": "https://jobs.ashbyhq.com/sarvam/0371342b-5cb8-487b-9310-4d0eb5b37f47",
+  "locations": ["bengaluru"],
+  "location_text": "Bengaluru",
+  "work_modes": ["onsite"],
+  "employment_type": "full_time",
+  "compensation": {
+    "kind": "unknown",
+    "currency": "INR",
+    "min": null,
+    "max": null,
+    "period": null
+  },
+  "joining": {
+    "earliest": null,
+    "latest": null
+  },
+  "requirements": {
+    "core_skills": ["python", "go", "sql", "websocket", "distributed_systems"],
+    "preferred_skills": ["fastapi", "kubernetes", "llm_serving"],
+    "min_experience_years": 4,
+    "max_experience_years": 6,
+    "degree_required": null,
+    "graduation_years": null
+  },
+  "captured_at": "2026-10-24T00:00:00.000Z",
+  "source_updated_at": null,
+  "published_at": "2026-10-13T07:12:53.480+00:00",
+  "valid_through": null,
+  "description_excerpt": "Sarvam's model APIs power ASR, TTS, vision, LLM, and translation products over HTTP and WebSockets, with metering, billing, prepaid wallets, and rate limiting. The role owns major platform areas end to end and asks for 4-6 years of production backend systems experience, including low-latency services and relational databases.",
+  "quality_excerpt": "4-6 years of building and operating production backend systems. At least one service you owned end to end under real load, including what broke and what you changed. Strong distributed-systems fundamentals: concurrency, networking, queues, caching, consistency and failure modes. Fluency in at least one backend language and willingness to work in both Python and Golang.",
+  "capture_method": "manual_api_capture",
+  "synthetic": false
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": "phase5.snapshot.v1",
+  "source": "greenhouse_public",
+  "source_job_id": "8155938",
+  "company": "HackerRank",
+  "title": "Software Development Engineer in Test II",
+  "url": "https://job-boards.greenhouse.io/hackerrank/jobs/8155938",
+  "locations": ["bengaluru"],
+  "location_text": "Hybrid in Bangalore, India",
+  "work_modes": ["hybrid"],
+  "employment_type": "full_time",
+  "compensation": {
+    "kind": "unknown",
+    "currency": "INR",
+    "min": null,
+    "max": null,
+    "period": null
+  },
+  "joining": {
+    "earliest": null,
+    "latest": null
+  },
+  "requirements": {
+    "core_skills": ["javascript", "typescript", "playwright", "api_testing", "ci_cd"],
+    "preferred_skills": ["postman", "git", "docker", "github_actions"],
+    "min_experience_years": 3,
+    "max_experience_years": null,
+    "degree_required": null,
+    "graduation_years": null
+  },
+  "captured_at": "2026-10-24T00:00:00.000Z",
+  "source_updated_at": "2026-10-20T12:54:41-04:00",
+  "published_at": null,
+  "valid_through": null,
+  "description_excerpt": "As an SDET-II, you will shape and execute an automation-first quality strategy across web, API, and AI-driven systems. The role requires 3+ years in QA Automation or SDET work, with Playwright and SerenityJS, JavaScript or TypeScript, REST API testing, and CI/CD automation.",
+  "quality_excerpt": "3+ years of experience in QA Automation / SDET roles. Strong hands-on experience with Playwright and SerenityJS (JavaScript/TypeScript). Proficient in JavaScript/TypeScript for building reliable, maintainable automation. Solid experience in REST API testing using Postman or similar tools. Hands-on experience with CI/CD automation using Jenkins and/or GitHub Actions.",
+  "capture_method": "manual_api_capture",
+  "synthetic": false
+}

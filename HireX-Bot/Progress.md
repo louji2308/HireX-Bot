@@ -6,14 +6,66 @@ Canonical implementation ledger (AGENTS.md §15). One file, no duplicates.
 
 ## Current Phase / Status
 
-**Phase 3 - Workspace Shell, Floating Navigation, Event Bus**
-Status: **LOCALLY REMEDIATED; NOT PRODUCTION-COMPLETE.** Typecheck, **247 offline tests** (48 database/live tests skipped) and the production build pass. Phase 3 is committed in `ad4a4ba` (contracts/bus) and `09c8f88` (workspace UI) on `main`; the audit remediation is committed in `24fe39c`. The 2026-10-22 audit found and fixed real state-machine, event-validation, routing, telemetry and documentation faults. The Inngest endpoint is still local-only: GET introspection returns 200 in dev mode, but there is no durable checkpoint store, registered workflow, cloud signing key or auth session. Phase 1 and Phase 2 history follows below.
+**Phase 5 - M4 Opportunity Discovery**
+Status: **IMPLEMENTED; VERIFIED LOCALLY (SNAPSHOT-ONLY).** Typecheck clean; production build clean. Phase 5 tests: **54/54 passed** across 11 files. Full suite: **345 passed / 48 skipped / 393 tests** (44 passed files, 8 skipped files). Runtime smoke: `GET /api/opportunities` returned 7 snapshot jobs with State counts `0/2/1/4` and `live: false`, `durable: false`; `/opportunities` returned HTTP 200 with the client shell; the dynamic save route returned 401 without an intake session and the removed legacy save path returned 404. Seven manually captured public Greenhouse/Ashby snapshots are assessed deterministically; no live ingestion, LLM scoring, DB writes, or Inngest functions are connected. A pure Phase 2 row mapper is tested but never invoked. `PHASE5_CONTRACT.md` is frozen at `phase5.discovery.v1`. Phase 4 and Phase 5 work remain uncommitted; HEAD is `8dfad40`.
 
 ---
 
 ## Current Objective
 
-Finish and verify the Phase 3 audit remediation, record the remaining production blockers honestly, then open Phase 4 (M1 intake) with its prescribed 9-agent phase-start swarm before coding. Do not treat the empty Inngest route, in-memory store or static telemetry as a completed durable workflow.
+Close the Phase 5 gate: keep the verified snapshot-only implementation honest, review the full diff, and confirm the pure Phase 2 row mapper remains uncalled with no DB write path. Do not start Phase 6 or claim live ingestion, DB persistence, durable Inngest, or browser-verified UI until those capabilities and evidence exist.
+
+---
+
+## Phase 5 - M4 Opportunity Discovery (snapshot-only)
+
+Status: **IMPLEMENTED; VERIFIED LOCALLY. NOT COMMITTED.** Contract: `PHASE5_CONTRACT.md` (`phase5.discovery.v1`).
+
+### What works
+
+| Capability | Evidence |
+|---|---|
+| Seven captured public job snapshots (4 HackerRank Greenhouse, 3 Sarvam Ashby) with source URL, source job ID, capture date and manual-only provenance | `data/opportunity-snapshots/20261024/*.json`, `PROVENANCE.md`; `tests/phase5/snapshot-schema.test.ts` (5 tests) |
+| Strict snapshot schema/loader with HTTPS-only URLs, no unknown compensation precision, content hashing and file-specific errors | `src/lib/opportunities/snapshot-schema.ts`, `snapshot-source.ts` |
+| Deterministic candidate adapter, eligibility, 80/20 role fit, opportunity quality scan, total four-state router and candidate-scoped dedupe | `src/agents/module4-discovery/*`; scoring 6, eligibility 3, quality 9, router 7, dedupe 3 tests |
+| Five-dimension assessment with evidence/readiness explicitly `not_assessed` and candidate-safe board projection | `assessment.ts`, `workspace.ts`; fairness tests (2, including 500-run fast-check) |
+| Local atomic workspace store and APIs: preview GET, completed-intake discovery POST, dynamic saved-state POST, workspace DELETE | `src/lib/opportunities/file-store.ts`, `src/app/api/opportunities/**`; route tests (5) and file-store tests (2) |
+| Pure Phase 2 employment-pipeline mapper with UUID and synthetic-data guards; never called by a write path | `src/agents/module4-discovery/pipeline-row.ts`; `tests/phase5/pipeline-row.test.ts` (3 tests) |
+| Snapshot-only triage board with four state filters, five inspector pills, source/provenance disclosure, sample-preview labeling and no apply action | `src/components/opportunities/**`; triage-view tests (3) |
+| Intake deletion also erases the local opportunity workspace | `src/app/api/onboarding/session/route.ts` |
+
+### Decisions and boundaries
+
+1. **No live discovery.** Ingesting live ATS/JobSpy/Jina/Internshala/NCS data is not implemented. The board always reports `live: false` and source `snapshot_preview` or `snapshot`.
+2. **State 1 is unreachable in Phase 5.** Evidence and readiness are `not_assessed`; the board never presents a fit score as a hiring probability. Sample preview distribution is 0/2/1/4 for States 1-4.
+3. **Candidate scoring is allowlisted.** Name, email, phone, college, college tier, preferred language, gender, autonomy, consent, struggle/confidence and raw resume text have zero effect. Missing evidence is never treated as low ability.
+4. **Eligibility is conservative.** `credit_only` compensation is `not_applicable`; missing degree/batch/compensation is `unknown`, never a fail. A pass means no confirmed hard conflict, not employer acceptance.
+5. **Quality scan is narrow.** High-confidence explicit fee/deposit/pay-for-job phrases can fail; bare `fee`, bonds and service agreements are medium human-review signals. Copy says no phrase was found, never Zero-Bond Verified.
+6. **Local only.** `durable: false`, `.hirex-local/opportunities/<session>.json`, no database rows, no Inngest event and no external application. Saved state is local and revision-checked.
+
+### Verification
+
+| Command | Result |
+|---|---|
+| `npx vitest run tests/phase5` | **PASS** - 11 files, 54 tests |
+| `npm test` | **PASS** - 44 passed files / 8 skipped files; 345 passed / 48 skipped / 393 tests; exit 0 |
+| `npm run typecheck` | **PASS** - 0 errors |
+| `npm run build` | **PASS** - production build clean; `/api/opportunities/[pipelineId]/save` and `/opportunities` compiled |
+| `next start` + `GET /api/opportunities` | **PASS** - HTTP 200; 7 jobs; counts `{State_1:0,State_2:2,State_3:1,State_4:4}`; `live:false`; `durable:false` |
+| `next start` + `GET /opportunities` | **PASS** - HTTP 200; client shell returned. No browser/jsdom interaction test available. |
+| `next start` + `POST /api/opportunities/[pipelineId]/save` without cookie | **PASS** - 401 `NO_SESSION`; removed `/api/opportunities/save` returned 404 |
+| `GET /api/health` during smoke | **503** - expected because the local Piston sandbox was not running; unrelated to Phase 5 |
+
+### Gaps and honest limitations
+
+- No live source ingestion/refresh, no LLM scoring, no DB write path (the pure mapper is intentionally never called), no durable Inngest workflow, no deployed origin.
+- No browser/axe smoke test; UI coverage is static markup plus the runtime HTTP shell.
+- `WORKSPACE_EYEBROW` in `src/lib/ux/copy.ts` contains a pre-existing encoding artifact; the Phase 5 board does not use it.
+- 15 npm vulnerabilities remain untriaged; there is no ESLint gate.
+
+### Files
+
+`data/opportunity-snapshots/20261024/`; `src/lib/opportunities/{snapshot-schema,snapshot-source,file-store,store}.ts`; `src/agents/module4-discovery/{skill-vocabulary,candidate,eligibility,role-fit,quality-scan,router,dedupe,assessment,workspace,pipeline-row}.ts`; `src/app/api/opportunities/{route,discover/route,[pipelineId]/save/route}.ts`; `src/components/opportunities/{OpportunityBoardView,OpportunityBoardClient}.tsx`; `src/app/(workspace)/opportunities/page.tsx`; `tests/phase5/`.
 
 ---
 
@@ -191,20 +243,21 @@ Decision log (not training data): `trajectories/phase_01_dpo.jsonl` — 4 prefer
 
 ## Last Verified Commit / Deployment
 
-- Commit: **`24fe39c`** on `main` (Phase 3 remediation), local only; preceding Phase 3 commits `ad4a4ba`/`09c8f88`/`718a638` were pushed to `origin/main`. Phase 2 was `3f120bc`.
-- Deployment: **local only** --- production build from `24fe39c` served on `http://127.0.0.1:3100`; `/governance` and `/dashboard` returned 200.
-- Verification identity: Node `v24.13.0` (host) / `node:21-bookworm-slim` (container), npm `11.6.2`, Next `15.5.28`, Vitest `2.1.9`, TypeScript `5.9.3`.
+- Commit: **HEAD `8dfad40`** on `main`; Phase 4 and Phase 5 work remains uncommitted. Phase 3 remediation was `24fe39c`; Phase 2 was `3f120bc`.
+- Deployment: **local only**. Production build clean; `/opportunities`, `/login`, `/onboarding/*` and the Phase 5 opportunity APIs are present. No deployed origin exists.
+- Verification identity: Node `v24.13.0`, npm `11.6.2`, Next `15.5.28`, Vitest `2.1.9`, TypeScript `5.9.3`.
+- Phase 5 evidence: 54/54 Phase 5 tests; full suite 345 passed / 48 skipped / 393; typecheck and build clean; runtime preview 7 jobs with counts 0/2/1/4; dynamic save route present and guarded.
 
 ---
 
 ## Next Highest-Value Action
 
-**Close the Phase 2 gate, then open Phase 3.**
+**Close the Phase 5 gate and obtain direction before committing or starting Phase 6.**
 
-1. Re-run `npm run verify`, `npm run pg:verify` and `npm run build`; capture the outputs in `docs/evidence/phase2-*`.
-2. Review the Phase 2 diff for scope, secrets and generated files; commit only `HireX-Bot/` after approval.
-3. Open Phase 3 (UI shell, five-tab pill navigation, shared primitives, durable Inngest event bus) with its 8-agent phase-start swarm before coding.
-4. Carry forward: wire the persistence RPCs into user paths from Phase 4; replace the in-memory budget ledger behind its interface; wire Reflexion into the failure path; install remaining Piston runtimes before Phase 6/7.
+1. Review the full uncommitted diff for scope, secrets, generated files, weakened tests and unrelated changes; preserve all existing user work.
+2. Keep the pure `toEmploymentPipelineRow()` mapper uncalled by the request path; the frozen contract explicitly forbids DB writes in this phase. Verify it remains synthetic-safe and UUID-guarded if it is adapted later.
+3. Keep `PHASE5_CONTRACT.md`, `Progress.md` and README aligned with the verified evidence; do not claim live ingestion, DB persistence, durable Inngest, browser-verified UI or real field impact.
+4. Commit only with explicit user approval; do not push. Open Phase 6 (M5 evidence hierarchy, blueprint and QC) only after the Phase 5 gate is accepted.
 
 ---
 

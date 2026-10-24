@@ -1,0 +1,39 @@
+{
+  "schema_version": "phase5.snapshot.v1",
+  "source": "ashby_public",
+  "source_job_id": "db89b576-2456-4cc4-ab0b-c45f8c6c27f0",
+  "company": "Sarvam",
+  "title": "Software Development Engineer - Tejas",
+  "url": "https://jobs.ashbyhq.com/sarvam/db89b576-2456-4cc4-ab0b-c45f8c6c27f0",
+  "locations": ["bengaluru"],
+  "location_text": "Bengaluru",
+  "work_modes": ["onsite"],
+  "employment_type": "full_time",
+  "compensation": {
+    "kind": "unknown",
+    "currency": "INR",
+    "min": null,
+    "max": null,
+    "period": null
+  },
+  "joining": {
+    "earliest": null,
+    "latest": null
+  },
+  "requirements": {
+    "core_skills": ["go", "sql", "temporal", "opensearch"],
+    "preferred_skills": ["python", "data_modeling"],
+    "min_experience_years": 3,
+    "max_experience_years": 5,
+    "degree_required": null,
+    "graduation_years": null
+  },
+  "captured_at": "2026-10-24T00:00:00.000Z",
+  "source_updated_at": null,
+  "published_at": "2026-10-23T10:19:22.101+00:00",
+  "valid_through": null,
+  "description_excerpt": "The Tejas team builds Sarvam's context engine for enterprise agents, covering document ingestion, database connections, ontology modelling, and provenance. The production stack is Go with Temporal, OpenSearch, and Postgres; the role is hired at 3 to 5 years of experience.",
+  "quality_excerpt": "We are hiring at 3 to 5 years of experience. You have built and run backend or data systems in production, and you have fixed them when they broke. You are strong in at least one backend language. Our core is in Go, so Go experience is a plus, and you should be happy to work in it every day. You have good fundamentals in data modelling and PostgreSQL.",
+  "capture_method": "manual_api_capture",
+  "synthetic": false
+}
