@@ -36,3 +36,6 @@ yarn-error.log*
 # local runtime payloads (schemas and seed records are committed; runtime data is not)
 /swarm/memory/*.runtime.jsonl
 /trajectories/*.runtime.jsonl
+
+# Phase 4 local intake drafts (sensitive candidate data, server-side only)
+/.hirex-local/
