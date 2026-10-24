@@ -1,6 +1,7 @@
 import type { NextRequest } from 'next/server';
 
 import { intakeSessionId, jsonError, sameOriginMutation } from '@/lib/onboarding/http';
+import { getIntakeStore } from '@/lib/onboarding/store';
 import { loadOpportunitySnapshots } from '@/lib/opportunities/snapshot-source';
 import { getOpportunityStore } from '@/lib/opportunities/store';
 import { sampleCandidate } from '@/agents/module4-discovery/candidate';
@@ -27,7 +28,11 @@ export async function GET(request: NextRequest) {
   if (sessionId) {
     const workspace = await getOpportunityStore().read(sessionId);
     if (workspace) return Response.json(toBoardResponse(workspace));
-    return jsonError(404, 'NO_WORKSPACE', 'Discover opportunities from the local intake first.');
+
+    const intake = await getIntakeStore().read(sessionId);
+    if (intake?.completion) {
+      return jsonError(404, 'NO_WORKSPACE', 'Discover opportunities from the local intake first.');
+    }
   }
 
   try {

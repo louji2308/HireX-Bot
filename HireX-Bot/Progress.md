@@ -7,13 +7,13 @@ Canonical implementation ledger (AGENTS.md §15). One file, no duplicates.
 ## Current Phase / Status
 
 **Phase 5 - M4 Opportunity Discovery**
-Status: **IMPLEMENTED; VERIFIED LOCALLY (SNAPSHOT-ONLY).** Typecheck clean; production build clean. Phase 5 tests: **54/54 passed** across 11 files. Full suite: **345 passed / 48 skipped / 393 tests** (44 passed files, 8 skipped files). Runtime smoke: `GET /api/opportunities` returned 7 snapshot jobs with State counts `0/2/1/4` and `live: false`, `durable: false`; `/opportunities` returned HTTP 200 with the client shell; the dynamic save route returned 401 without an intake session and the removed legacy save path returned 404. Seven manually captured public Greenhouse/Ashby snapshots are assessed deterministically; no live ingestion, LLM scoring, DB writes, or Inngest functions are connected. A pure Phase 2 row mapper is tested but never invoked. `PHASE5_CONTRACT.md` is frozen at `phase5.discovery.v1`. Phase 4 and Phase 5 work remain uncommitted; HEAD is `8dfad40`.
+Status: **IMPLEMENTED; VERIFIED LOCALLY (SNAPSHOT-ONLY); REMEDIATION UNCOMMITTED.** Phase 4 and Phase 5 are committed at `cb796a8` and pushed to `origin/main`. Typecheck clean; production build clean. Phase 5 tests: **55/55 passed** across 11 files. Full suite: **394 passed / 0 skipped** with `PISTON_LIVE=1` (52 files); default offline run is 389 passed / 5 skipped. Runtime smoke: incomplete intake now stays on the labelled sample preview; completed intake without a workspace returns 404; `/onboarding` redirects to consent; `/opportunities` returned HTTP 200; Lighthouse desktop/mobile both scored 100/100/100/100. Seven manually captured public Greenhouse/Ashby snapshots are assessed deterministically; no live ingestion, LLM scoring, DB writes, or Inngest functions are connected. A pure Phase 2 row mapper is tested but never invoked. `PHASE5_CONTRACT.md` is frozen at `phase5.discovery.v1`. Remediation is uncommitted: ESLint gate, WSL PostgreSQL keepalive, Piston live verification, accessibility fixes, dependency/audit remediation, and documentation updates.
 
 ---
 
 ## Current Objective
 
-Close the Phase 5 gate: keep the verified snapshot-only implementation honest, review the full diff, and confirm the pure Phase 2 row mapper remains uncalled with no DB write path. Do not start Phase 6 or claim live ingestion, DB persistence, durable Inngest, or browser-verified UI until those capabilities and evidence exist.
+Close the Phase 5 gate: review the remediation diff, commit/push only after approval, and confirm the pure Phase 2 row mapper remains uncalled with no DB write path. Do not start Phase 6 or claim live ingestion, DB persistence, durable Inngest, deployed origin, or real field impact until those capabilities and evidence exist.
 
 ---
 
@@ -48,20 +48,20 @@ Status: **IMPLEMENTED; VERIFIED LOCALLY. NOT COMMITTED.** Contract: `PHASE5_CONT
 | Command | Result |
 |---|---|
 | `npx vitest run tests/phase5` | **PASS** - 11 files, 54 tests |
-| `npm test` | **PASS** - 44 passed files / 8 skipped files; 345 passed / 48 skipped / 393 tests; exit 0 |
+| `npm test` | **PASS** - 51 passed files / 1 skipped file; 389 passed / 5 skipped / 394 tests; exit 0 |
 | `npm run typecheck` | **PASS** - 0 errors |
 | `npm run build` | **PASS** - production build clean; `/api/opportunities/[pipelineId]/save` and `/opportunities` compiled |
 | `next start` + `GET /api/opportunities` | **PASS** - HTTP 200; 7 jobs; counts `{State_1:0,State_2:2,State_3:1,State_4:4}`; `live:false`; `durable:false` |
 | `next start` + `GET /opportunities` | **PASS** - HTTP 200; client shell returned. No browser/jsdom interaction test available. |
 | `next start` + `POST /api/opportunities/[pipelineId]/save` without cookie | **PASS** - 401 `NO_SESSION`; removed `/api/opportunities/save` returned 404 |
-| `GET /api/health` during smoke | **503** - expected because the local Piston sandbox was not running; unrelated to Phase 5 |
+| `GET /api/health` during smoke | **200** - Piston live, verified languages `javascript` and `python`, JSONL memory store, 3 lessons; unrelated to Phase 5 |
 
 ### Gaps and honest limitations
 
 - No live source ingestion/refresh, no LLM scoring, no DB write path (the pure mapper is intentionally never called), no durable Inngest workflow, no deployed origin.
-- No browser/axe smoke test; UI coverage is static markup plus the runtime HTTP shell.
-- `WORKSPACE_EYEBROW` in `src/lib/ux/copy.ts` contains a pre-existing encoding artifact; the Phase 5 board does not use it.
-- 15 npm vulnerabilities remain untriaged; there is no ESLint gate.
+- No jsdom/Testing Library/Playwright/axe automated browser suite; UI evidence is static markup, runtime shell checks, manual Chrome DevTools smoke, and Lighthouse 100/100/100/100 desktop and mobile.
+- `WORKSPACE_EYEBROW` in `src/lib/ux/copy.ts` is correct (`HireX Bot · Workspace`); earlier mojibake was a PowerShell display artifact and real mojibake was repaired in six files.
+- ESLint gate added via `.eslintrc.json`; `npm run lint` reports no warnings or errors. npm audit now reports 3 moderate findings, 0 high, 0 critical.
 
 ### Files
 
@@ -136,7 +136,7 @@ Status: **IMPLEMENTED; VERIFIED LOCALLY. NOT COMMITTED.** Contract: `PHASE5_CONT
 | SMART-Code gateway transport | **Unverified** — contract + adapter only | No credential has been exercised. Endpoint shape, model IDs and the 1,000,000-token grant remain unverified. |
 | Ollama transport | **Unverified** — implemented, never reached a live daemon | Offline generation is not proven. |
 | Persistence, auth, RLS | **Missing** — Phase 2 | No database exists yet; nothing candidate-facing is stored. |
-| ESLint / CI | **Missing** — deferred | Gate is `tsc --noEmit && vitest run`; lint/CI is a Phase 10 dependency and must not be reported as present. |
+| ESLint / CI | **Present locally** | `.eslintrc.json` extends `next/core-web-vitals` and `next/typescript`; `npm run lint` passes. CI workflow runs install, typecheck, tests and build, but does not yet invoke lint. |
 | `Google Sans Flex` | **Unavailable** | Not publicly served; display falls back to a system face. Recorded design deviation. |
 | Qdrant adapter | **Unit-tested only** — never connected to a live Qdrant | Store selection and REST shape are proven with an injected fetch; real latency/collection behaviour is unverified. |
 | Product user path | **Missing** — Phase 3+ | Phase 1 exposes no candidate workflow; `/api/health` is the only server route. |
@@ -243,10 +243,10 @@ Decision log (not training data): `trajectories/phase_01_dpo.jsonl` — 4 prefer
 
 ## Last Verified Commit / Deployment
 
-- Commit: **HEAD `8dfad40`** on `main`; Phase 4 and Phase 5 work remains uncommitted. Phase 3 remediation was `24fe39c`; Phase 2 was `3f120bc`.
+- Commit: **HEAD `cb796a8`** on `main`, pushed to `origin/main`; Phase 4 and Phase 5 are committed. Remediation is uncommitted. Phase 3 remediation was `24fe39c`; Phase 2 was `3f120bc`.
 - Deployment: **local only**. Production build clean; `/opportunities`, `/login`, `/onboarding/*` and the Phase 5 opportunity APIs are present. No deployed origin exists.
-- Verification identity: Node `v24.13.0`, npm `11.6.2`, Next `15.5.28`, Vitest `2.1.9`, TypeScript `5.9.3`.
-- Phase 5 evidence: 54/54 Phase 5 tests; full suite 345 passed / 48 skipped / 393; typecheck and build clean; runtime preview 7 jobs with counts 0/2/1/4; dynamic save route present and guarded.
+- Verification identity: Node `v24.13.0`, npm `11.6.2`, Next `15.5.28`, Vitest `5.0.5`, TypeScript `5.9.3`, ESLint `9.39.5`.
+- Phase 5 evidence: 55/55 Phase 5 tests; full suite 394 passed / 0 skipped with `PISTON_LIVE=1` (52 files); typecheck and build clean; Lighthouse desktop/mobile 100/100/100/100; runtime preview 7 jobs with counts 0/2/1/4; incomplete intake stays on labelled sample preview; dynamic save route present and guarded.
 
 ---
 

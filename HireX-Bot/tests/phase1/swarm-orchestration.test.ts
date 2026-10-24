@@ -37,7 +37,7 @@ const proposalFor = (role: string, overrides: Partial<Proposal> = {}): Proposal 
   role,
   decision: 'Fail over to the alternate cloud lab, never to local inference during Mode C.',
   rationale: 'Required evidence must come from a cloud lab.',
-  evidence: ['ADR-002 Â§dual-lab'],
+  evidence: ['ADR-002 §dual-lab'],
   alternatives: ['Queue the turn until the lab recovers.'],
   risks: ['Alternate lab latency exceeds the 250ms budget.'],
   confidence: 0.8,
@@ -285,7 +285,7 @@ describe('DPO trajectory log', () => {
         chosen: 'Redact before append.',
         rejected: 'Log the key sk-abcdefghijklmnopqrstuvwx directly.',
         rejectionReason: 'Credential leak.',
-        evidence: 'AGENTS.md Â§14',
+        evidence: 'AGENTS.md §14',
       },
       { path },
     );

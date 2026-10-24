@@ -45,7 +45,7 @@ export function JudgeXRayInspector() {
       <button
         type="button"
         data-xray-toggle="true"
-        aria-label={`Judge Inspector, ${isOpen ? 'on' : 'off'}`}
+        aria-label={`Judge Inspector · ${isOpen ? 'On' : 'Off'}`}
         aria-expanded={isOpen}
         aria-controls={isOpen ? 'judge-xray-panel' : undefined}
         onClick={() => setIsOpen((current) => !current)}

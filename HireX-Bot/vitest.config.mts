@@ -7,8 +7,10 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  esbuild: {
-    jsx: 'automatic',
+  oxc: {
+    jsx: {
+      runtime: 'automatic',
+    },
   },
   test: {
     environment: 'node',

@@ -1,9 +1,9 @@
 /**
- * Compounding-memory injection (Build Plan.md Step 1.1.5, Â§1.3).
+ * Compounding-memory injection (Build Plan.md Step 1.1.5, §1.3).
  *
  * A verified lesson is a prevention rule, not a new instruction. It is still
  * appended as *data inside an envelope* rather than pasted into the trusted
- * system text, because AGENTS.md Â§12.3 classifies retrieved memories as
+ * system text, because AGENTS.md §12.3 classifies retrieved memories as
  * untrusted input: a tampered lessons file must not be able to rewrite the
  * agent's role, the rubric, or the evidence rules.
  *
@@ -24,7 +24,7 @@ export const LESSON_MEMORY_PREAMBLE = [
 ].join(' ');
 
 export interface LessonInjectionOptions {
-  /** Defaults to DEFAULT_MAX_INJECTED_LESSONS (top 3, per Build Plan Â§1.3). */
+  /** Defaults to DEFAULT_MAX_INJECTED_LESSONS (top 3, per Build Plan §1.3). */
   readonly maxLessons?: number;
   /** Restrict to lessons that belong to one module path. */
   readonly module?: string;

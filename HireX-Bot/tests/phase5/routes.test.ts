@@ -64,6 +64,23 @@ describe('Phase 5 opportunity routes', () => {
     expect(board.counts).toEqual({ State_1: 0, State_2: 2, State_3: 1, State_4: 4 });
   });
 
+  it('keeps an unfinished intake on the labelled sample preview', async () => {
+    const store = new MemoryIntakeStore();
+    const session = await store.create();
+    setIntakeStoreForTests(store);
+    setOpportunityStoreForTests(new MemoryOpportunityStore());
+
+    const response = await GET(
+      request('/api/opportunities', { cookie: `hirex_intake=${session.sessionId}` }),
+    );
+    expect(response.status).toBe(200);
+    const board = (await response.json()) as OpportunityBoardResponse;
+    expect(board.synthetic_candidate).toBe(true);
+    expect(board.source).toBe('snapshot_preview');
+    expect(board.live).toBe(false);
+    expect(board.durable).toBe(false);
+  });
+
   it('requires discovery before a session workspace exists', async () => {
     const { store, cookie } = await seededIntake();
     setIntakeStoreForTests(store);

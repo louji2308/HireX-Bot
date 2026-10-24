@@ -16,7 +16,6 @@ import {
   SIGNAL_CHAPTERS,
   SIGNAL_DEFINITIONS,
   getSignalDefinition,
-  type SignalDefinition,
   type SignalId,
   type SignalValue,
 } from '@/types/phase4_contracts';

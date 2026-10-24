@@ -20,7 +20,7 @@ export const ErasureReceiptSchema = z
     status: z.enum(['completed', 'partial']),
     database: z.object({
       erased: z.boolean(),
-      counts: z.record(z.number().int().min(0)),
+      counts: z.record(z.string(), z.number().int().min(0)),
     }),
     memory: z.object({
       removed: z.number().int().min(0),

@@ -3,13 +3,13 @@
  *
  * Consumers: src/agents/**, src/lib/**, tests/phase1/**
  * Status: FROZEN for the Phase 1 coding wave. Changes require an evidenced
- * change request reviewed by the Orchestrator (AGENTS.md Â§8.2).
+ * change request reviewed by the Orchestrator (AGENTS.md §8.2).
  *
  * Sources:
  *  - Build Plan.md:136-191 (Phase 1 scope, Step 1.1-1.5)
  *  - Architecture.md ADR-002 (dual-lab SMART-Code routing), ADR-006 (Piston), ADR-011 (Ollama)
- *  - AGENTS.md Â§11 (memory), Â§12 (evidence integrity), Â§14 (human approval, secrets)
- *  - Design.md Â§2 and Â§10 (monochrome tokens, radii, typography)
+ *  - AGENTS.md §11 (memory), §12 (evidence integrity), §14 (human approval, secrets)
+ *  - Design.md §2 and §10 (monochrome tokens, radii, typography)
  *
  * Invariant enforced by this file: a caller cannot observe a degraded, local or
  * unvalidated result as if it were a verified primary-cloud result. `RouteFailure`
@@ -75,7 +75,7 @@ export const TASK_MODEL_MAP: Readonly<Record<TaskClass, CloudInferenceSource>> =
 /**
  * Task classes whose output can become hiring evidence (rubric scores, question
  * banks). A local model may never produce these: the router must fail closed.
- * Mirrors AGENTS.md Â§12.2 and the Mode C provenance rule.
+ * Mirrors AGENTS.md §12.2 and the Mode C provenance rule.
  */
 export const CERTIFIABLE_TASK_CLASSES = ['QUESTION_QC', 'RESPONSE_GRADING'] as const;
 export type CertifiableTaskClass = (typeof CERTIFIABLE_TASK_CLASSES)[number];

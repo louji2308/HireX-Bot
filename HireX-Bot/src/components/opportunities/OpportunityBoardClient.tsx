@@ -167,7 +167,7 @@ export function OpportunityBoardClient() {
             Try again
           </button>
           <Link
-            href="/onboarding"
+            href="/onboarding/consent"
             className="inline-flex h-9 items-center rounded-pill border border-hairline bg-surface px-4 text-[11px] text-ink-secondary"
           >
             Review intake

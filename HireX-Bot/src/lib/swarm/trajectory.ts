@@ -3,7 +3,7 @@
  *
  * The log records decisions, not transcripts of private content. Every entry is
  * redacted before it is written, and `training_eligible` stays false until a
- * real training run exists â€” a Phase 1 decision log is not a dataset and this
+ * real training run exists — a Phase 1 decision log is not a dataset and this
  * module never claims otherwise.
  */
 

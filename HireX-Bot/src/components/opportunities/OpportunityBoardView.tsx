@@ -109,7 +109,7 @@ function Pill({
     <span
       className={`inline-flex min-w-0 items-center gap-1.5 rounded-pill border px-2.5 py-1 text-[10px] ${toneClass}`}
     >
-      <span className="font-mono uppercase tracking-[0.08em] text-ink-muted">{label}</span>
+      <span className="font-mono uppercase tracking-[0.08em] text-ink-secondary">{label}</span>
       <span className="truncate">{value}</span>
     </span>
   );
@@ -120,9 +120,9 @@ function EligibilityDetail({ job }: { readonly job: OpportunityAssessment }) {
   return (
     <div>
       <div className="flex items-center justify-between gap-3">
-        <h4 className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">
+        <h3 className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">
           Eligibility
-        </h4>
+        </h3>
         <span className="text-[11px] text-ink-secondary">{readable(eligibility.status)}</span>
       </div>
       <ul className="mt-2 grid gap-1.5">
@@ -212,9 +212,9 @@ function OpportunityCard({
           <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-ink-muted">
             {job.job.company}
           </p>
-          <h3 className="mt-1 text-[15px] font-medium leading-6 tracking-[-0.01em] text-ink-primary">
+          <h2 className="mt-1 text-[15px] font-medium leading-6 tracking-[-0.01em] text-ink-primary">
             {job.job.title}
-          </h3>
+          </h2>
         </div>
         <span
           className={`inline-flex shrink-0 items-center gap-1.5 rounded-pill border px-2.5 py-1 text-[10px] ${stateBadgeClass(decision.state)}`}
@@ -314,9 +314,9 @@ function OpportunityCard({
 
           <div className="grid gap-2 sm:grid-cols-2">
             <div>
-              <h4 className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">
+              <h3 className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">
                 Evidence strength
-              </h4>
+              </h3>
               <p className="mt-1 text-[11px] leading-5 text-ink-secondary">
                 {fit.evidence_strength.status === 'assessed'
                   ? `${String(fit.evidence_strength.value)}/100 · ${fit.evidence_strength.label}`
@@ -324,9 +324,9 @@ function OpportunityCard({
               </p>
             </div>
             <div>
-              <h4 className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">
+              <h3 className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">
                 Interview readiness
-              </h4>
+              </h3>
               <p className="mt-1 text-[11px] leading-5 text-ink-secondary">
                 {fit.interview_readiness.status === 'assessed'
                   ? `${String(fit.interview_readiness.value)}/100 · ${fit.interview_readiness.label}`
@@ -336,9 +336,9 @@ function OpportunityCard({
           </div>
 
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">
+            <h3 className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">
               Opportunity quality
-            </h4>
+            </h3>
             <p className="mt-1 text-[11px] leading-5 text-ink-secondary">
               {fit.opportunity_quality.note}
             </p>
@@ -390,7 +390,7 @@ function OpportunityCard({
             </button>
           ) : (
             <Link
-              href="/onboarding"
+              href="/onboarding/consent"
               className="inline-flex h-8 items-center rounded-pill border border-hairline bg-surface px-3 text-[11px] text-ink-secondary transition-colors hover:border-ink-muted hover:text-ink-primary"
             >
               Finish intake to save
@@ -450,7 +450,7 @@ export function OpportunityBoardView({
             listings against your own boundaries.
           </p>
           <Link
-            href="/onboarding"
+            href="/onboarding/consent"
             className="inline-flex h-8 shrink-0 items-center rounded-pill bg-obsidian px-3 text-[11px] text-white"
           >
             Finish intake

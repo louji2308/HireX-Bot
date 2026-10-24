@@ -4,7 +4,7 @@ Autonomous proof-of-work, apprenticeship and employment architecture for India's
 
 Built for **Code for a Billion — Bharat Agentic-AI Hackathon 2026**, Track 10 (Tech Employment for Youth).
 
-> **Status: Phase 5 (M4 opportunity discovery, snapshot-only).** Phase 4 candidate intake and Phase 5 opportunity discovery are implemented and locally tested. Phase 5 loads seven manually captured public job snapshots, assesses five dimensions deterministically, routes each role to one of four decision states, and serves a local triage board. There is no live ingestion, LLM scoring, database write path, deployed origin, authenticated session, or registered Inngest function yet; see [Progress.md](Progress.md) for verified evidence and open blockers.
+> **Status: Phase 5 (M4 opportunity discovery, snapshot-only), remediated and locally verified.** Phase 4 candidate intake and Phase 5 opportunity discovery are implemented and locally tested. Phase 5 loads seven manually captured public job snapshots, assesses five dimensions deterministically, routes each role to one of four decision states, and serves a local triage board. Phase 5 remediation added an ESLint gate, WSL PostgreSQL keepalive, Piston live verification, accessibility fixes, and dependency/audit remediation. There is no live ingestion, LLM scoring, database write path, deployed origin, authenticated session, or registered Inngest function yet; see [Progress.md](Progress.md) for verified evidence and open blockers.
 
 ---
 
@@ -30,7 +30,7 @@ Every successful model call returns `evidence` (source, model, tier, prompt hash
 
 ## Requirements
 
-- Node.js 20+ (verified on `v24.13.0`)
+- Node.js 22+ (verified on `v24.13.0`)
 - npm 10+ (verified on `11.6.2`)
 - **Optional, for real code execution:** WSL2 with Docker (verified on Ubuntu 26.04, Docker 29.1.3) and the `piston` container. Nothing else in Phase 1 needs it.
 - **Optional, for the Phase 2 database suites:** WSL2 with Docker. `npm run pg:up` starts PostgreSQL 16 on `127.0.0.1:55432`; the tests skip cleanly when it is absent.
@@ -48,7 +48,7 @@ npm run build        # production build
 npm run start        # serve the production build
 npm run typecheck    # tsc --noEmit
 npm test             # vitest run (offline; live sandbox tests are skipped)
-npm run verify       # typecheck + tests (the gate used in this phase)
+npm run verify       # lint + typecheck + tests
 npm run sandbox:up   # start/verify the sandbox from Windows and keep WSL awake
 npm run sandbox:down
 npm run test:sandbox # sandbox:up + the opt-in live execution tests
@@ -178,13 +178,13 @@ docs/evidence/              # captured verification artifacts
 ## Verification
 
 ```bash
-npm run verify        # typecheck + 345 offline tests (48 database/live tests skipped)
+npm run verify        # lint + typecheck + 389 offline tests (5 Piston-live tests skipped)
 npm run pg:verify     # Phase 2 database suites against real PostgreSQL 16
 npm run build
 npm run test:sandbox  # live tests against a real executor
 ```
 
-Last verified: typecheck clean, **345 offline tests passing across 44 files, with 8 database/live files (48 tests) skipped**, production build clean, `/opportunities` returned HTTP 200, `GET /api/opportunities` served 7 snapshot jobs with State counts `0/2/1/4` and `live: false`, `durable: false`, and the dynamic save route returned 401 without an intake session. Phase 3 earlier rendered at desktop, mobile and focus-mode widths with no console errors (screenshots in `docs/evidence/phase3-*.png`); Phase 5 UI coverage is static markup plus the runtime shell, not a browser interaction test. The Inngest route returns a real 200 in dev mode with zero registered functions; it has not been connected to a running Inngest server. Live sandbox verification from Phase 1 remains: real stdout for Python and JavaScript, a runaway loop killed at ~3.1 s, and a 400 MB allocation killed at 134,216,000 bytes.
+Last verified: lint clean with no warnings/errors, typecheck clean, **394 tests passing across 52 files with `PISTON_LIVE=1`**, production build clean, `/opportunities` returned HTTP 200, `GET /api/opportunities` served 7 snapshot jobs with State counts `0/2/1/4` and `live: false`, `durable: false`, incomplete intake stayed on the labelled sample preview, and Lighthouse desktop/mobile both scored 100/100/100/100. Phase 5 UI evidence is static markup, runtime shell checks, manual Chrome DevTools smoke, and Lighthouse; there is no jsdom/Testing Library/Playwright/axe suite. The Inngest route returns a real 200 in dev mode with zero registered functions; it has not been connected to a running Inngest server. Live sandbox verification covers Python and JavaScript stdout, a runaway loop killed at ~3.1 s, and a 400 MB allocation killed at 134,216,000 bytes.
 
 The Phase 2 privilege matrix is also verified on the hosted project after `0004`: `anon` can only execute `get_public_passport`; `authenticated` can publish/unpublish, ask for its own session ownership and read the consent-gated TPO cohort; only `service_role` can use the writer RPCs, record sessions, mint certificates or erase. `authenticated` cannot read `candidate_profiles.oauth_token_vault`. Evidence is in `docs/evidence/phase2-*`.
 
@@ -194,16 +194,16 @@ The same suite was re-run inside a `node:20-bookworm-slim` container (`scripts/v
 
 ## Known limitations
 
-1. **The sandbox is a local developer host, not a deployment.** It runs in WSL2 + Docker on one machine, has two runtimes (python 3.10.0, node 20.11.1), and must be started with `npm run sandbox:up`. It cannot serve a deployed demo yet; only the client contract and enforcement evidence are portable.
+1. **The sandbox is a local developer host, not a deployment.** It runs in WSL2 + Docker on one machine, has two runtimes (python 3.10.0, node 21.11.1), and must be started with `npm run sandbox:up`. WSL keepalive is now started by `npm run pg:up`; run sandbox and database commands before a demo. It cannot serve a deployed demo yet; only the client contract and enforcement evidence are portable.
 2. **Hosted persistence is not yet on a user path.** The Phase 2 schema, RLS, erase route and token vault are verified by tests, but Phase 4 intake and Phase 5 opportunities currently use local JSON stores. No candidate or opportunity record is written to Supabase; a pure Phase 2 row mapper exists but is not called, and the budget ledger is still process-local.
 3. **Hosted database differs by one major version.** Supabase runs PostgreSQL 17 while the spec and local tests use 16. Migration behavior is verified locally; hosted parity is not exhaustively tested.
 4. **Hosted end-to-end auth is unverified.** No OAuth client credentials or service-role key were available in this environment, so sign-in and a live hosted erase call have not been executed. The route is tested with injected clients.
 5. **Hosted auth deletion is unverified.** The erase handler calls `client.auth.admin.deleteUser(candidateId)` after the table and memory purge, but no live service-role call has been executed because the credentials were unavailable.
 6. **LLM consolidation is implemented but not exercised live.** SMART-Code is not reachable with a verified key; the deterministic consolidator remains the only path verified end to end.
 7. **The SMART-Code gateway is not exercised.** Model IDs and the 1,000,000-token grant are unverified; the ledger clamps to 300k and reports `grantVerified: false`. The Ollama transport exists but has never reached a live model.
-8. **No ESLint gate yet.** CI now runs typecheck, tests and build; linting still needs a real ESLint configuration rather than a no-rule script.
+8. **ESLint gate added, but CI does not run it yet.** `.eslintrc.json` extends `next/core-web-vitals` and `next/typescript`; `npm run lint` passes with no warnings or errors. CI still runs install, typecheck, tests and build only.
 9. **`Google Sans Flex` is not publicly served**, so the display stack falls back to a system face. Raleway and JetBrains Mono are self-hosted under the OFL.
-10. **Repository layout.** Git's root is the Windows home directory, so the project lives at HireX-Bot/ inside it; the remote tracks only that folder.
+10. **Repository layout.** Git's root is the Windows home directory, so the project lives at `HireX-Bot/` inside it; the remote tracks only that folder. Stage changes with `git add -- .` from the project root so parent-home files are not included.
 11. **Swarm modules are not yet on a user path.** The orchestrator and Reflexion have tests but no product workflow calls them; that arrives with the later modules.
 12. **The public server surface is not protected end to end.** `GET /api/health` is unauthenticated, `DELETE /api/candidate/erase` requires a bearer token, and `/api/inngest` serves zero registered functions. There is no authenticated candidate session; intake uses a local cookie, and the workspace routes themselves are public.
 13. **Phases 6-10 are not implemented.** Interview simulation, proof-of-work, the skill passport, human-approved applications and analytics have contracts or design notes but no working user path.

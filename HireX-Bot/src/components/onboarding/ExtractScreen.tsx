@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import {
   apiRequest,
@@ -91,10 +91,7 @@ export function ExtractScreen({ sample }: { readonly sample: boolean }) {
   }, [sample]);
 
   const fields = extraction?.fields ?? [];
-  const resolvedCount = useMemo(
-    () => fields.filter((field) => field.status !== 'missing').length,
-    [fields],
-  );
+  const resolvedCount = fields.filter((field) => field.status !== 'missing').length;
 
   async function onFile(file: File) {
     setError(null);

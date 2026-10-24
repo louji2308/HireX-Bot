@@ -4,6 +4,14 @@ $ErrorActionPreference = 'Stop'
 
 $container = 'hirex-pg'
 $repoRoot = Split-Path -Parent $PSScriptRoot
+$keepAliveMarker = 'sleep 2147482'
+
+function Ensure-WslKeepAlive {
+    & wsl -d Ubuntu -e pgrep -fx $keepAliveMarker *> $null
+    if ($LASTEXITCODE -ne 0) {
+        Start-Process -FilePath 'wsl' -ArgumentList '-d', 'Ubuntu', '--', 'sleep', '2147482' -WindowStyle Hidden | Out-Null
+    }
+}
 
 function Invoke-Docker {
     param([Parameter(ValueFromRemainingArguments = $true)][string[]]$DockerArgs)
@@ -33,6 +41,7 @@ function Send-SqlFile {
     }
 }
 
+Ensure-WslKeepAlive
 Write-Host 'Recreating hirex-pg (PostgreSQL 16, tmpfs data directory)...'
 & cmd /c "wsl -d Ubuntu -e docker rm -f $container 2>nul" | Out-Null
 Invoke-Docker -DockerArgs @('run', '-d', '--name', $container,

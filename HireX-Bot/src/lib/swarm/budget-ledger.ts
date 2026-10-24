@@ -26,7 +26,6 @@ import type {
   BudgetDenialReason,
   BudgetLedger,
   BudgetLevel,
-  BudgetReservation,
   BudgetReserveResult,
   BudgetScope,
   BudgetSettlement,

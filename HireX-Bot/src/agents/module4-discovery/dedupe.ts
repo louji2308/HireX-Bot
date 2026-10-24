@@ -45,7 +45,7 @@ export function dedupeSnapshots(snapshots: readonly OpportunitySnapshot[]): Dedu
 
   const mergedGroups: { source_job_id: string; sources: OpportunitySource[] }[] = [];
   const selected: OpportunitySnapshot[] = [];
-  for (const [key, group] of [...merged.entries()].sort(([left], [right]) => left.localeCompare(right))) {
+  for (const [, group] of [...merged.entries()].sort(([left], [right]) => left.localeCompare(right))) {
     const [chosen] = [...group].sort(newestFirst);
     if (!chosen) continue;
     selected.push(chosen);

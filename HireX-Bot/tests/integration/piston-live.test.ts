@@ -1,5 +1,5 @@
 /**
- * Live sandbox verification (AGENTS.md Â§12.5, Â§10.1 layer 5).
+ * Live sandbox verification (AGENTS.md §12.5, §10.1 layer 5).
  *
  * A mocked executor is not proof of isolation, so this suite talks to a real
  * Piston instance and asserts that the limits are actually enforced. It is
