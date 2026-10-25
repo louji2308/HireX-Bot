@@ -11,8 +11,15 @@ const hiddenTests: readonly PistonTestCase[] = [
   { id: 'zero', input: '0', expected: '0', hidden: true },
 ];
 
-function piston(result: PistonRunResult) {
-  return { execute: async () => result };
+function piston(results: readonly PistonRunResult[]) {
+  let index = 0;
+  return {
+    execute: async () => {
+      const result = results[index] ?? results[results.length - 1]!;
+      index += 1;
+      return result;
+    },
+  };
 }
 
 describe('Phase 6 QC Stage 5 Piston verification', () => {
@@ -27,16 +34,27 @@ describe('Phase 6 QC Stage 5 Piston verification', () => {
       tests_passed: 5,
       tests_total: 5,
     };
+    const failed: PistonRunResult = {
+      outcome: 'fail',
+      exit_code: 1,
+      stdout: '',
+      stderr: 'assertion failed',
+      latency_ms: 10,
+      memory_bytes: 1024,
+      tests_passed: 0,
+      tests_total: 5,
+    };
     const result = await verifyStage5Piston({
       language: 'python',
       referenceSolution: 'def solve(value): return value',
       hiddenTests,
       mutatedBaseline: 'def solve(value): return value + 1',
-      piston: piston(passed),
+      piston: piston([passed, failed]),
     });
     expect(result.passed).toBe(true);
     expect(result.reference_run.outcome).toBe('pass');
     expect(result.reference_run.tests_passed).toBe(5);
+    expect(result.mutated_run.outcome).toBe('fail');
   });
 
   it('rejects a reference solution that times out at 3500ms', async () => {
@@ -50,19 +68,29 @@ describe('Phase 6 QC Stage 5 Piston verification', () => {
       tests_passed: 0,
       tests_total: 5,
     };
+    const failed: PistonRunResult = {
+      outcome: 'fail',
+      exit_code: 1,
+      stdout: '',
+      stderr: 'assertion failed',
+      latency_ms: 10,
+      memory_bytes: 1024,
+      tests_passed: 0,
+      tests_total: 5,
+    };
     const result = await verifyStage5Piston({
       language: 'python',
       referenceSolution: 'def solve(value): while True: pass',
       hiddenTests,
       mutatedBaseline: 'def solve(value): return value + 1',
-      piston: piston(timedOut),
+      piston: piston([timedOut, failed]),
     });
     expect(result.passed).toBe(false);
     expect(result.rejection_reason).toContain('timeout');
   });
 
   it('rejects a weak test suite that fails to catch a mutated baseline', async () => {
-    const weak: PistonRunResult = {
+    const passed: PistonRunResult = {
       outcome: 'pass',
       exit_code: 0,
       stdout: 'ok',
@@ -77,7 +105,7 @@ describe('Phase 6 QC Stage 5 Piston verification', () => {
       referenceSolution: 'def solve(value): return value',
       hiddenTests,
       mutatedBaseline: 'def solve(value): return value + 1',
-      piston: piston(weak),
+      piston: piston([passed, passed]),
     });
     expect(result.passed).toBe(false);
     expect(result.rejection_reason).toContain('weak');
