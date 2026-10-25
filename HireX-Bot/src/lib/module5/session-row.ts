@@ -24,6 +24,7 @@ export function toPracticeSessionRow(record: PracticeSessionRecord): {
   readonly created_at: string;
 } {
   if (!isUuid(record.candidate_id)) throw new Error('Practice session requires a valid candidate UUID.');
+  if (record.weighted_score === null) throw new Error('Practice session requires a weighted score.');
   return {
     id: record.id,
     candidate_id: record.candidate_id,
