@@ -1,4 +1,4 @@
-# HireX Bot
+﻿# HireX Bot
 
 Autonomous proof-of-work, apprenticeship and employment architecture for India's first-time technology job seekers.
 
@@ -200,7 +200,7 @@ The same suite was re-run inside a `node:20-bookworm-slim` container (`scripts/v
 4. **Hosted end-to-end auth is unverified.** No OAuth client credentials or service-role key were available in this environment, so sign-in and a live hosted erase call have not been executed. The route is tested with injected clients.
 5. **Hosted auth deletion is unverified.** The erase handler calls `client.auth.admin.deleteUser(candidateId)` after the table and memory purge, but no live service-role call has been executed because the credentials were unavailable.
 6. **LLM consolidation is implemented but not exercised live.** SMART-Code is not reachable with a verified key; the deterministic consolidator remains the only path verified end to end.
-7. **The SMART-Code gateway is not exercised.** Model IDs and the 1,000,000-token grant are unverified; the ledger clamps to 300k and reports `grantVerified: false`. The Ollama transport exists but has never reached a live model.
+7. **The SMART-Code gateway is not exercised.** Model IDs and the 1,000,000-token grant are unverified; the ledger clamps to 300k and reports `grantVerified: false`. Local model execution is not used because no local model runtime is available.
 8. **ESLint gate added, but CI does not run it yet.** `.eslintrc.json` extends `next/core-web-vitals` and `next/typescript`; `npm run lint` passes with no warnings or errors. CI still runs install, typecheck, tests and build only.
 9. **`Google Sans Flex` is not publicly served**, so the display stack falls back to a system face. Raleway and JetBrains Mono are self-hosted under the OFL.
 10. **Repository layout.** Git's root is the Windows home directory, so the project lives at `HireX-Bot/` inside it; the remote tracks only that folder. Stage changes with `git add -- .` from the project root so parent-home files are not included.

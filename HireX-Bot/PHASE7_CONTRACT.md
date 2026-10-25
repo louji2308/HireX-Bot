@@ -29,9 +29,9 @@ Ship an honest, locally verifiable Phase 7 slice that:
 - adapts Mode A to declared and observed weaknesses while locking Mode B/C to the employer blueprint bar;
 - grades with Piston-anchored correctness and untrusted candidate input;
 - records immutable baseline deltas for the exact comparable tuple;
-- provides vernacular Mode A support and offline continuity without certifying offline runs;
+- provides vernacular Mode A support and offline continuity without local model execution or certifying offline runs;
 - handles confirmed-round emergency overrides without fabricating employer confirmation;
-- never claims live BHASHINI/Ollama capability, real employer outcomes, or deployed origin without evidence.
+- never claims live BHASHINI capability, real employer outcomes, or deployed origin without evidence.
 
 ## 4. In scope
 
@@ -49,9 +49,9 @@ Ship an honest, locally verifiable Phase 7 slice that:
 
 ## 5. Explicit deviations and unresolved requirements
 
-### D7-001 — Live BHASHINI and Ollama are unverified
+### D7-001 — Live BHASHINI and local model execution are out of scope
 
-BHASHINI ULCA and Ollama are integration targets, not verified production dependencies. Mode A must degrade to text or a deterministic fallback and report unverified until credentials and probes exist.
+BHASHINI ULCA is an integration target, not a verified production dependency. Local model execution is removed from the Phase 7 plan because no local model runtime is available. Mode A must degrade to text or a deterministic fallback and report `unverified` until credentials and probes exist.
 
 ### D7-002 — Piston supports only JavaScript and Python
 
@@ -63,7 +63,7 @@ If GPT-5 Codex or Claude Haiku is unavailable, grading returns llm_available: fa
 
 ### D7-004 — No offline certification
 
-Offline sessions are buffered and may be provisionally evaluated by Ollama, but they cannot be certified or promoted until online Piston verification and cloud grading succeed.
+Offline sessions are buffered and remain provisional; they cannot be certified or promoted until online Piston verification and cloud grading succeed. No local model evaluation is used.
 
 ### D7-005 — No automatic Skill Passport minting
 
@@ -104,7 +104,7 @@ Phase 7 must not expose application submission or document generation.
 | Coder-ModeEngine | src/agents/module5-blueprint/simulation-engine.ts, src/agents/module5-blueprint/evaluator.ts, src/agents/module5-blueprint/baseline-delta.ts | contract, DB types, events |
 | Coder-MonacoIDE | src/app/(workspace)/interview/[id]/page.tsx, src/components/studio/SimulationWorkspace.tsx, src/components/studio/DeltaReceiptCard.tsx | contract, design tokens |
 | Coder-Bhashini | src/lib/bhashini/ulca-client.ts, src/components/studio/BhashiniVernacularBridge.tsx | contract |
-| Coder-OllamaSync | src/lib/offline/ollama-local-mode.ts, src/components/studio/OfflineContinuityPill.tsx | contract |
+| Coder-OfflineSync | `src/lib/offline/session-queue.ts`, `src/components/studio/OfflineContinuityPill.tsx` | contract |
 | Coder-EmergencyInvite | src/inngest/workflows/emergency-invite-override.ts, src/components/studio/EmergencyOverrideBanner.tsx | contract, events |
 
 Contract files are read-only to implementation workers during the coding wave. One writable owner per file.
@@ -153,14 +153,14 @@ px vitest run tests/phase7 passes.
 ## 11. Approval requirements before coding
 
 - Human approval to enable append-only writes to practice_sessions, session_responses, and candidate_skill_history.
-- Human approval before live BHASHINI calls or Ollama install.
+ - Human approval before live BHASHINI calls.
 - Confirmation that Piston isolation covers candidate-submitted code.
 - Approval for any scope deviation, including deferred runtimes.
 - No approval needed for cached, local, or mock mode.
 
 ## 12. Known limitations
 
-- BHASHINI and Ollama are unverified; Mode A must degrade honestly.
+- BHASHINI is unverified; local model execution is out of scope because no local model runtime is available. Mode A must degrade honestly.
 - Piston currently supports only JavaScript and Python.
 - No deployed origin or real field-impact evidence exists.
 - Impact evidence must be real pilot data only; never fabricated.

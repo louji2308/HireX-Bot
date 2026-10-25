@@ -7,13 +7,13 @@ Canonical implementation ledger (AGENTS.md §15). One file, no duplicates.
 ## Current Phase / Status
 
 **Phase 7 - M5 Part B (Mode A/B/C Simulation IDE, BHASHINI, Offline Continuity & Emergency Invite)**
-Status: **IMPLEMENTED LOCALLY (MINIMAL PHASE 7 SLICE); VERIFIED.** Contract: `PHASE7_CONTRACT.md` (`phase7.simulation-ide.v1`), implementation contract `src/types/phase7_contracts.ts`. Phase 7 tests: **17/17 passed** across 8 files. Typecheck clean; production build clean; lint clean. Implemented mode calibration guardrail, Piston-anchored evaluator, comparable baseline delta, BHASHINI turn formatter, replay schema guard, and emergency override state. No live BHASHINI/Ollama, DB writes, simulation UI, or deployed origin. Phase 6 remains verified at `85e06b3`.
+Status: **IMPLEMENTED LOCALLY (MINIMAL PHASE 7 SLICE); VERIFIED.** Contract: `PHASE7_CONTRACT.md` (`phase7.simulation-ide.v1`), implementation contract `src/types/phase7_contracts.ts`. Phase 7 tests: **17/17 passed** across 8 files. Typecheck clean; production build clean; lint clean. Implemented mode calibration guardrail, Piston-anchored evaluator, comparable baseline delta, BHASHINI turn formatter, replay schema guard, and emergency override state. No live BHASHINI, local model execution, DB writes, simulation UI, or deployed origin. Phase 6 remains verified at `85e06b3`.
 
 ---
 
 ## Current Objective
 
-Keep Phase 7 honest and minimal: wire real BHASHINI/Ollama only behind verified credentials and probes; implement simulation UI/API state transitions with tests; do not claim live vernacular, certified offline runs, DB writes, or real employer outcomes until those capabilities and evidence exist.
+Keep Phase 7 honest and minimal: wire real BHASHINI only behind verified credentials and probes; implement simulation UI/API state transitions with tests; do not claim live vernacular, certified offline runs, DB writes, or real employer outcomes until those capabilities and evidence exist.
 
 ---
 
@@ -465,11 +465,11 @@ ole-differentiation.test.ts
 
 ### Next highest-value action
 
-Wire real BHASHINI/Ollama only behind verified credentials and probes, then implement Screen 3.2/3.3 state transitions and APIs with tests. Do not claim live vernacular, certified offline runs, DB writes, or real employer outcomes until evidence exists.
+Wire real BHASHINI only behind verified credentials and probes, then implement Screen 3.2/3.3 state transitions and APIs with tests. Do not claim live vernacular, certified offline runs, DB writes, or real employer outcomes until evidence exists.
 
 ### Known limitations
 
-- Phase 7 currently implements deterministic local modules only; no live BHASHINI/Ollama, simulation UI/API, DB writes, or deployed origin.
+ - Phase 7 currently implements deterministic local modules only; no live BHASHINI, local model execution, simulation UI/API, DB writes, or deployed origin.
 - Live SMART-Code, Jina Reader, and BHASHINI capabilities remain unverified in this environment.
 - Piston currently supports only JavaScript and Python.
 - No deployed origin or real field-impact evidence exists.
@@ -514,7 +514,7 @@ Remaining Phase 6 work:
 - update README/Progress with any new verified capabilities.
 ### Phase 7 - M5 Part B (phase start)
 
-Status: **IMPLEMENTED LOCALLY (MINIMAL PHASE 7 SLICE); VERIFIED.** Contract: `PHASE7_CONTRACT.md` (`phase7.simulation-ide.v1`), implementation contract `src/types/phase7_contracts.ts`. Phase 7 tests: **17/17 passed** across 8 files. Typecheck clean; production build clean; lint clean. Implemented mode calibration guardrail, Piston-anchored evaluator, comparable baseline delta, BHASHINI turn formatter, replay schema guard, and emergency override state. No live BHASHINI/Ollama, DB writes, simulation UI, or deployed origin. Phase 6 remains verified at `85e06b3`.
+Status: **IMPLEMENTED LOCALLY (MINIMAL PHASE 7 SLICE); VERIFIED.** Contract: `PHASE7_CONTRACT.md` (`phase7.simulation-ide.v1`), implementation contract `src/types/phase7_contracts.ts`. Phase 7 tests: **17/17 passed** across 8 files. Typecheck clean; production build clean; lint clean. Implemented mode calibration guardrail, Piston-anchored evaluator, comparable baseline delta, BHASHINI turn formatter, replay schema guard, and emergency override state. No live BHASHINI, local model execution, DB writes, simulation UI, or deployed origin. Phase 6 remains verified at `85e06b3`.
 
 #### Phase-start swarm actually invoked
 
@@ -522,9 +522,9 @@ Ten distinct Task-tool agent invocations ran in one OpenCode session: five recon
 
 | Pass | Role | Deliverable (condensed) |
 |---|---|---|
-| R1 | Product & Track-Fit Investigator | FR-504..FR-506, ADR-004/ADR-007/ADR-011, Screens 3.2/3.3 mapping; honest scope boundaries; no live BHASHINI/Ollama or real outcome claims |
+| R1 | Product & Track-Fit Investigator | FR-504..FR-506, ADR-004/ADR-007/ADR-011, Screens 3.2/3.3 mapping; honest scope boundaries; no live BHASHINI, local model execution, or real outcome claims |
 | R2 | Architecture & Data Investigator | `practice_sessions`, `session_responses`, `candidate_skill_history`; append-only writes; service-role RPCs; baseline tuple lock; no DB writes by default |
-| R3 | Integration / API Investigator | BHASHINI ULCA config/compute, Ollama local chat, Piston JS/Python only, Supabase append-only RPCs, emergency invite event; all unverified except Piston |
+| R3 | Integration / API Investigator | BHASHINI ULCA config/compute, offline queue and reconnect sync, Piston JS/Python only, Supabase append-only RPCs, emergency invite event; all unverified except Piston |
 | R4 | Security / Privacy / Fairness Investigator | Untrusted code/transcripts, prompt injection, PII/replay exposure, RLS/consent, fairness, accessibility, emergency invite integrity |
 | R5 | UX / Accessibility Investigator | Screens 3.2/3.3 IA, focus mode, loading/empty/error/offline states, keyboard/focus/contrast, provenance/receipt disclosure |
 | D1 | Pragmatic Architect | Smallest sound module boundaries, contract set, LLM absence handling, local-first DB avoidance, test strategy |
@@ -571,12 +571,12 @@ Tester-P7 owns `tests/phase7/**` and must write tests before implementation:
 
 #### Next highest-value action
 
-Have Tester-P7 create the Phase 7 test suite from the frozen contract, then begin single-owner coding in dependency order: ModeEngine core, MonacoIDE, Bhashini, OllamaSync, EmergencyInvite. No coding should start before tests are specified and the contract remains frozen.
+Have Tester-P7 create the Phase 7 test suite from the frozen contract, then begin single-owner coding in dependency order: ModeEngine core, MonacoIDE, Bhashini, OfflineSync, EmergencyInvite. No coding should start before tests are specified and the contract remains frozen.
 
 #### Known limitations
 
 - No Phase 7 implementation or tests exist yet.
-- BHASHINI and Ollama are unverified; Mode A must degrade honestly.
+- BHASHINI is unverified and local model execution is out of scope; Mode A must degrade honestly.
 - Piston currently supports only JavaScript and Python.
 - No deployed origin or real field-impact evidence exists.
 - Impact evidence must be real pilot data only; never fabricated.
@@ -598,7 +598,7 @@ Verification:
 - `npm run build` -> clean.
 
 Remaining Phase 7 work:
-- wire real BHASHINI/Ollama only behind verified credentials and probes;
+- wire real BHASHINI only behind verified credentials and probes;
 - implement Screen 3.2/3.3 state transitions and APIs;
 - add offline sync and emergency override integration tests;
 - update README/Progress with any new verified capabilities.
