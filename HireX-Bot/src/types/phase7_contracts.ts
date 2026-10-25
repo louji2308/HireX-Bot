@@ -48,6 +48,17 @@ export const MODE_EXECUTION_POLICIES: Readonly<Record<CalibrationMode, ModeExecu
   Mode_C: { mode: 'Mode_C', hints_allowed: false, vernacular_allowed: false, time_limit_seconds: null, proctored: true, replay_required: true, offline_allowed: true, difficulty_locked_to_blueprint: true },
 } as const;
 
+export interface ModeConfig {
+  readonly mode: CalibrationMode;
+  readonly sampled_topic: string;
+  readonly difficulty_vector: DifficultyVector;
+  readonly difficulty_locked_to_blueprint: boolean;
+  readonly hints_allowed: boolean;
+  readonly vernacular_allowed: boolean;
+  readonly proctored: boolean;
+  readonly replay_required: boolean;
+  readonly is_first_attempt_unassisted: boolean;
+}
 export type BhashiniLanguage = 'ta' | 'hi' | 'te' | 'kn' | 'bn' | 'mr' | 'en';
 
 export interface BhashiniTurn {
@@ -85,7 +96,7 @@ export interface BaselineDeltaResult {
   readonly comparable_key: ComparableSessionKey;
   readonly baseline_score: number | null;
   readonly latest_score: number;
-  readonly delta: number;
+  readonly delta: number | null;
   readonly baseline_session_id: string | null;
   readonly comparable: boolean;
 }
@@ -106,10 +117,12 @@ export interface CriterionScore {
 export interface GradingResult {
   readonly session_id: string;
   readonly criteria: readonly CriterionScore[];
-  readonly weighted_score: number;
+  readonly weighted_score: number | null;
   readonly piston_hidden_tests_passed: number;
   readonly piston_hidden_tests_total: number;
   readonly correctness_capped: boolean;
+  readonly llm_available: boolean;
+  readonly graded: boolean;
   readonly grader_model: string;
   readonly graded_at: string;
 }
@@ -161,7 +174,7 @@ export interface PracticeSessionRecord {
   readonly round_type: string;
   readonly calibration_mode: CalibrationMode;
   readonly difficulty_vector: DifficultyVector;
-  readonly weighted_score: number;
+  readonly weighted_score: number | null;
   readonly baseline_delta: number;
   readonly session_number: number;
   readonly rubric_version_id: string;
