@@ -7,7 +7,7 @@ Canonical implementation ledger (AGENTS.md §15). One file, no duplicates.
 ## Current Phase / Status
 
 **Phase 7 - M5 Part B (Mode A/B/C Simulation IDE, BHASHINI, Offline Continuity & Emergency Invite)**
-Status: **IMPLEMENTED LOCALLY (MINIMAL PHASE 7 SLICE); VERIFIED.** Contract: `PHASE7_CONTRACT.md` (`phase7.simulation-ide.v1`), implementation contract `src/types/phase7_contracts.ts`. Phase 7 tests: **21/21 passed** across 9 files. Typecheck clean; production build clean; lint clean. Implemented mode calibration guardrail, Piston-anchored evaluator, comparable baseline delta, BHASHINI turn formatter, replay schema guard, emergency override state, offline queue, continuity pill, emergency banner, and Screen 3.2/3.3 UI shells. No live BHASHINI, local model execution, DB writes, simulation API, or deployed origin. Phase 6 remains verified at `85e06b3`.
+Status: **IMPLEMENTED LOCALLY (MINIMAL PHASE 7 SLICE); VERIFIED.** Contract: `PHASE7_CONTRACT.md` (`phase7.simulation-ide.v1`), implementation contract `src/types/phase7_contracts.ts`. Phase 7 tests: **24/24 passed** across 10 files. Typecheck clean; production build clean; lint clean. Implemented mode calibration guardrail, Piston-anchored evaluator, comparable baseline delta, BHASHINI turn formatter, replay schema guard, emergency override state, offline queue, continuity pill, emergency banner, and Screen 3.2/3.3 UI shells. No live BHASHINI, local model execution, DB writes, simulation API, or deployed origin. Phase 6 remains verified at `85e06b3`.
 
 ---
 
@@ -514,7 +514,7 @@ Remaining Phase 6 work:
 - update README/Progress with any new verified capabilities.
 ### Phase 7 - M5 Part B (phase start)
 
-Status: **IMPLEMENTED LOCALLY (MINIMAL PHASE 7 SLICE); VERIFIED.** Contract: `PHASE7_CONTRACT.md` (`phase7.simulation-ide.v1`), implementation contract `src/types/phase7_contracts.ts`. Phase 7 tests: **21/21 passed** across 9 files. Typecheck clean; production build clean; lint clean. Implemented mode calibration guardrail, Piston-anchored evaluator, comparable baseline delta, BHASHINI turn formatter, replay schema guard, emergency override state, offline queue, continuity pill, emergency banner, and Screen 3.2/3.3 UI shells. No live BHASHINI, local model execution, DB writes, simulation API, or deployed origin. Phase 6 remains verified at `85e06b3`.
+Status: **IMPLEMENTED LOCALLY (MINIMAL PHASE 7 SLICE); VERIFIED.** Contract: `PHASE7_CONTRACT.md` (`phase7.simulation-ide.v1`), implementation contract `src/types/phase7_contracts.ts`. Phase 7 tests: **24/24 passed** across 10 files. Typecheck clean; production build clean; lint clean. Implemented mode calibration guardrail, Piston-anchored evaluator, comparable baseline delta, BHASHINI turn formatter, replay schema guard, emergency override state, offline queue, continuity pill, emergency banner, and Screen 3.2/3.3 UI shells. No live BHASHINI, local model execution, DB writes, simulation API, or deployed origin. Phase 6 remains verified at `85e06b3`.
 
 #### Phase-start swarm actually invoked
 
@@ -620,6 +620,34 @@ Minimal Phase 7 modules and UI shells now exist and pass their tests:
 
 Verification:
 - `npx vitest run tests/phase7` -> **9 files, 21 tests passed**.
+- `npm run typecheck` -> clean.
+- `npm run lint` -> no warnings or errors.
+- `npm run build` -> clean.
+
+Remaining Phase 7 work:
+- wire real BHASHINI only behind verified credentials and probes;
+- implement Screen 3.2/3.3 state transitions and APIs;
+- add offline sync and emergency override integration tests;
+- update README/Progress with any new verified capabilities.
+### Phase 7 implementation status (updated)
+
+Minimal Phase 7 modules and UI shells now exist and pass their tests:
+
+- `src/agents/module5-blueprint/simulation-engine.ts`: Mode A/B/C execution policy and mode configuration.
+- `src/agents/module5-blueprint/evaluator.ts`: Piston-anchored grading and unavailable-model handling.
+- `src/agents/module5-blueprint/baseline-delta.ts`: exact-tuple baseline comparison without fabricating a zero.
+- `src/lib/bhashini/ulca-client.ts`: BHASHINI turn formatting.
+- `src/lib/replay/live-agent-replay.ts`: replay event validation and secret-like payload rejection.
+- `src/inngest/workflows/emergency-invite-override.ts`: Priority-1 override state and back-calculation.
+- `src/lib/offline/session-queue.ts`: append-only offline queue and idempotent drain.
+- `src/components/studio/OfflineContinuityPill.tsx`: honest offline/sync status.
+- `src/components/studio/EmergencyOverrideBanner.tsx`: emergency override disclosure.
+- `src/components/studio/SimulationWorkspace.tsx`: Screen 3.2 focus strip, split panes, and Mode A bridge.
+- `src/components/studio/DeltaReceiptCard.tsx`: Screen 3.3 immutable delta receipt.
+- `src/app/(workspace)/interview/[id]/page.tsx`: sample Screen 3.2/3.3 page using deterministic blueprint data.
+
+Verification:
+- `npx vitest run tests/phase7` -> **10 files, 24 tests passed**.
 - `npm run typecheck` -> clean.
 - `npm run lint` -> no warnings or errors.
 - `npm run build` -> clean.
