@@ -142,7 +142,7 @@ export interface PistonRunResult {
   readonly outcome:
     | 'pass'
     | 'fail'
-    | 'timeout'
+    | 'time_limit_exceeded'
     | 'compile_error'
     | 'runtime_error';
   readonly exit_code: number | null;

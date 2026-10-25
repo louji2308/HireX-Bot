@@ -15,7 +15,7 @@ const blueprint: Blueprint = {
   evaluation_criteria_weights: { correctness: 40, complexity: 25, code_quality: 20, explanation: 15 },
   question_distribution: { dsa: 60, system_design: 20, behavioral: 20 },
   duration_minutes: 45,
-  confidence_tier: 'Verified - Official Documentation',
+  confidence_tier: 'Verified — Official Documentation',
   source_urls: ['https://www.amazon.jobs/en/jobs/123'],
   visibility: 'shared',
   inputs: {
@@ -58,7 +58,7 @@ describe('Phase 6 blueprint header', () => {
     expect(html).toContain('Language');
     expect(html).toContain('Evidence');
     expect(html).toContain('QC');
-    expect(html).toContain('Verified - Official Documentation');
+    expect(html).toContain('Verified — Official Documentation');
     expect(html).toContain('7/7 QC Checks Passed');
     expect(html).toContain('https://www.amazon.jobs/en/jobs/123');
   });

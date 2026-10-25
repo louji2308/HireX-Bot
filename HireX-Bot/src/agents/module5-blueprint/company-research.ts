@@ -51,7 +51,7 @@ export async function researchCompany(
     liveVerified = true;
   }
   const confidenceTier: ConfidenceTier = sources.length > 0
-    ? 'Verified - Official Documentation'
+    ? 'Verified — Official Documentation'
     : 'Company-Informed Simulation';
   return {
     company: input.company,

@@ -41,7 +41,7 @@ export function generateBlueprint(input: BlueprintInputs): Blueprint {
     evaluation_criteria_weights: weightsFor(input.job_role),
     question_distribution: distributionFor(input),
     duration_minutes: 45,
-    confidence_tier: 'Verified - Official Documentation',
+    confidence_tier: 'Verified — Official Documentation',
     source_urls: sourceUrlsFor(input.company),
     visibility: 'shared',
     inputs: input,
