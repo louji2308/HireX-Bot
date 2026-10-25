@@ -1,4 +1,4 @@
-﻿
+
 import { describe, expect, it } from 'vitest';
 
 import type { Blueprint } from '@/types/phase6_contracts';

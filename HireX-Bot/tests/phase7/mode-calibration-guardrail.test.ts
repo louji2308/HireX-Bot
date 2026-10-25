@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest';
 
 import type { Blueprint, BlueprintInputs, CandidateCapabilityHistory } from '@/types/phase6_contracts';
-import type { CalibrationMode, DifficultyVector, ModeConfig } from '@/types/phase7_contracts';
+import type { DifficultyVector, ModeConfig } from '@/types/phase7_contracts';
 import { createModeConfig, MODE_EXECUTION_POLICIES } from '@/agents/module5-blueprint/simulation-engine';
 
 const capability: CandidateCapabilityHistory = {
