@@ -7,13 +7,13 @@ Canonical implementation ledger (AGENTS.md §15). One file, no duplicates.
 ## Current Phase / Status
 
 **Phase 6 - M5 Part A (Company Research, Blueprint Configurator & Question QC)**
-Status: **PHASE 6 TEST-FIRST RED; CONTRACT FROZEN; IMPLEMENTATION NOT STARTED.** Contract: `PHASE6_CONTRACT.md` (`phase6.blueprint-qc.v1`), implementation contract `src/types/phase6_contracts.ts`. Tester-P6 created 8 test files; all are red because their production modules do not exist yet. Phase 5 remains verified at `71a346c`: 55/55 Phase 5 tests, 394/394 full tests with `PISTON_LIVE=1`, lint/typecheck/build clean, Lighthouse desktop/mobile 100/100/100/100.
+Status: **IMPLEMENTED LOCALLY (MINIMAL PHASE 6 SLICE); VERIFIED.** Contract: `PHASE6_CONTRACT.md` (`phase6.blueprint-qc.v1`), implementation contract `src/types/phase6_contracts.ts`. Phase 6 tests: **22/22 passed** across 8 files. Typecheck clean; production build clean. Implemented deterministic company evidence, Amazon SDE/QAE blueprint differentiation, seniority guardrails, Stage 5 Piston dual-test verification, bundle cache, and Screen 3.1 header. No live Jina fetch, LLM generation, DB writes, simulation, or deployed origin. Phase 5 remains verified at `71a346c`.
 
 ---
 
 ## Current Objective
 
-Tester-P6 has created the Phase 6 test suite from the frozen contract. Implementation may now proceed in dependency order: evidence retriever, blueprint generator, QC pipeline, then Screen 3.1 UI. Do not start Phase 7, claim live company verification, LLM-generated QC without credentials, DB writes, or real employer outcomes until those capabilities and evidence exist.
+Keep Phase 6 honest and minimal: wire real company research and LLM QC only behind verified credentials; add APIs/UI state only with tests; do not start Phase 7, claim live company verification, LLM-generated QC, DB writes, or real employer outcomes until those capabilities and evidence exist.
 
 ---
 
@@ -410,7 +410,7 @@ Finish the final typecheck/test/build run, commit the audit remediation, and the
 
 ## Phase 6 - M5 Part A (phase start)
 
-Status: **PHASE 6 TEST-FIRST RED; CONTRACT FROZEN; IMPLEMENTATION NOT STARTED.** Contract: `PHASE6_CONTRACT.md` (`phase6.blueprint-qc.v1`), implementation contract `src/types/phase6_contracts.ts`. Tester-P6 created 8 test files; all are red because their production modules do not exist yet.
+Status: **IMPLEMENTED LOCALLY (MINIMAL PHASE 6 SLICE); VERIFIED.** Contract: `PHASE6_CONTRACT.md` (`phase6.blueprint-qc.v1`), implementation contract `src/types/phase6_contracts.ts`. Phase 6 tests: **22/22 passed** across 8 files. Typecheck clean; production build clean. Implemented deterministic company evidence, Amazon SDE/QAE blueprint differentiation, seniority guardrails, Stage 5 Piston dual-test verification, bundle cache, and Screen 3.1 header. No live Jina fetch, LLM generation, DB writes, simulation, or deployed origin. Phase 5 remains verified at `71a346c`.
 
 ### Phase-start swarm actually invoked
 
@@ -465,11 +465,11 @@ ole-differentiation.test.ts
 
 ### Next highest-value action
 
-Tester-P6 has created the Phase 6 test suite from the frozen contract. Implementation may now proceed in dependency order: evidence retriever, blueprint generator, QC pipeline, Screen 3.1 UI. No coding should start before tests are specified and the contract remains frozen.
+Verify and wire real company research behind credentials, add LLM-backed Stage 3 only with a verified cloud model, then implement Screen 3.1 state transitions and APIs. Do not start Phase 7 or claim live verification until evidence exists.
 
 ### Known limitations
 
-- 8 Phase 6 test files are red because all production modules are intentionally absent; this is the expected test-first state.
+- Phase 6 currently implements deterministic local modules and a Screen 3.1 header only; no live Jina fetch, LLM QC, APIs, simulation, DB writes, or deployed origin.
 - Live SMART-Code, Jina Reader, and BHASHINI capabilities remain unverified in this environment.
 - Piston currently supports only JavaScript and Python.
 - No deployed origin or real field-impact evidence exists.
@@ -491,3 +491,24 @@ Verification:
 - `npm run typecheck` was not run after test creation; the Phase 6 test imports intentionally reference unimplemented modules.
 
 Failure is expected and defines the implementation contract. Coding agents must implement the named modules and functions without weakening these tests.
+### Phase 6 implementation status
+
+Minimal Phase 6 modules now exist and pass their tests:
+
+- `src/agents/module5-blueprint/company-research.ts`: evidence normalization, HTTPS enforcement, tier classification, fetcher-backed research.
+- `src/agents/module5-blueprint/blueprint-generator.ts`: Amazon SDE/QAE differentiation, seniority guardrails, candidate-scoped row mapper.
+- `src/agents/module5-blueprint/piston-qc.ts`: Stage 5 reference pass plus mutated-baseline rejection.
+- `src/agents/module5-blueprint/qc-pipeline.ts`: deterministic bundle cache key and cache resolution.
+- `src/components/studio/BlueprintHeader.tsx`: Screen 3.1 header with provenance and truthful QC badge.
+
+Verification:
+- `npx vitest run tests/phase6` -> **8 files, 22 tests passed**.
+- `npm run typecheck` -> clean.
+- `npm run build` -> clean.
+- `npm run lint` -> no warnings or errors.
+
+Remaining Phase 6 work:
+- wire real company research and LLM QC behind verified credentials;
+- implement Screen 3.1 state transitions and APIs;
+- add deterministic 15-employer seeds only where evidence can be cited;
+- update README/Progress with any new verified capabilities.
