@@ -1,4 +1,4 @@
-# HireX Bot — Progress Ledger
+﻿# HireX Bot — Progress Ledger
 
 Canonical implementation ledger (AGENTS.md §15). One file, no duplicates.
 
@@ -6,14 +6,14 @@ Canonical implementation ledger (AGENTS.md §15). One file, no duplicates.
 
 ## Current Phase / Status
 
-**Phase 5 - M4 Opportunity Discovery**
-Status: **IMPLEMENTED; VERIFIED LOCALLY (SNAPSHOT-ONLY); REMEDIATION UNCOMMITTED.** Phase 4 and Phase 5 are committed at `cb796a8` and pushed to `origin/main`. Typecheck clean; production build clean. Phase 5 tests: **55/55 passed** across 11 files. Full suite: **394 passed / 0 skipped** with `PISTON_LIVE=1` (52 files); default offline run is 389 passed / 5 skipped. Runtime smoke: incomplete intake now stays on the labelled sample preview; completed intake without a workspace returns 404; `/onboarding` redirects to consent; `/opportunities` returned HTTP 200; Lighthouse desktop/mobile both scored 100/100/100/100. Seven manually captured public Greenhouse/Ashby snapshots are assessed deterministically; no live ingestion, LLM scoring, DB writes, or Inngest functions are connected. A pure Phase 2 row mapper is tested but never invoked. `PHASE5_CONTRACT.md` is frozen at `phase5.discovery.v1`. Remediation is uncommitted: ESLint gate, WSL PostgreSQL keepalive, Piston live verification, accessibility fixes, dependency/audit remediation, and documentation updates.
+**Phase 6 - M5 Part A (Company Research, Blueprint Configurator & Question QC)**
+Status: **PHASE 6 TEST-FIRST RED; CONTRACT FROZEN; IMPLEMENTATION NOT STARTED.** Contract: `PHASE6_CONTRACT.md` (`phase6.blueprint-qc.v1`), implementation contract `src/types/phase6_contracts.ts`. Tester-P6 created 8 test files; all are red because their production modules do not exist yet. Phase 5 remains verified at `71a346c`: 55/55 Phase 5 tests, 394/394 full tests with `PISTON_LIVE=1`, lint/typecheck/build clean, Lighthouse desktop/mobile 100/100/100/100.
 
 ---
 
 ## Current Objective
 
-Close the Phase 5 gate: review the remediation diff, commit/push only after approval, and confirm the pure Phase 2 row mapper remains uncalled with no DB write path. Do not start Phase 6 or claim live ingestion, DB persistence, durable Inngest, deployed origin, or real field impact until those capabilities and evidence exist.
+Tester-P6 has created the Phase 6 test suite from the frozen contract. Implementation may now proceed in dependency order: evidence retriever, blueprint generator, QC pipeline, then Screen 3.1 UI. Do not start Phase 7, claim live company verification, LLM-generated QC without credentials, DB writes, or real employer outcomes until those capabilities and evidence exist.
 
 ---
 
@@ -405,3 +405,89 @@ Role-based reconnaissance and decision passes ran before the UI implementation: 
 ### Next action
 
 Finish the final typecheck/test/build run, commit the audit remediation, and then open Phase 4 (M1 intake) with its prescribed 9-agent phase-start swarm before coding. Phase 4 must wire real persistence and functions behind the frozen bus rather than treating the empty Inngest route or in-memory store as a completed integration. The next agent should preserve the eight-table lock, the candidate-bound resolution contract and the side-effect guard.
+
+---
+
+## Phase 6 - M5 Part A (phase start)
+
+Status: **PHASE 6 TEST-FIRST RED; CONTRACT FROZEN; IMPLEMENTATION NOT STARTED.** Contract: `PHASE6_CONTRACT.md` (`phase6.blueprint-qc.v1`), implementation contract `src/types/phase6_contracts.ts`. Tester-P6 created 8 test files; all are red because their production modules do not exist yet.
+
+### Phase-start swarm actually invoked
+
+Ten distinct Task-tool agent invocations ran in one OpenCode session: five reconnaissance passes and five decision/debate passes. They are separate model contexts with separate prompts; they are not ten separately configured custom agent profiles.
+
+| Pass | Role | Deliverable (condensed) |
+|---|---|---|
+| R1 | Product & Track-Fit Investigator | FR-501..FR-503, ADR-004/ADR-006, Screen 3.1 mapping; honest scope boundaries; no live ingestion/readiness/passport claims |
+| R2 | Architecture & Data Investigator | interview_blueprints ownership, versioned insert-only path, no new baseline table, runtime-only QC bundles, RLS/shared-vs-candidate boundaries |
+| R3 | Integration / API Investigator | Jina Reader contract (20/500/5000 RPM, token billing, errors), Piston execute contract, self-hosted-only execution, python/javascript verified, LLM credential absence |
+| R4 | Security / Privacy / Fairness Investigator | Untrusted company/JD handling, prompt injection, PII exclusion, hidden-test/reference-solution exposure, seniority/fairness and accessibility risks |
+| R5 | UX / Accessibility Investigator | Screen 3.1 IA, loading/empty/error/offline states, keyboard/focus/contrast, provenance copy, Phase 5 navigation linkage |
+| D1 | Pragmatic Architect | Smallest sound module boundaries, contract set, LLM absence handling, local-first DB avoidance, test strategy |
+| D2 | Adversarial Red-Teamer | Trivial-test bypass, mutated-baseline gate, prompt injection, provenance fabrication, infra outage, seniority mismatch, candidate leakage |
+| D3 | Performance / Reliability Specialist | Async/pre-warm under 400ms, timeout/retry/idempotency, failure taxonomy, degraded states, cost controls |
+| D4 | Domain & Fairness Specialist | Role differentiation, seniority guardrails, 0-5 BARS anchors, provenance, accessibility, practice-vs-real labeling |
+| J6 | Arbitration Judge | Synthesized locked contract, mutex partition, test-first plan, exit gate, approval requirements |
+
+### Key decisions and rationale
+
+1. **Adopt the synthesized 7-stage pipeline.** D1 orchestration plus D2 adversarial dual-test, D3 pre-warm/cache, and D4 seniority/rubric guardrails. D1 alone is too slow and permits weak test suites.
+2. **Stage 5 is a hard gate.** A reference solution must pass all hidden edge cases and a mutated buggy baseline must fail the same suite before release.
+3. **Pre-warm, do not block.** Workflow C caches versioned bundles so Start Session can launch in under 400ms; on-demand generation remains asynchronous.
+4. **No live company verification.** Confidence tier, source URLs, retrieval date, and confirmed versus inferred status must be preserved.
+5. **No LLM fabrication.** Without credentials, Stage 3 returns LLM_UNAVAILABLE and no question or reference solution is generated.
+6. **No DB writes.** Blueprint and QC persistence stays local-first; 	oInterviewBlueprintRow remains a pure, tested, uncalled mapper.
+7. **Practice is not hiring outcome.** Phase 6 may only label preparation/practice status, never hiring probability or guarantee.
+
+### Frozen contract
+
+- PHASE6_CONTRACT_VERSION = 'phase6.blueprint-qc.v1'
+- PHASE6_QC_PIPELINE_VERSION = 'phase6.qc.v1'
+- PHASE6_EVIDENCE_VERSION = 'phase6.evidence.v1'
+- PHASE6_BLUEPRINT_VERSION_DEFAULT = 'v1.0'
+- PHASE6_STAGE5_LATENCY_LIMIT_MS = 3000
+- PHASE6_MAX_REGENERATIONS = 3
+- Contract file: src/types/phase6_contracts.ts (typecheck clean)
+
+### Test-first plan
+
+Tester-P6 owns 	ests/phase6/** and must write tests before implementation:
+
+1. 
+ole-differentiation.test.ts
+2. qc-stage5-piston.test.ts
+3. company-research-schema.test.ts
+4. lueprint-immutability.test.ts
+5. seniority-guardrail.test.ts
+6. prewarm-cache.test.ts
+7. ui-blueprint-header.test.ts
+8. fairness and candidate-capability invariance tests
+
+### Next highest-value action
+
+Tester-P6 has created the Phase 6 test suite from the frozen contract. Implementation may now proceed in dependency order: evidence retriever, blueprint generator, QC pipeline, Screen 3.1 UI. No coding should start before tests are specified and the contract remains frozen.
+
+### Known limitations
+
+- 8 Phase 6 test files are red because all production modules are intentionally absent; this is the expected test-first state.
+- Live SMART-Code, Jina Reader, and BHASHINI capabilities remain unverified in this environment.
+- Piston currently supports only JavaScript and Python.
+- No deployed origin or real field-impact evidence exists.
+### Phase 6 test-first status
+
+Tester-P6 owns `tests/phase6/**`. Eight test files were created before implementation:
+
+1. `company-research-schema.test.ts`
+2. `role-differentiation.test.ts`
+3. `qc-stage5-piston.test.ts`
+4. `blueprint-immutability.test.ts`
+5. `seniority-guardrail.test.ts`
+6. `prewarm-cache.test.ts`
+7. `ui-blueprint-header.test.tsx`
+8. `fairness.test.ts`
+
+Verification:
+- `npx vitest run tests/phase6` -> **8 failed suites, 0 tests**, because all production modules are intentionally absent.
+- `npm run typecheck` was not run after test creation; the Phase 6 test imports intentionally reference unimplemented modules.
+
+Failure is expected and defines the implementation contract. Coding agents must implement the named modules and functions without weakening these tests.
