@@ -1,4 +1,4 @@
-import type { NextRequest, NextResponse } from 'next/server';
+﻿import type { NextRequest, NextResponse } from 'next/server';
 
 import {
   INTAKE_COOKIE_NAME,
@@ -27,7 +27,8 @@ export function sameOriginMutation(request: NextRequest): boolean {
   if (!origin) return true;
 
   try {
-    return new URL(origin).host === request.nextUrl.host;
+    const host = request.nextUrl?.host ?? new URL(request.url).host;
+    return new URL(origin).host === host;
   } catch {
     return false;
   }
