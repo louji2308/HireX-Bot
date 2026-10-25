@@ -6,14 +6,14 @@ Canonical implementation ledger (AGENTS.md §15). One file, no duplicates.
 
 ## Current Phase / Status
 
-**Phase 6 - M5 Part A (Company Research, Blueprint Configurator & Question QC)**
-Status: **IMPLEMENTED LOCALLY (MINIMAL PHASE 6 SLICE); VERIFIED.** Contract: `PHASE6_CONTRACT.md` (`phase6.blueprint-qc.v1`), implementation contract `src/types/phase6_contracts.ts`. Phase 6 tests: **22/22 passed** across 8 files. Typecheck clean; production build clean. Implemented deterministic company evidence, Amazon SDE/QAE blueprint differentiation, seniority guardrails, Stage 5 Piston dual-test verification, bundle cache, and Screen 3.1 header. No live Jina fetch, LLM generation, DB writes, simulation, or deployed origin. Phase 5 remains verified at `71a346c`.
+**Phase 7 - M5 Part B (Mode A/B/C Simulation IDE, BHASHINI, Offline Continuity & Emergency Invite)**
+Status: **IMPLEMENTED LOCALLY (MINIMAL PHASE 7 SLICE); VERIFIED.** Contract: `PHASE7_CONTRACT.md` (`phase7.simulation-ide.v1`), implementation contract `src/types/phase7_contracts.ts`. Phase 7 tests: **17/17 passed** across 8 files. Typecheck clean; production build clean; lint clean. Implemented mode calibration guardrail, Piston-anchored evaluator, comparable baseline delta, BHASHINI turn formatter, replay schema guard, and emergency override state. No live BHASHINI/Ollama, DB writes, simulation UI, or deployed origin. Phase 6 remains verified at `85e06b3`.
 
 ---
 
 ## Current Objective
 
-Keep Phase 6 honest and minimal: wire real company research and LLM QC only behind verified credentials; add APIs/UI state only with tests; do not start Phase 7, claim live company verification, LLM-generated QC, DB writes, or real employer outcomes until those capabilities and evidence exist.
+Keep Phase 7 honest and minimal: wire real BHASHINI/Ollama only behind verified credentials and probes; implement simulation UI/API state transitions with tests; do not claim live vernacular, certified offline runs, DB writes, or real employer outcomes until those capabilities and evidence exist.
 
 ---
 
@@ -465,11 +465,11 @@ ole-differentiation.test.ts
 
 ### Next highest-value action
 
-Verify and wire real company research behind credentials, add LLM-backed Stage 3 only with a verified cloud model, then implement Screen 3.1 state transitions and APIs. Do not start Phase 7 or claim live verification until evidence exists.
+Wire real BHASHINI/Ollama only behind verified credentials and probes, then implement Screen 3.2/3.3 state transitions and APIs with tests. Do not claim live vernacular, certified offline runs, DB writes, or real employer outcomes until evidence exists.
 
 ### Known limitations
 
-- Phase 6 currently implements deterministic local modules and a Screen 3.1 header only; no live Jina fetch, LLM QC, APIs, simulation, DB writes, or deployed origin.
+- Phase 7 currently implements deterministic local modules only; no live BHASHINI/Ollama, simulation UI/API, DB writes, or deployed origin.
 - Live SMART-Code, Jina Reader, and BHASHINI capabilities remain unverified in this environment.
 - Piston currently supports only JavaScript and Python.
 - No deployed origin or real field-impact evidence exists.
@@ -511,4 +511,94 @@ Remaining Phase 6 work:
 - wire real company research and LLM QC behind verified credentials;
 - implement Screen 3.1 state transitions and APIs;
 - add deterministic 15-employer seeds only where evidence can be cited;
+- update README/Progress with any new verified capabilities.
+### Phase 7 - M5 Part B (phase start)
+
+Status: **IMPLEMENTED LOCALLY (MINIMAL PHASE 7 SLICE); VERIFIED.** Contract: `PHASE7_CONTRACT.md` (`phase7.simulation-ide.v1`), implementation contract `src/types/phase7_contracts.ts`. Phase 7 tests: **17/17 passed** across 8 files. Typecheck clean; production build clean; lint clean. Implemented mode calibration guardrail, Piston-anchored evaluator, comparable baseline delta, BHASHINI turn formatter, replay schema guard, and emergency override state. No live BHASHINI/Ollama, DB writes, simulation UI, or deployed origin. Phase 6 remains verified at `85e06b3`.
+
+#### Phase-start swarm actually invoked
+
+Ten distinct Task-tool agent invocations ran in one OpenCode session: five reconnaissance passes and five decision/debate passes. They are separate model contexts with separate prompts; they are not ten separately configured custom agent profiles.
+
+| Pass | Role | Deliverable (condensed) |
+|---|---|---|
+| R1 | Product & Track-Fit Investigator | FR-504..FR-506, ADR-004/ADR-007/ADR-011, Screens 3.2/3.3 mapping; honest scope boundaries; no live BHASHINI/Ollama or real outcome claims |
+| R2 | Architecture & Data Investigator | `practice_sessions`, `session_responses`, `candidate_skill_history`; append-only writes; service-role RPCs; baseline tuple lock; no DB writes by default |
+| R3 | Integration / API Investigator | BHASHINI ULCA config/compute, Ollama local chat, Piston JS/Python only, Supabase append-only RPCs, emergency invite event; all unverified except Piston |
+| R4 | Security / Privacy / Fairness Investigator | Untrusted code/transcripts, prompt injection, PII/replay exposure, RLS/consent, fairness, accessibility, emergency invite integrity |
+| R5 | UX / Accessibility Investigator | Screens 3.2/3.3 IA, focus mode, loading/empty/error/offline states, keyboard/focus/contrast, provenance/receipt disclosure |
+| D1 | Pragmatic Architect | Smallest sound module boundaries, contract set, LLM absence handling, local-first DB avoidance, test strategy |
+| D2 | Adversarial Red-Teamer | Monaco prompt injection, Piston/prose inflation, baseline tuple collision, untrusted injection, provenance fabrication, replay leakage, offline sync, emergency override abuse |
+| D3 | Performance / Reliability Specialist | Haiku streaming under 800ms, async final grading, offline queue and reconnect sync, timeout/retry/idempotency, degraded states, cost controls |
+| D4 | Domain & Fairness Specialist | Anti-inflation guardrail, Mode A assisted flag, append-only history, baseline tuple lock, Piston anchoring, BH reasoning fairness, practice labeling |
+| J7 | Arbitration Judge | Synthesized locked contract, mutex partition, test-first plan, exit gate, approval requirements |
+
+#### Key decisions and rationale
+
+1. **Adopt the synthesized Mode A/B/C controller.** D1 architecture plus D2 anchoring, D3 streaming/offline boundaries, and D4 anti-inflation/rubric guardrails. Pure D1 is unsafe because LLM grading can self-authorize scores.
+2. **Piston anchors correctness.** `Correctness` cannot exceed 2.0/5.0 when hidden tests fail, regardless of LLM prose.
+3. **Mode B/C never dilute.** Weak history may choose topic sampling only; the 8-factor difficulty vector remains locked to the blueprint.
+4. **Baseline delta is tuple-locked.** Compare only `(candidate_id, company_name, job_role, round_type)`; otherwise return `comparable: false`.
+5. **Append-only history.** Sessions, responses, and skill history create new rows; no overwrite except authorized erasure.
+6. **Offline is provisional.** Mode C cannot be certified until online Piston verification and cloud grading succeed.
+7. **Emergency override is honest.** It may pause routine training and back-calculate a Priority-1 sprint, but it cannot fabricate `Confirmed - Employer Supplied`.
+8. **No LLM fabrication.** Unavailable models return `graded: false` and `weighted_score: null`.
+9. **Practice is not hiring outcome.** Mode A/B/C, offline drills, emergency sprints, and passport traces are practice evidence only.
+
+#### Frozen contract
+
+- `PHASE7_CONTRACT_VERSION = 'phase7.simulation-ide.v1'`
+- `PHASE7_LATENCY_THRESHOLD_MS = 2500`
+- `PHASE7_PISTON_CORRECTNESS_CAP = 2.0`
+- `PHASE7_SIMULATION_FOCUS_BAR_HEIGHT_PX = 36`
+- `PHASE7_SIMULATION_LEFT_PANE_PCT = 38`
+- `PHASE7_SIMULATION_RIGHT_PANE_PCT = 62`
+- `PHASE7_ENGLISH_PITCH_TARGET_SECONDS = 60`
+- Contract file: `src/types/phase7_contracts.ts` (typecheck clean)
+
+#### Test-first plan
+
+Tester-P7 owns `tests/phase7/**` and must write tests before implementation:
+
+1. `mode-calibration-guardrail.test.ts`
+2. `prompt-injection-grading.test.ts`
+3. `bhashini-and-offline-sync.test.ts`
+4. `baseline-delta-comparability.test.ts`
+5. `emergency-invite-override.test.ts`
+6. `live-replay-schema.test.ts`
+7. `mode-execution-policy.test.ts`
+8. fairness and candidate-capability invariance tests
+
+#### Next highest-value action
+
+Have Tester-P7 create the Phase 7 test suite from the frozen contract, then begin single-owner coding in dependency order: ModeEngine core, MonacoIDE, Bhashini, OllamaSync, EmergencyInvite. No coding should start before tests are specified and the contract remains frozen.
+
+#### Known limitations
+
+- No Phase 7 implementation or tests exist yet.
+- BHASHINI and Ollama are unverified; Mode A must degrade honestly.
+- Piston currently supports only JavaScript and Python.
+- No deployed origin or real field-impact evidence exists.
+- Impact evidence must be real pilot data only; never fabricated.
+### Phase 7 implementation status
+
+Minimal Phase 7 modules now exist and pass their tests:
+
+- `src/agents/module5-blueprint/simulation-engine.ts`: Mode A/B/C execution policy and mode configuration.
+- `src/agents/module5-blueprint/evaluator.ts`: Piston-anchored grading and unavailable-model handling.
+- `src/agents/module5-blueprint/baseline-delta.ts`: exact-tuple baseline comparison without fabricating a zero.
+- `src/lib/bhashini/ulca-client.ts`: BHASHINI turn formatting.
+- `src/lib/replay/live-agent-replay.ts`: replay event validation and secret-like payload rejection.
+- `src/inngest/workflows/emergency-invite-override.ts`: Priority-1 override state and back-calculation.
+
+Verification:
+- `npx vitest run tests/phase7` -> **8 files, 17 tests passed**.
+- `npm run typecheck` -> clean.
+- `npm run lint` -> no warnings or errors.
+- `npm run build` -> clean.
+
+Remaining Phase 7 work:
+- wire real BHASHINI/Ollama only behind verified credentials and probes;
+- implement Screen 3.2/3.3 state transitions and APIs;
+- add offline sync and emergency override integration tests;
 - update README/Progress with any new verified capabilities.
